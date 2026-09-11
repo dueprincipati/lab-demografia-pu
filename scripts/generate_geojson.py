@@ -60,9 +60,18 @@ def run():
                     'perc_65_oltre': round(c_demo['eta_65_oltre'] / c_demo['popolazione_2025'] * 100, 1),
                     'indice_vecchiaia': c_demo['indice_vecchiaia'],
                     'indice_dipendenza': c_demo['indice_dipendenza'],
+                    'indice_ricambio_attivi': c_demo['indice_ricambio_attivi'],
+                    'tasso_saldo_nat_mille': c_demo['tasso_saldo_nat_mille'],
+                    'tasso_natalita_mille': c_demo['tasso_natalita_mille'],
+                    'tasso_mortalita_mille': c_demo['tasso_mortalita_mille'],
+                    'eta_15_19': c_demo['eta_15_19'],
+                    'eta_60_64': c_demo['eta_60_64'],
                     'nascite_2024': c_demo['nascite_2024'],
                     'decessi_2024': c_demo['decessi_2024'],
                     'saldo_naturale_2024': c_demo['saldo_naturale_2024'],
+                    'saldo_estero_2024': c_demo['saldo_estero_2024'],
+                    'saldo_interno_2024': c_demo['saldo_interno_2024'],
+                    'saldo_totale_2024': c_demo['saldo_totale_2024'],
                     'ats': c_demo['ats']
                 })
                 matched_count += 1

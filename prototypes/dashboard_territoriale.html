@@ -121,9 +121,17 @@
                   class="px-3 py-1.5 rounded-md font-medium transition-all bg-indigo-600 text-white shadow">
             Indice di Vecchiaia
           </button>
+          <button onclick="setMapMetric('ricambio')" id="btn-ricambio" 
+                  class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+            Ricambio Lavoro / Pensione
+          </button>
+          <button onclick="setMapMetric('tasso_saldo')" id="btn-tasso_saldo" 
+                  class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+            Tasso Saldo Nat. (‰)
+          </button>
           <button onclick="setMapMetric('saldo_nat')" id="btn-saldo_nat" 
                   class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
-            Saldo Naturale
+            Saldo Naturale Assoluto
           </button>
           <button onclick="setMapMetric('ats')" id="btn-ats" 
                   class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
@@ -168,11 +176,11 @@
             <div>
               <div class="flex justify-between items-baseline mb-1">
                 <span class="text-xs text-slate-400">Popolazione residente (1° Gen 2025):</span>
-                <span class="text-lg font-bold text-white font-mono" id="detailPop">95.421</span>
+                <span class="text-lg font-bold text-white font-mono" id="detailPop">95.266</span>
               </div>
               <div class="flex justify-between text-xs text-slate-400 mb-2">
-                <span>Maschi: <strong class="text-slate-200" id="detailM">46.120</strong></span>
-                <span>Femmine: <strong class="text-slate-200" id="detailF">49.301</strong></span>
+                <span>Maschi: <strong class="text-slate-200" id="detailM">45.972</strong></span>
+                <span>Femmine: <strong class="text-slate-200" id="detailF">49.294</strong></span>
               </div>
 
               <!-- Mini barre fasce d'età -->
@@ -180,30 +188,30 @@
                 <div>
                   <div class="flex justify-between text-[11px] text-slate-400">
                     <span>Giovani (0-14 anni)</span>
-                    <span id="detailPerc0_14" class="text-sky-400 font-semibold">11,2%</span>
+                    <span id="detailPerc0_14" class="text-sky-400 font-semibold">10,7%</span>
                   </div>
                   <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                    <div id="bar0_14" class="bg-sky-400 h-full rounded-full" style="width: 11.2%"></div>
+                    <div id="bar0_14" class="bg-sky-400 h-full rounded-full" style="width: 10.7%"></div>
                   </div>
                 </div>
 
                 <div>
                   <div class="flex justify-between text-[11px] text-slate-400">
                     <span>Età attiva (15-64 anni)</span>
-                    <span id="detailPerc15_64" class="text-indigo-400 font-semibold">62,8%</span>
+                    <span id="detailPerc15_64" class="text-indigo-400 font-semibold">62,3%</span>
                   </div>
                   <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                    <div id="bar15_64" class="bg-indigo-500 h-full rounded-full" style="width: 62.8%"></div>
+                    <div id="bar15_64" class="bg-indigo-500 h-full rounded-full" style="width: 62.3%"></div>
                   </div>
                 </div>
 
                 <div>
                   <div class="flex justify-between text-[11px] text-slate-400">
                     <span>Anziani (65+ anni)</span>
-                    <span id="detailPerc65" class="text-rose-400 font-semibold">26,0%</span>
+                    <span id="detailPerc65" class="text-rose-400 font-semibold">27,0%</span>
                   </div>
                   <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                    <div id="bar65" class="bg-rose-500 h-full rounded-full" style="width: 26.0%"></div>
+                    <div id="bar65" class="bg-rose-500 h-full rounded-full" style="width: 27.0%"></div>
                   </div>
                 </div>
               </div>
@@ -213,31 +221,51 @@
             <div class="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-slate-800">
               <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
                 <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Indice Vecchiaia</span>
-                <span class="text-base font-bold text-purple-400" id="detailVecchiaia">232,1</span>
+                <span class="text-base font-bold text-purple-400" id="detailVecchiaia">252,4</span>
                 <span class="text-[10px] text-slate-400 block mt-0.5">Media PU: 224,7</span>
               </div>
               <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
                 <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Indice Dipendenza</span>
-                <span class="text-base font-bold text-amber-400" id="detailDipendenza">59,2</span>
-                <span class="text-[10px] text-slate-400 block mt-0.5">Carico su attivi</span>
+                <span class="text-base font-bold text-amber-400" id="detailDipendenza">60,5</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">Media PU: 59,1</span>
+              </div>
+              <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+                <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Ricambio Attivi</span>
+                <span class="text-base font-bold text-rose-400" id="detailRicambio">165,0%</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">60-64 su 15-19 (PU: 154,2%)</span>
+              </div>
+              <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+                <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Tasso Naturale</span>
+                <span class="text-base font-bold text-cyan-400" id="detailTassoNat">-6,8‰</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">Per 1.000 ab. (PU: -5,8‰)</span>
               </div>
             </div>
 
-            <!-- Bilancio Naturale 2024 -->
+            <!-- Bilancio Naturale e Migratorio 2024 -->
             <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 text-xs">
-              <span class="text-slate-400 font-semibold block mb-1 text-[11px]">Dinamica Naturale 2024</span>
+              <span class="text-slate-400 font-semibold block mb-1 text-[11px]">Dinamica Naturale e Migratoria 2024</span>
               <div class="grid grid-cols-3 gap-1 text-center font-mono">
                 <div>
                   <span class="text-[10px] text-slate-500 block">Nati</span>
-                  <span class="text-emerald-400 font-bold" id="detailNati">540</span>
+                  <span class="text-emerald-400 font-bold" id="detailNati">437</span>
                 </div>
                 <div>
                   <span class="text-[10px] text-slate-500 block">Morti</span>
-                  <span class="text-amber-400 font-bold" id="detailMorti">1.100</span>
+                  <span class="text-amber-400 font-bold" id="detailMorti">1.089</span>
                 </div>
                 <div>
-                  <span class="text-[10px] text-slate-500 block">Saldo</span>
-                  <span class="text-rose-400 font-bold" id="detailSaldoNat">-560</span>
+                  <span class="text-[10px] text-slate-500 block">Saldo Nat.</span>
+                  <span class="text-rose-400 font-bold" id="detailSaldoNat">-652</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-1 text-center font-mono mt-2 pt-2 border-t border-slate-800/60">
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Saldo Migr. Estero</span>
+                  <span class="text-indigo-400 font-bold" id="detailSaldoEst">+318</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Saldo Migr. Interno</span>
+                  <span class="text-sky-400 font-bold" id="detailSaldoInt">+298</span>
                 </div>
               </div>
             </div>
@@ -317,7 +345,118 @@
       </div>
     </section>
 
-    <!-- Sezione 4: Top e Flop Indice di Vecchiaia -->
+    <!-- Sezione 4: Focus Previdenza & Ricambio del Mercato del Lavoro -->
+    <section class="card-glass rounded-xl p-6 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>💼</span> Focus Previdenza e Lavoro: Indice di Ricambio della Popolazione Attiva
+          </h2>
+          <p class="text-sm text-slate-400">Rapporto generazionale tra popolazione in uscita verso il pensionamento (60-64 anni) e giovani in ingresso nel mercato del lavoro (15-19 anni).</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-rose-500/10 border border-rose-500/30 rounded-lg px-3 py-2 text-right">
+            <span class="text-[10px] text-slate-400 block uppercase tracking-wider">Provincia PU</span>
+            <span class="text-xl font-bold text-rose-400 font-mono">154,2%</span>
+            <span class="text-[10px] text-slate-500 block">154 anziani ogni 100 giovani</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Callout Interpretativo Istituzionale INPS -->
+      <div class="bg-indigo-950/40 border border-indigo-500/30 rounded-xl p-4 text-xs text-slate-300 flex items-start gap-3">
+        <span class="text-xl shrink-0">🏛️</span>
+        <div class="space-y-1">
+          <p class="font-semibold text-indigo-300">Raccordo con le evidenze del Rendiconto Sociale INPS:</p>
+          <p class="text-slate-400 leading-relaxed">
+            Un indice superiore al 100% segnala che le coorti in procinto di accedere alla pensione sono numericamente superiori a quelle giovanili che si affacciano al mercato occupazionale. A livello provinciale vi sono <strong>26.848 residenti di 60-64 anni</strong> a fronte di soli <strong>17.408 ragazzi di 15-19 anni</strong>. Nelle aree interne montane (Montefeltro e Alto Metauro), questo squilibrio supera il <strong>220% - 340%</strong>, alimentando una forte tensione sul turnover d'impresa, un fabbisogno impellente di manodopera e un incremento esponenziale dei costi socio-assistenziali e delle prestazioni di invalidità/non autosufficienza.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-sm font-semibold text-rose-400 mb-3 flex items-center gap-2">
+            <span>⚠️</span> Top 10 Comuni con Massimo Squilibrio Pensionamento / Giovani
+          </h3>
+          <p class="text-xs text-slate-400 mb-3">Comuni con il più elevato rapporto tra 60-64enni e 15-19enni (forte pressione previdenziale).</p>
+          <div class="h-80">
+            <canvas id="turnoverHighChart"></canvas>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold text-emerald-400 mb-3 flex items-center gap-2">
+            <span>🌱</span> Top 10 Comuni con Turnover Attivi Più Equilibrato
+          </h3>
+          <p class="text-xs text-slate-400 mb-3">Comuni vallivi o manifatturieri con coorti giovanili più vicine a quelle in uscita.</p>
+          <div class="h-80">
+            <canvas id="turnoverLowChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sezione 5: Matrice a Quadranti Strategica (Scatter Plot Interattivo) -->
+    <section class="card-glass rounded-xl p-6 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>🎯</span> Matrice Strategica a 4 Quadranti: Invecchiamento vs Dinamica Naturale
+          </h2>
+          <p class="text-sm text-slate-400">
+            Scatter plot dei 50 comuni: Asse X = <strong>Indice di Vecchiaia</strong>, Asse Y = <strong>Tasso di Saldo Naturale (‰)</strong>. Dimensione bolla = Popolazione.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-slate-400">Clicca su una bolla per selezionare il comune sulla mappa</span>
+        </div>
+      </div>
+
+      <!-- Spiegazione dei 4 Quadranti -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+        <div class="bg-emerald-950/30 border border-emerald-500/30 p-3 rounded-lg">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-emerald-400">Q1: Tenuta e Dinamismo</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">Alto Sx</span>
+          </div>
+          <p class="text-slate-400 text-[11px]">Vecchiaia &lt; 225 e Tasso Saldo Nat. &gt; -5,8‰. Comuni manifatturieri e vallivi con famiglie più giovani (es. Vallefoglia, Montelabbate, Tavullia).</p>
+        </div>
+
+        <div class="bg-indigo-950/30 border border-indigo-500/30 p-3 rounded-lg">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-indigo-400">Q2: Poli Urbani in Transizione</span>
+            <span class="text-[10px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded">Basso Sx</span>
+          </div>
+          <p class="text-slate-400 text-[11px]">Vecchiaia &lt; 225 ma Saldo Nat. &lt; -5,8‰. Aree con buona concentrazione demografica ma denatalità pronunciata.</p>
+        </div>
+
+        <div class="bg-amber-950/30 border border-amber-500/30 p-3 rounded-lg">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-amber-400">Q3: Senilizzati Resilienti</span>
+            <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">Alto Dx</span>
+          </div>
+          <p class="text-slate-400 text-[11px]">Vecchiaia &gt; 225 ma Saldo Nat. &gt; -5,8‰. Popolazione matura con decremento naturale ancora attenuato.</p>
+        </div>
+
+        <div class="bg-rose-950/30 border border-rose-500/30 p-3 rounded-lg">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-rose-400">Q4: Alto Rischio Spopolamento</span>
+            <span class="text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded">Basso Dx</span>
+          </div>
+          <p class="text-slate-400 text-[11px]">Vecchiaia &gt; 225 e Saldo Nat. &lt; -5,8‰. Borghi montani e aree interne con forte senilizzazione e severo deficit nascite (Montefeltro).</p>
+        </div>
+      </div>
+
+      <!-- Contenitore Scatter Plot Bubble -->
+      <div class="rounded-xl bg-slate-900/60 p-4 border border-slate-800">
+        <div style="height: 480px;">
+          <canvas id="quadrantScatterChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sezione 6: Top e Flop Indice di Vecchiaia -->
     <section class="card-glass rounded-xl p-6">
       <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
         <span>📊</span> Polarizzazione Territoriale: Comuni con Maggiore vs Minore Indice di Vecchiaia
@@ -340,7 +479,7 @@
       </div>
     </section>
 
-    <!-- Sezione 5: Tabella Esplorativa dei 50 Comuni -->
+    <!-- Sezione 7: Tabella Esplorativa dei 50 Comuni -->
     <section class="card-glass rounded-xl p-6 space-y-4">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
@@ -366,15 +505,17 @@
         <table class="w-full text-sm text-left text-slate-300">
           <thead class="text-xs uppercase bg-slate-800/90 text-slate-400 sticky top-0 backdrop-blur z-10">
             <tr>
-              <th class="px-4 py-3 cursor-pointer hover:text-white" onclick="sortTable('nome')">Comune ⬍</th>
-              <th class="px-4 py-3">Ambito (ATS)</th>
-              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('popolazione_2025')">Popolazione 2025 ⬍</th>
-              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('indice_vecchiaia')">Indice Vecchiaia ⬍</th>
-              <th class="px-4 py-3 text-right">0-14 anni (%)</th>
-              <th class="px-4 py-3 text-right">65+ anni (%)</th>
-              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('nascite_2024')">Nati ⬍</th>
-              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('decessi_2024')">Morti ⬍</th>
-              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('saldo_naturale_2024')">Saldo Nat. ⬍</th>
+              <th class="px-3 py-3 cursor-pointer hover:text-white" onclick="sortTable('nome')">Comune ⬍</th>
+              <th class="px-3 py-3">Ambito</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('popolazione_2025')">Pop. 2025 ⬍</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('indice_vecchiaia')">Vecchiaia ⬍</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('indice_ricambio_attivi')">Ricambio Attivi ⬍</th>
+              <th class="px-3 py-3 text-right">0-14 (%)</th>
+              <th class="px-3 py-3 text-right">65+ (%)</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('nascite_2024')">Nati ⬍</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('decessi_2024')">Morti ⬍</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('saldo_naturale_2024')">Saldo Nat. ⬍</th>
+              <th class="px-3 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('tasso_saldo_nat_mille')">Tasso ‰ ⬍</th>
             </tr>
           </thead>
           <tbody id="comuniTableBody" class="divide-y divide-slate-800/60 font-mono text-xs">
@@ -434,6 +575,20 @@
                v > 200 ? '#6366f1' : // indigo-500
                v > 160 ? '#38bdf8' : // sky-400
                          '#10b981';  // emerald-500
+      } else if (metric === 'ricambio') {
+        const r = props.indice_ricambio_attivi || 154;
+        return r > 220 ? '#881337' : // squilibrio estremo (>220% pensione/lavoro)
+               r > 180 ? '#e11d48' : // squilibrio elevato (181-220%)
+               r > 150 ? '#f59e0b' : // media prov. (151-180%)
+               r > 125 ? '#38bdf8' : // moderato (125-150%)
+                         '#10b981';  // equilibrato (<125%)
+      } else if (metric === 'tasso_saldo') {
+        const t = props.tasso_saldo_nat_mille !== undefined ? props.tasso_saldo_nat_mille : -5.7;
+        return t >= 0    ? '#10b981' : // saldo positivo/nullo
+               t > -4.0  ? '#38bdf8' : // calo lieve (> -4‰)
+               t > -8.0  ? '#f59e0b' : // intorno alla media prov (-5,7‰)
+               t > -15.0 ? '#f43f5e' : // forte deficit (-8‰ a -15‰)
+                           '#881337';  // gravissimo decremento (< -15‰)
       } else if (metric === 'saldo_nat') {
         const s = props.saldo_naturale_2024 || 0;
         return s >= 0  ? '#10b981' : // verde (raro)
@@ -482,6 +637,8 @@
               const p = feature.properties;
               let metricVal = '';
               if (currentMetric === 'vecchiaia') metricVal = `Indice Vecchiaia: <strong>${p.indice_vecchiaia}</strong>`;
+              else if (currentMetric === 'ricambio') metricVal = `Ricambio Attivi: <strong>${(p.indice_ricambio_attivi || 0).toFixed(1)}%</strong>`;
+              else if (currentMetric === 'tasso_saldo') metricVal = `Tasso Naturale: <strong>${(p.tasso_saldo_nat_mille || 0).toFixed(2)}‰</strong>`;
               else if (currentMetric === 'saldo_nat') metricVal = `Saldo Naturale: <strong>${p.saldo_naturale_2024}</strong>`;
               else if (currentMetric === 'ats') metricVal = `Ambito: <strong>${p.ats}</strong>`;
               else if (currentMetric === 'popolazione') metricVal = `Residenti: <strong>${p.popolazione_2025.toLocaleString('it-IT')}</strong>`;
@@ -510,12 +667,14 @@
 
     function setMapMetric(metric) {
       currentMetric = metric;
-      ['vecchiaia', 'saldo_nat', 'ats', 'popolazione'].forEach(m => {
+      ['vecchiaia', 'ricambio', 'tasso_saldo', 'saldo_nat', 'ats', 'popolazione'].forEach(m => {
         const btn = document.getElementById(`btn-${m}`);
-        if (m === metric) {
-          btn.className = "px-3 py-1.5 rounded-md font-medium transition-all bg-indigo-600 text-white shadow";
-        } else {
-          btn.className = "px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800";
+        if (btn) {
+          if (m === metric) {
+            btn.className = "px-3 py-1.5 rounded-md font-medium transition-all bg-indigo-600 text-white shadow";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800";
+          }
         }
       });
       renderGeoJsonLayer();
@@ -536,9 +695,31 @@
             <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#10b981"></span><span>< 160 (Comuni più giovani)</span></div>
           </div>
         `;
+      } else if (currentMetric === 'ricambio') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Ricambio Attivi (60-64 / 15-19 anni)</div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#881337"></span><span>> 220% (Squilibrio estremo pensione/lavoro)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#e11d48"></span><span>181% - 220% (Squilibrio severo)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#f59e0b"></span><span>151% - 180% (In media prov. 154,2%)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#38bdf8"></span><span>126% - 150% (Squilibrio moderato)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#10b981"></span><span><= 125% (Turnover più equilibrato)</span></div>
+          </div>
+        `;
+      } else if (currentMetric === 'tasso_saldo') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Tasso Saldo Naturale 2024 (‰)</div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#10b981"></span><span>>= 0,0‰ (Positivo o stazionario)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#38bdf8"></span><span>Tra -0,1‰ e -4,0‰ (Calo contenuto)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#f59e0b"></span><span>Tra -4,1‰ e -8,0‰ (In media prov. -5,75‰)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#f43f5e"></span><span>Tra -8,1‰ e -15,0‰ (Forte decrescita)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#881337"></span><span>< -15,0‰ (Grave declino montano)</span></div>
+          </div>
+        `;
       } else if (currentMetric === 'saldo_nat') {
         leg.innerHTML = `
-          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Saldo Naturale 2024</div>
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Saldo Naturale Assoluto 2024</div>
           <div class="space-y-1">
             <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#10b981"></span><span>Saldo positivo / nullo (>= 0)</span></div>
             <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#38bdf8"></span><span>Tra -1 e -20</span></div>
@@ -605,12 +786,19 @@
       document.getElementById('detailPerc65').innerText = `${p65}%`;
       document.getElementById('bar65').style.width = `${p65}%`;
 
-      document.getElementById('detailVecchiaia').innerText = props.indice_vecchiaia.toFixed(1);
-      document.getElementById('detailDipendenza').innerText = props.indice_dipendenza.toFixed(1);
+      document.getElementById('detailVecchiaia').innerText = (props.indice_vecchiaia || 0).toFixed(1);
+      document.getElementById('detailDipendenza').innerText = (props.indice_dipendenza || 0).toFixed(1);
+      document.getElementById('detailRicambio').innerText = `${(props.indice_ricambio_attivi || 0).toFixed(1)}%`;
+      document.getElementById('detailTassoNat').innerText = `${(props.tasso_saldo_nat_mille || 0).toFixed(1)}‰`;
 
       document.getElementById('detailNati').innerText = props.nascite_2024;
       document.getElementById('detailMorti').innerText = props.decessi_2024;
-      document.getElementById('detailSaldoNat').innerText = props.saldo_naturale_2024;
+      document.getElementById('detailSaldoNat').innerText = (props.saldo_naturale_2024 > 0 ? '+' : '') + props.saldo_naturale_2024;
+
+      const sEst = props.saldo_estero_2024 !== undefined ? props.saldo_estero_2024 : 0;
+      const sInt = props.saldo_interno_2024 !== undefined ? props.saldo_interno_2024 : 0;
+      document.getElementById('detailSaldoEst').innerText = (sEst > 0 ? '+' : '') + sEst;
+      document.getElementById('detailSaldoInt').innerText = (sInt > 0 ? '+' : '') + sInt;
     }
 
     function resetMapView() {
@@ -741,7 +929,235 @@
     });
 
     // ==========================================
-    // 4. TOP & FLOP VECCHIAIA
+    // 4. FOCUS PREVIDENZA & RICAMBIO ATTIVI
+    // ==========================================
+    const sortedByTurnover = [...data.comuni].filter(c => c.indice_ricambio_attivi && c.indice_ricambio_attivi < 999)
+                                             .sort((a,b) => b.indice_ricambio_attivi - a.indice_ricambio_attivi);
+    const top10TurnoverHigh = sortedByTurnover.slice(0, 10);
+    const top10TurnoverLow = sortedByTurnover.slice(-10).reverse();
+
+    new Chart(document.getElementById('turnoverHighChart'), {
+      type: 'bar',
+      data: {
+        labels: top10TurnoverHigh.map(c => c.nome),
+        datasets: [{
+          label: 'Ricambio Attivi (%) [60-64 / 15-19 anni]',
+          data: top10TurnoverHigh.map(c => c.indice_ricambio_attivi),
+          backgroundColor: '#e11d48'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: (ctx) => {
+                const c = top10TurnoverHigh[ctx.dataIndex];
+                return `60-64 anni: ${c.eta_60_64} | 15-19 anni: ${c.eta_15_19}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('turnoverLowChart'), {
+      type: 'bar',
+      data: {
+        labels: top10TurnoverLow.map(c => c.nome),
+        datasets: [{
+          label: 'Ricambio Attivi (%) [60-64 / 15-19 anni]',
+          data: top10TurnoverLow.map(c => c.indice_ricambio_attivi),
+          backgroundColor: '#10b981'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: (ctx) => {
+                const c = top10TurnoverLow[ctx.dataIndex];
+                return `60-64 anni: ${c.eta_60_64} | 15-19 anni: ${c.eta_15_19}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
+        }
+      }
+    });
+
+    // ==========================================
+    // 5. MATRICE STRATEGICA A 4 QUADRANTI (BUBBLE CHART)
+    // ==========================================
+    const atsDatasets = [
+      {
+        label: 'ATS 1 - Pesaro (Costa Nord)',
+        data: data.comuni.filter(c => c.ats.includes('ATS 1')).map(c => ({
+          x: c.indice_vecchiaia,
+          y: c.tasso_saldo_nat_mille,
+          r: Math.max(5, Math.min(26, Math.round(Math.sqrt(c.popolazione_2025) / 13))),
+          comune: c
+        })),
+        backgroundColor: 'rgba(99, 102, 241, 0.75)',
+        borderColor: '#6366f1',
+        borderWidth: 1.5,
+        hoverBorderWidth: 3,
+        hoverBorderColor: '#ffffff'
+      },
+      {
+        label: 'ATS 6 - Fano (Costa Sud e Valli)',
+        data: data.comuni.filter(c => c.ats.includes('ATS 6')).map(c => ({
+          x: c.indice_vecchiaia,
+          y: c.tasso_saldo_nat_mille,
+          r: Math.max(5, Math.min(26, Math.round(Math.sqrt(c.popolazione_2025) / 13))),
+          comune: c
+        })),
+        backgroundColor: 'rgba(6, 182, 212, 0.75)',
+        borderColor: '#06b6d4',
+        borderWidth: 1.5,
+        hoverBorderWidth: 3,
+        hoverBorderColor: '#ffffff'
+      },
+      {
+        label: 'ATS 2 - Urbino e Montefeltro (Entroterra e Montagna)',
+        data: data.comuni.filter(c => c.ats.includes('ATS 2')).map(c => ({
+          x: c.indice_vecchiaia,
+          y: c.tasso_saldo_nat_mille,
+          r: Math.max(5, Math.min(26, Math.round(Math.sqrt(c.popolazione_2025) / 13))),
+          comune: c
+        })),
+        backgroundColor: 'rgba(245, 158, 11, 0.75)',
+        borderColor: '#f59e0b',
+        borderWidth: 1.5,
+        hoverBorderWidth: 3,
+        hoverBorderColor: '#ffffff'
+      }
+    ];
+
+    const quadrantPlugin = {
+      id: 'quadrantLines',
+      beforeDraw: (chart) => {
+        const { ctx, chartArea, scales: { x, y } } = chart;
+        if (!chartArea) return;
+        const xProv = x.getPixelForValue(224.7);
+        const yProv = y.getPixelForValue(-5.75);
+
+        ctx.save();
+        ctx.setLineDash([6, 6]);
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.45)';
+        ctx.lineWidth = 1.5;
+
+        // Linea verticale: Media PU Indice Vecchiaia = 224.7
+        if (xProv >= chartArea.left && xProv <= chartArea.right) {
+          ctx.beginPath();
+          ctx.moveTo(xProv, chartArea.top);
+          ctx.lineTo(xProv, chartArea.bottom);
+          ctx.stroke();
+        }
+
+        // Linea orizzontale: Media PU Tasso Saldo Nat = -5.75
+        if (yProv >= chartArea.top && yProv <= chartArea.bottom) {
+          ctx.beginPath();
+          ctx.moveTo(chartArea.left, yProv);
+          ctx.lineTo(chartArea.right, yProv);
+          ctx.stroke();
+        }
+
+        ctx.font = '11px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(148, 163, 184, 0.85)';
+        if (xProv >= chartArea.left && xProv <= chartArea.right) {
+          ctx.fillText('Media Prov. Vecchiaia (224,7)', xProv + 8, chartArea.top + 16);
+        }
+        if (yProv >= chartArea.top && yProv <= chartArea.bottom) {
+          ctx.fillText('Media Prov. Saldo Nat. (-5,75‰)', chartArea.left + 8, yProv - 8);
+        }
+        ctx.restore();
+      }
+    };
+
+    const scatterChart = new Chart(document.getElementById('quadrantScatterChart'), {
+      type: 'bubble',
+      data: {
+        datasets: atsDatasets
+      },
+      plugins: [quadrantPlugin],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        onClick: (evt, elements) => {
+          if (elements && elements.length > 0) {
+            const el = elements[0];
+            const dataset = atsDatasets[el.datasetIndex];
+            const datum = dataset.data[el.index];
+            if (datum && datum.comune) {
+              focusComuneFromTable(datum.comune.istat);
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#94a3b8', boxWidth: 14, font: { size: 12 } }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+            borderColor: 'rgba(99, 102, 241, 0.4)',
+            borderWidth: 1,
+            titleFont: { size: 13, weight: 'bold' },
+            padding: 10,
+            callbacks: {
+              title: (items) => {
+                const c = items[0].raw.comune;
+                return `${c.nome} (${c.ats.split(' - ')[0]})`;
+              },
+              label: (ctx) => {
+                const c = ctx.raw.comune;
+                return [
+                  `👥 Residenti: ${c.popolazione_2025.toLocaleString('it-IT')} ab.`,
+                  `📈 Indice Vecchiaia: ${c.indice_vecchiaia.toFixed(1)} (Prov: 224,7)`,
+                  `📉 Tasso Saldo Nat: ${c.tasso_saldo_nat_mille.toFixed(2)}‰ (Prov: -5,75‰)`,
+                  `💼 Ricambio Attivi: ${c.indice_ricambio_attivi.toFixed(1)}% (Prov: 154,2%)`,
+                  `👆 Clicca per visualizzare sulla mappa`
+                ];
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Indice di Vecchiaia (Anziani 65+ per 100 Giovani 0-14)', color: '#94a3b8' },
+            ticks: { color: '#94a3b8' },
+            grid: { color: 'rgba(30, 41, 59, 0.6)' },
+            suggestedMin: 120,
+            suggestedMax: 500
+          },
+          y: {
+            title: { display: true, text: 'Tasso di Saldo Naturale 2024 (per 1.000 residenti)', color: '#94a3b8' },
+            ticks: { color: '#94a3b8' },
+            grid: { color: 'rgba(30, 41, 59, 0.6)' },
+            suggestedMin: -25,
+            suggestedMax: 2
+          }
+        }
+      }
+    });
+
+    // ==========================================
+    // 6. TOP & FLOP VECCHIAIA
     // ==========================================
     const sortedByOld = [...data.comuni].filter(c => c.indice_vecchiaia < 900).sort((a,b) => b.indice_vecchiaia - a.indice_vecchiaia);
     const top10Old = sortedByOld.slice(0, 10);
@@ -792,7 +1208,7 @@
     });
 
     // ==========================================
-    // 5. TABELLA COMUNALE COLLEGATA ALLA MAPPA
+    // 7. TABELLA COMUNALE COLLEGATA ALLA MAPPA
     // ==========================================
     let sortColumn = 'popolazione_2025';
     let sortAsc = false;
@@ -827,17 +1243,19 @@
         tr.title = "Clicca per evidenziare sulla mappa";
         tr.onclick = () => focusComuneFromTable(c.istat);
         tr.innerHTML = `
-          <td class="px-4 py-2 font-sans font-medium text-slate-200 flex items-center gap-1.5">
+          <td class="px-3 py-2 font-sans font-medium text-slate-200 flex items-center gap-1.5">
             <span class="text-indigo-400">📍</span> ${c.nome}
           </td>
-          <td class="px-4 py-2 font-sans text-slate-400">${c.ats.split(' - ')[1] || c.ats}</td>
-          <td class="px-4 py-2 text-right text-slate-100 font-bold">${c.popolazione_2025.toLocaleString('it-IT')}</td>
-          <td class="px-4 py-2 text-right ${c.indice_vecchiaia > 300 ? 'text-rose-400 font-bold' : (c.indice_vecchiaia < 200 ? 'text-indigo-400' : 'text-slate-300')}">${c.indice_vecchiaia.toFixed(1)}</td>
-          <td class="px-4 py-2 text-right text-sky-400">${perc0_14}%</td>
-          <td class="px-4 py-2 text-right text-pink-400">${perc65}%</td>
-          <td class="px-4 py-2 text-right text-emerald-400">${c.nascite_2024}</td>
-          <td class="px-4 py-2 text-right text-amber-400">${c.decessi_2024}</td>
-          <td class="px-4 py-2 text-right font-bold ${c.saldo_naturale_2024 < 0 ? 'text-rose-400' : 'text-emerald-400'}">${c.saldo_naturale_2024}</td>
+          <td class="px-3 py-2 font-sans text-slate-400">${c.ats.split(' - ')[1] || c.ats}</td>
+          <td class="px-3 py-2 text-right text-slate-100 font-bold">${c.popolazione_2025.toLocaleString('it-IT')}</td>
+          <td class="px-3 py-2 text-right ${c.indice_vecchiaia > 300 ? 'text-rose-400 font-bold' : (c.indice_vecchiaia < 200 ? 'text-indigo-400' : 'text-slate-300')}">${c.indice_vecchiaia.toFixed(1)}</td>
+          <td class="px-3 py-2 text-right font-bold ${c.indice_ricambio_attivi > 200 ? 'text-rose-400' : (c.indice_ricambio_attivi < 130 ? 'text-emerald-400' : 'text-amber-400')}">${(c.indice_ricambio_attivi || 0).toFixed(1)}%</td>
+          <td class="px-3 py-2 text-right text-sky-400">${perc0_14}%</td>
+          <td class="px-3 py-2 text-right text-pink-400">${perc65}%</td>
+          <td class="px-3 py-2 text-right text-emerald-400">${c.nascite_2024}</td>
+          <td class="px-3 py-2 text-right text-amber-400">${c.decessi_2024}</td>
+          <td class="px-3 py-2 text-right font-bold ${c.saldo_naturale_2024 < 0 ? 'text-rose-400' : 'text-emerald-400'}">${c.saldo_naturale_2024}</td>
+          <td class="px-3 py-2 text-right ${c.tasso_saldo_nat_mille < -10 ? 'text-rose-400' : (c.tasso_saldo_nat_mille >= 0 ? 'text-emerald-400' : 'text-slate-300')}">${(c.tasso_saldo_nat_mille || 0).toFixed(2)}‰</td>
         `;
         tbody.appendChild(tr);
       });

@@ -4,7 +4,16 @@
     "fonte_istat": "Istat Demo (POSAS 2025 al 1° Gennaio 2025 & Bilancio Demografico 2024)",
     "fonte_rs": "INPS - Rendiconto Sociale Provinciale 2025",
     "comuni_totali": 50,
-    "nota_metodologica": "La somma dei 50 comuni concilia al 100% con i dati della Relazione Sociale Provinciale 2025 (Tavole 1, 2, 3)."
+    "provincia_totali": {
+      "popolazione": 349558,
+      "indice_vecchiaia": 224.7,
+      "indice_dipendenza": 59.1,
+      "indice_ricambio_attivi": 154.2,
+      "saldo_naturale": -2009,
+      "tasso_saldo_nat_mille": -5.75,
+      "nascite": 1884,
+      "decessi": 3893
+    }
   },
   "riconciliazione_rendiconto_sociale": {
     "conciliato_100_percento": true,
@@ -66,8 +75,12 @@
       "eta_0_14": 14751,
       "eta_15_64": 83111,
       "eta_65_oltre": 33364,
+      "eta_15_19": 6557,
+      "eta_60_64": 10240,
       "indice_vecchiaia": 226.2,
-      "indice_dipendenza": 57.9
+      "indice_dipendenza": 57.9,
+      "indice_ricambio_attivi": 156.2,
+      "tasso_saldo_nat_mille": -5.87
     },
     "ATS 6 - Fano": {
       "comuni_count": 11,
@@ -78,8 +91,12 @@
       "eta_0_14": 13941,
       "eta_15_64": 75463,
       "eta_65_oltre": 30896,
+      "eta_15_19": 5998,
+      "eta_60_64": 9153,
       "indice_vecchiaia": 221.6,
-      "indice_dipendenza": 59.4
+      "indice_dipendenza": 59.4,
+      "indice_ricambio_attivi": 152.6,
+      "tasso_saldo_nat_mille": -5.22
     },
     "ATS 2 - Urbino e Montefeltro": {
       "comuni_count": 32,
@@ -90,8 +107,12 @@
       "eta_0_14": 11312,
       "eta_15_64": 61093,
       "eta_65_oltre": 25627,
+      "eta_15_19": 4853,
+      "eta_60_64": 7455,
       "indice_vecchiaia": 226.5,
-      "indice_dipendenza": 60.5
+      "indice_dipendenza": 60.5,
+      "indice_ricambio_attivi": 153.6,
+      "tasso_saldo_nat_mille": -6.23
     }
   },
   "comuni": [
@@ -105,6 +126,8 @@
       "eta_0_14": 10187,
       "eta_15_64": 59371,
       "eta_65_oltre": 25708,
+      "eta_15_19": 4596,
+      "eta_60_64": 7584,
       "nascite_2024": 437,
       "decessi_2024": 1089,
       "saldo_naturale_2024": -652,
@@ -114,7 +137,11 @@
       "saldo_interno_2024": 298,
       "saldo_totale_2024": -36,
       "indice_vecchiaia": 252.4,
-      "indice_dipendenza": 60.5
+      "indice_dipendenza": 60.5,
+      "indice_ricambio_attivi": 165.0,
+      "tasso_natalita_mille": 4.59,
+      "tasso_mortalita_mille": 11.43,
+      "tasso_saldo_nat_mille": -6.84
     },
     {
       "istat": "041013",
@@ -126,6 +153,8 @@
       "eta_0_14": 6782,
       "eta_15_64": 37560,
       "eta_65_oltre": 15561,
+      "eta_15_19": 3010,
+      "eta_60_64": 4689,
       "nascite_2024": 325,
       "decessi_2024": 671,
       "saldo_naturale_2024": -346,
@@ -135,7 +164,11 @@
       "saldo_interno_2024": 140,
       "saldo_totale_2024": -59,
       "indice_vecchiaia": 229.4,
-      "indice_dipendenza": 59.5
+      "indice_dipendenza": 59.5,
+      "indice_ricambio_attivi": 155.8,
+      "tasso_natalita_mille": 5.43,
+      "tasso_mortalita_mille": 11.2,
+      "tasso_saldo_nat_mille": -5.78
     },
     {
       "istat": "041068",
@@ -147,6 +180,8 @@
       "eta_0_14": 1998,
       "eta_15_64": 9998,
       "eta_65_oltre": 3023,
+      "eta_15_19": 895,
+      "eta_60_64": 1066,
       "nascite_2024": 103,
       "decessi_2024": 124,
       "saldo_naturale_2024": -21,
@@ -156,7 +191,11 @@
       "saldo_interno_2024": -30,
       "saldo_totale_2024": 14,
       "indice_vecchiaia": 151.3,
-      "indice_dipendenza": 50.2
+      "indice_dipendenza": 50.2,
+      "indice_ricambio_attivi": 119.1,
+      "tasso_natalita_mille": 6.86,
+      "tasso_mortalita_mille": 8.26,
+      "tasso_saldo_nat_mille": -1.4
     },
     {
       "istat": "041029",
@@ -168,6 +207,8 @@
       "eta_0_14": 1701,
       "eta_15_64": 9075,
       "eta_65_oltre": 3640,
+      "eta_15_19": 707,
+      "eta_60_64": 1031,
       "nascite_2024": 90,
       "decessi_2024": 168,
       "saldo_naturale_2024": -78,
@@ -177,7 +218,11 @@
       "saldo_interno_2024": 129,
       "saldo_totale_2024": 117,
       "indice_vecchiaia": 214.0,
-      "indice_dipendenza": 58.9
+      "indice_dipendenza": 58.9,
+      "indice_ricambio_attivi": 145.8,
+      "tasso_natalita_mille": 6.24,
+      "tasso_mortalita_mille": 11.65,
+      "tasso_saldo_nat_mille": -5.41
     },
     {
       "istat": "041067",
@@ -189,6 +234,8 @@
       "eta_0_14": 1370,
       "eta_15_64": 8516,
       "eta_65_oltre": 3941,
+      "eta_15_19": 631,
+      "eta_60_64": 1061,
       "nascite_2024": 79,
       "decessi_2024": 174,
       "saldo_naturale_2024": -95,
@@ -198,7 +245,11 @@
       "saldo_interno_2024": 34,
       "saldo_totale_2024": 28,
       "indice_vecchiaia": 287.7,
-      "indice_dipendenza": 62.4
+      "indice_dipendenza": 62.4,
+      "indice_ricambio_attivi": 168.1,
+      "tasso_natalita_mille": 5.71,
+      "tasso_mortalita_mille": 12.58,
+      "tasso_saldo_nat_mille": -6.87
     },
     {
       "istat": "041069",
@@ -210,6 +261,8 @@
       "eta_0_14": 1732,
       "eta_15_64": 8014,
       "eta_65_oltre": 2646,
+      "eta_15_19": 699,
+      "eta_60_64": 809,
       "nascite_2024": 79,
       "decessi_2024": 79,
       "saldo_naturale_2024": 0,
@@ -219,7 +272,11 @@
       "saldo_interno_2024": 35,
       "saldo_totale_2024": 74,
       "indice_vecchiaia": 152.8,
-      "indice_dipendenza": 54.6
+      "indice_dipendenza": 54.6,
+      "indice_ricambio_attivi": 115.7,
+      "tasso_natalita_mille": 6.38,
+      "tasso_mortalita_mille": 6.38,
+      "tasso_saldo_nat_mille": 0.0
     },
     {
       "istat": "041015",
@@ -231,6 +288,8 @@
       "eta_0_14": 994,
       "eta_15_64": 5618,
       "eta_65_oltre": 2423,
+      "eta_15_19": 462,
+      "eta_60_64": 692,
       "nascite_2024": 39,
       "decessi_2024": 111,
       "saldo_naturale_2024": -72,
@@ -240,7 +299,11 @@
       "saldo_interno_2024": 12,
       "saldo_totale_2024": -19,
       "indice_vecchiaia": 243.8,
-      "indice_dipendenza": 60.8
+      "indice_dipendenza": 60.8,
+      "indice_ricambio_attivi": 149.8,
+      "tasso_natalita_mille": 4.32,
+      "tasso_mortalita_mille": 12.29,
+      "tasso_saldo_nat_mille": -7.97
     },
     {
       "istat": "041014",
@@ -252,6 +315,8 @@
       "eta_0_14": 1054,
       "eta_15_64": 5345,
       "eta_65_oltre": 1849,
+      "eta_15_19": 410,
+      "eta_60_64": 663,
       "nascite_2024": 46,
       "decessi_2024": 81,
       "saldo_naturale_2024": -35,
@@ -261,7 +326,11 @@
       "saldo_interno_2024": -10,
       "saldo_totale_2024": -2,
       "indice_vecchiaia": 175.4,
-      "indice_dipendenza": 54.3
+      "indice_dipendenza": 54.3,
+      "indice_ricambio_attivi": 161.7,
+      "tasso_natalita_mille": 5.58,
+      "tasso_mortalita_mille": 9.82,
+      "tasso_saldo_nat_mille": -4.24
     },
     {
       "istat": "041010",
@@ -273,6 +342,8 @@
       "eta_0_14": 1025,
       "eta_15_64": 5217,
       "eta_65_oltre": 1748,
+      "eta_15_19": 453,
+      "eta_60_64": 537,
       "nascite_2024": 44,
       "decessi_2024": 75,
       "saldo_naturale_2024": -31,
@@ -282,7 +353,11 @@
       "saldo_interno_2024": -37,
       "saldo_totale_2024": -41,
       "indice_vecchiaia": 170.5,
-      "indice_dipendenza": 53.2
+      "indice_dipendenza": 53.2,
+      "indice_ricambio_attivi": 118.5,
+      "tasso_natalita_mille": 5.51,
+      "tasso_mortalita_mille": 9.39,
+      "tasso_saldo_nat_mille": -3.88
     },
     {
       "istat": "041065",
@@ -294,6 +369,8 @@
       "eta_0_14": 1015,
       "eta_15_64": 5440,
       "eta_65_oltre": 1509,
+      "eta_15_19": 477,
+      "eta_60_64": 526,
       "nascite_2024": 45,
       "decessi_2024": 49,
       "saldo_naturale_2024": -4,
@@ -303,7 +380,11 @@
       "saldo_interno_2024": -7,
       "saldo_totale_2024": 24,
       "indice_vecchiaia": 148.7,
-      "indice_dipendenza": 46.4
+      "indice_dipendenza": 46.4,
+      "indice_ricambio_attivi": 110.3,
+      "tasso_natalita_mille": 5.65,
+      "tasso_mortalita_mille": 6.15,
+      "tasso_saldo_nat_mille": -0.5
     },
     {
       "istat": "041007",
@@ -315,6 +396,8 @@
       "eta_0_14": 828,
       "eta_15_64": 4726,
       "eta_65_oltre": 2404,
+      "eta_15_19": 338,
+      "eta_60_64": 639,
       "nascite_2024": 46,
       "decessi_2024": 104,
       "saldo_naturale_2024": -58,
@@ -324,7 +407,11 @@
       "saldo_interno_2024": 4,
       "saldo_totale_2024": 10,
       "indice_vecchiaia": 290.3,
-      "indice_dipendenza": 68.4
+      "indice_dipendenza": 68.4,
+      "indice_ricambio_attivi": 189.1,
+      "tasso_natalita_mille": 5.78,
+      "tasso_mortalita_mille": 13.07,
+      "tasso_saldo_nat_mille": -7.29
     },
     {
       "istat": "041036",
@@ -336,6 +423,8 @@
       "eta_0_14": 995,
       "eta_15_64": 4786,
       "eta_65_oltre": 1274,
+      "eta_15_19": 383,
+      "eta_60_64": 507,
       "nascite_2024": 42,
       "decessi_2024": 55,
       "saldo_naturale_2024": -13,
@@ -345,7 +434,11 @@
       "saldo_interno_2024": -34,
       "saldo_totale_2024": -18,
       "indice_vecchiaia": 128.0,
-      "indice_dipendenza": 47.4
+      "indice_dipendenza": 47.4,
+      "indice_ricambio_attivi": 132.4,
+      "tasso_natalita_mille": 5.95,
+      "tasso_mortalita_mille": 7.8,
+      "tasso_saldo_nat_mille": -1.84
     },
     {
       "istat": "041066",
@@ -357,6 +450,8 @@
       "eta_0_14": 848,
       "eta_15_64": 4370,
       "eta_65_oltre": 1706,
+      "eta_15_19": 403,
+      "eta_60_64": 556,
       "nascite_2024": 46,
       "decessi_2024": 80,
       "saldo_naturale_2024": -34,
@@ -366,7 +461,11 @@
       "saldo_interno_2024": 1,
       "saldo_totale_2024": 42,
       "indice_vecchiaia": 201.2,
-      "indice_dipendenza": 58.4
+      "indice_dipendenza": 58.4,
+      "indice_ricambio_attivi": 138.0,
+      "tasso_natalita_mille": 6.64,
+      "tasso_mortalita_mille": 11.55,
+      "tasso_saldo_nat_mille": -4.91
     },
     {
       "istat": "041043",
@@ -378,6 +477,8 @@
       "eta_0_14": 544,
       "eta_15_64": 3346,
       "eta_65_oltre": 1830,
+      "eta_15_19": 206,
+      "eta_60_64": 459,
       "nascite_2024": 28,
       "decessi_2024": 81,
       "saldo_naturale_2024": -53,
@@ -387,7 +488,11 @@
       "saldo_interno_2024": -4,
       "saldo_totale_2024": -42,
       "indice_vecchiaia": 336.4,
-      "indice_dipendenza": 71.0
+      "indice_dipendenza": 71.0,
+      "indice_ricambio_attivi": 222.8,
+      "tasso_natalita_mille": 4.9,
+      "tasso_mortalita_mille": 14.16,
+      "tasso_saldo_nat_mille": -9.27
     },
     {
       "istat": "041019",
@@ -399,6 +504,8 @@
       "eta_0_14": 502,
       "eta_15_64": 3375,
       "eta_65_oltre": 1559,
+      "eta_15_19": 242,
+      "eta_60_64": 421,
       "nascite_2024": 18,
       "decessi_2024": 64,
       "saldo_naturale_2024": -46,
@@ -408,7 +515,11 @@
       "saldo_interno_2024": -3,
       "saldo_totale_2024": -44,
       "indice_vecchiaia": 310.6,
-      "indice_dipendenza": 61.1
+      "indice_dipendenza": 61.1,
+      "indice_ricambio_attivi": 174.0,
+      "tasso_natalita_mille": 3.31,
+      "tasso_mortalita_mille": 11.77,
+      "tasso_saldo_nat_mille": -8.46
     },
     {
       "istat": "041070",
@@ -420,6 +531,8 @@
       "eta_0_14": 575,
       "eta_15_64": 3210,
       "eta_65_oltre": 1434,
+      "eta_15_19": 224,
+      "eta_60_64": 420,
       "nascite_2024": 35,
       "decessi_2024": 68,
       "saldo_naturale_2024": -33,
@@ -429,7 +542,11 @@
       "saldo_interno_2024": 0,
       "saldo_totale_2024": 4,
       "indice_vecchiaia": 249.4,
-      "indice_dipendenza": 62.6
+      "indice_dipendenza": 62.6,
+      "indice_ricambio_attivi": 187.5,
+      "tasso_natalita_mille": 6.71,
+      "tasso_mortalita_mille": 13.03,
+      "tasso_saldo_nat_mille": -6.32
     },
     {
       "istat": "041071",
@@ -441,6 +558,8 @@
       "eta_0_14": 660,
       "eta_15_64": 2940,
       "eta_65_oltre": 1281,
+      "eta_15_19": 223,
+      "eta_60_64": 360,
       "nascite_2024": 35,
       "decessi_2024": 56,
       "saldo_naturale_2024": -21,
@@ -450,7 +569,11 @@
       "saldo_interno_2024": -13,
       "saldo_totale_2024": -13,
       "indice_vecchiaia": 194.1,
-      "indice_dipendenza": 66.0
+      "indice_dipendenza": 66.0,
+      "indice_ricambio_attivi": 161.4,
+      "tasso_natalita_mille": 7.17,
+      "tasso_mortalita_mille": 11.47,
+      "tasso_saldo_nat_mille": -4.3
     },
     {
       "istat": "041020",
@@ -462,6 +585,8 @@
       "eta_0_14": 653,
       "eta_15_64": 3247,
       "eta_65_oltre": 956,
+      "eta_15_19": 246,
+      "eta_60_64": 383,
       "nascite_2024": 22,
       "decessi_2024": 42,
       "saldo_naturale_2024": -20,
@@ -471,7 +596,11 @@
       "saldo_interno_2024": -16,
       "saldo_totale_2024": -29,
       "indice_vecchiaia": 146.4,
-      "indice_dipendenza": 49.6
+      "indice_dipendenza": 49.6,
+      "indice_ricambio_attivi": 155.7,
+      "tasso_natalita_mille": 4.53,
+      "tasso_mortalita_mille": 8.65,
+      "tasso_saldo_nat_mille": -4.12
     },
     {
       "istat": "041051",
@@ -483,6 +612,8 @@
       "eta_0_14": 573,
       "eta_15_64": 2871,
       "eta_65_oltre": 1139,
+      "eta_15_19": 211,
+      "eta_60_64": 365,
       "nascite_2024": 32,
       "decessi_2024": 33,
       "saldo_naturale_2024": -1,
@@ -492,7 +623,11 @@
       "saldo_interno_2024": -7,
       "saldo_totale_2024": 14,
       "indice_vecchiaia": 198.8,
-      "indice_dipendenza": 59.6
+      "indice_dipendenza": 59.6,
+      "indice_ricambio_attivi": 173.0,
+      "tasso_natalita_mille": 6.98,
+      "tasso_mortalita_mille": 7.2,
+      "tasso_saldo_nat_mille": -0.22
     },
     {
       "istat": "041001",
@@ -504,6 +639,8 @@
       "eta_0_14": 503,
       "eta_15_64": 2639,
       "eta_65_oltre": 1020,
+      "eta_15_19": 215,
+      "eta_60_64": 330,
       "nascite_2024": 26,
       "decessi_2024": 47,
       "saldo_naturale_2024": -21,
@@ -513,7 +650,11 @@
       "saldo_interno_2024": 12,
       "saldo_totale_2024": -7,
       "indice_vecchiaia": 202.8,
-      "indice_dipendenza": 57.7
+      "indice_dipendenza": 57.7,
+      "indice_ricambio_attivi": 153.5,
+      "tasso_natalita_mille": 6.25,
+      "tasso_mortalita_mille": 11.29,
+      "tasso_saldo_nat_mille": -5.05
     },
     {
       "istat": "041057",
@@ -525,6 +666,8 @@
       "eta_0_14": 485,
       "eta_15_64": 2390,
       "eta_65_oltre": 1009,
+      "eta_15_19": 188,
+      "eta_60_64": 270,
       "nascite_2024": 22,
       "decessi_2024": 42,
       "saldo_naturale_2024": -20,
@@ -534,7 +677,11 @@
       "saldo_interno_2024": -17,
       "saldo_totale_2024": -3,
       "indice_vecchiaia": 208.0,
-      "indice_dipendenza": 62.5
+      "indice_dipendenza": 62.5,
+      "indice_ricambio_attivi": 143.6,
+      "tasso_natalita_mille": 5.66,
+      "tasso_mortalita_mille": 10.81,
+      "tasso_saldo_nat_mille": -5.15
     },
     {
       "istat": "041028",
@@ -546,6 +693,8 @@
       "eta_0_14": 364,
       "eta_15_64": 2208,
       "eta_65_oltre": 1053,
+      "eta_15_19": 163,
+      "eta_60_64": 287,
       "nascite_2024": 16,
       "decessi_2024": 45,
       "saldo_naturale_2024": -29,
@@ -555,7 +704,11 @@
       "saldo_interno_2024": 5,
       "saldo_totale_2024": -3,
       "indice_vecchiaia": 289.3,
-      "indice_dipendenza": 64.2
+      "indice_dipendenza": 64.2,
+      "indice_ricambio_attivi": 176.1,
+      "tasso_natalita_mille": 4.41,
+      "tasso_mortalita_mille": 12.41,
+      "tasso_saldo_nat_mille": -8.0
     },
     {
       "istat": "041054",
@@ -567,6 +720,8 @@
       "eta_0_14": 320,
       "eta_15_64": 1935,
       "eta_65_oltre": 916,
+      "eta_15_19": 159,
+      "eta_60_64": 262,
       "nascite_2024": 16,
       "decessi_2024": 45,
       "saldo_naturale_2024": -29,
@@ -576,7 +731,11 @@
       "saldo_interno_2024": 10,
       "saldo_totale_2024": -12,
       "indice_vecchiaia": 286.2,
-      "indice_dipendenza": 63.9
+      "indice_dipendenza": 63.9,
+      "indice_ricambio_attivi": 164.8,
+      "tasso_natalita_mille": 5.05,
+      "tasso_mortalita_mille": 14.19,
+      "tasso_saldo_nat_mille": -9.15
     },
     {
       "istat": "041038",
@@ -588,6 +747,8 @@
       "eta_0_14": 357,
       "eta_15_64": 1814,
       "eta_65_oltre": 676,
+      "eta_15_19": 132,
+      "eta_60_64": 196,
       "nascite_2024": 23,
       "decessi_2024": 20,
       "saldo_naturale_2024": 3,
@@ -597,7 +758,11 @@
       "saldo_interno_2024": 0,
       "saldo_totale_2024": 28,
       "indice_vecchiaia": 189.4,
-      "indice_dipendenza": 56.9
+      "indice_dipendenza": 56.9,
+      "indice_ricambio_attivi": 148.5,
+      "tasso_natalita_mille": 8.08,
+      "tasso_mortalita_mille": 7.02,
+      "tasso_saldo_nat_mille": 1.05
     },
     {
       "istat": "041045",
@@ -609,6 +774,8 @@
       "eta_0_14": 378,
       "eta_15_64": 1806,
       "eta_65_oltre": 617,
+      "eta_15_19": 157,
+      "eta_60_64": 204,
       "nascite_2024": 22,
       "decessi_2024": 29,
       "saldo_naturale_2024": -7,
@@ -618,7 +785,11 @@
       "saldo_interno_2024": 5,
       "saldo_totale_2024": 6,
       "indice_vecchiaia": 163.2,
-      "indice_dipendenza": 55.1
+      "indice_dipendenza": 55.1,
+      "indice_ricambio_attivi": 129.9,
+      "tasso_natalita_mille": 7.85,
+      "tasso_mortalita_mille": 10.35,
+      "tasso_saldo_nat_mille": -2.5
     },
     {
       "istat": "041030",
@@ -630,6 +801,8 @@
       "eta_0_14": 377,
       "eta_15_64": 1724,
       "eta_65_oltre": 621,
+      "eta_15_19": 147,
+      "eta_60_64": 191,
       "nascite_2024": 8,
       "decessi_2024": 28,
       "saldo_naturale_2024": -20,
@@ -639,7 +812,11 @@
       "saldo_interno_2024": 8,
       "saldo_totale_2024": -2,
       "indice_vecchiaia": 164.7,
-      "indice_dipendenza": 57.9
+      "indice_dipendenza": 57.9,
+      "indice_ricambio_attivi": 129.9,
+      "tasso_natalita_mille": 2.94,
+      "tasso_mortalita_mille": 10.29,
+      "tasso_saldo_nat_mille": -7.35
     },
     {
       "istat": "041034",
@@ -651,6 +828,8 @@
       "eta_0_14": 258,
       "eta_15_64": 1535,
       "eta_65_oltre": 659,
+      "eta_15_19": 130,
+      "eta_60_64": 214,
       "nascite_2024": 9,
       "decessi_2024": 26,
       "saldo_naturale_2024": -17,
@@ -660,7 +839,11 @@
       "saldo_interno_2024": -11,
       "saldo_totale_2024": -25,
       "indice_vecchiaia": 255.4,
-      "indice_dipendenza": 59.7
+      "indice_dipendenza": 59.7,
+      "indice_ricambio_attivi": 164.6,
+      "tasso_natalita_mille": 3.67,
+      "tasso_mortalita_mille": 10.6,
+      "tasso_saldo_nat_mille": -6.93
     },
     {
       "istat": "041027",
@@ -672,6 +855,8 @@
       "eta_0_14": 231,
       "eta_15_64": 1405,
       "eta_65_oltre": 484,
+      "eta_15_19": 113,
+      "eta_60_64": 185,
       "nascite_2024": 12,
       "decessi_2024": 27,
       "saldo_naturale_2024": -15,
@@ -681,7 +866,11 @@
       "saldo_interno_2024": 22,
       "saldo_totale_2024": 21,
       "indice_vecchiaia": 209.5,
-      "indice_dipendenza": 50.9
+      "indice_dipendenza": 50.9,
+      "indice_ricambio_attivi": 163.7,
+      "tasso_natalita_mille": 5.66,
+      "tasso_mortalita_mille": 12.74,
+      "tasso_saldo_nat_mille": -7.08
     },
     {
       "istat": "041047",
@@ -693,6 +882,8 @@
       "eta_0_14": 292,
       "eta_15_64": 1270,
       "eta_65_oltre": 491,
+      "eta_15_19": 99,
+      "eta_60_64": 147,
       "nascite_2024": 15,
       "decessi_2024": 25,
       "saldo_naturale_2024": -10,
@@ -702,7 +893,11 @@
       "saldo_interno_2024": 16,
       "saldo_totale_2024": 27,
       "indice_vecchiaia": 168.2,
-      "indice_dipendenza": 61.7
+      "indice_dipendenza": 61.7,
+      "indice_ricambio_attivi": 148.5,
+      "tasso_natalita_mille": 7.31,
+      "tasso_mortalita_mille": 12.18,
+      "tasso_saldo_nat_mille": -4.87
     },
     {
       "istat": "041008",
@@ -714,6 +909,8 @@
       "eta_0_14": 139,
       "eta_15_64": 1097,
       "eta_65_oltre": 715,
+      "eta_15_19": 81,
+      "eta_60_64": 157,
       "nascite_2024": 6,
       "decessi_2024": 39,
       "saldo_naturale_2024": -33,
@@ -723,7 +920,11 @@
       "saldo_interno_2024": -39,
       "saldo_totale_2024": -24,
       "indice_vecchiaia": 514.4,
-      "indice_dipendenza": 77.8
+      "indice_dipendenza": 77.8,
+      "indice_ricambio_attivi": 193.8,
+      "tasso_natalita_mille": 3.08,
+      "tasso_mortalita_mille": 19.99,
+      "tasso_saldo_nat_mille": -16.91
     },
     {
       "istat": "041023",
@@ -735,6 +936,8 @@
       "eta_0_14": 212,
       "eta_15_64": 1112,
       "eta_65_oltre": 566,
+      "eta_15_19": 98,
+      "eta_60_64": 145,
       "nascite_2024": 5,
       "decessi_2024": 22,
       "saldo_naturale_2024": -17,
@@ -744,7 +947,11 @@
       "saldo_interno_2024": 2,
       "saldo_totale_2024": -3,
       "indice_vecchiaia": 267.0,
-      "indice_dipendenza": 70.0
+      "indice_dipendenza": 70.0,
+      "indice_ricambio_attivi": 148.0,
+      "tasso_natalita_mille": 2.65,
+      "tasso_mortalita_mille": 11.64,
+      "tasso_saldo_nat_mille": -8.99
     },
     {
       "istat": "041049",
@@ -756,6 +963,8 @@
       "eta_0_14": 187,
       "eta_15_64": 1103,
       "eta_65_oltre": 511,
+      "eta_15_19": 89,
+      "eta_60_64": 144,
       "nascite_2024": 11,
       "decessi_2024": 33,
       "saldo_naturale_2024": -22,
@@ -765,7 +974,11 @@
       "saldo_interno_2024": -4,
       "saldo_totale_2024": -12,
       "indice_vecchiaia": 273.3,
-      "indice_dipendenza": 63.3
+      "indice_dipendenza": 63.3,
+      "indice_ricambio_attivi": 161.8,
+      "tasso_natalita_mille": 6.11,
+      "tasso_mortalita_mille": 18.32,
+      "tasso_saldo_nat_mille": -12.22
     },
     {
       "istat": "041009",
@@ -777,6 +990,8 @@
       "eta_0_14": 202,
       "eta_15_64": 1058,
       "eta_65_oltre": 448,
+      "eta_15_19": 73,
+      "eta_60_64": 131,
       "nascite_2024": 16,
       "decessi_2024": 26,
       "saldo_naturale_2024": -10,
@@ -786,7 +1001,11 @@
       "saldo_interno_2024": -44,
       "saldo_totale_2024": -14,
       "indice_vecchiaia": 221.8,
-      "indice_dipendenza": 61.4
+      "indice_dipendenza": 61.4,
+      "indice_ricambio_attivi": 179.5,
+      "tasso_natalita_mille": 9.37,
+      "tasso_mortalita_mille": 15.22,
+      "tasso_saldo_nat_mille": -5.85
     },
     {
       "istat": "041002",
@@ -798,6 +1017,8 @@
       "eta_0_14": 142,
       "eta_15_64": 984,
       "eta_65_oltre": 549,
+      "eta_15_19": 63,
+      "eta_60_64": 139,
       "nascite_2024": 9,
       "decessi_2024": 28,
       "saldo_naturale_2024": -19,
@@ -807,7 +1028,11 @@
       "saldo_interno_2024": -4,
       "saldo_totale_2024": -16,
       "indice_vecchiaia": 386.6,
-      "indice_dipendenza": 70.2
+      "indice_dipendenza": 70.2,
+      "indice_ricambio_attivi": 220.6,
+      "tasso_natalita_mille": 5.37,
+      "tasso_mortalita_mille": 16.72,
+      "tasso_saldo_nat_mille": -11.34
     },
     {
       "istat": "041058",
@@ -819,6 +1044,8 @@
       "eta_0_14": 185,
       "eta_15_64": 929,
       "eta_65_oltre": 360,
+      "eta_15_19": 82,
+      "eta_60_64": 94,
       "nascite_2024": 8,
       "decessi_2024": 11,
       "saldo_naturale_2024": -3,
@@ -828,7 +1055,11 @@
       "saldo_interno_2024": 6,
       "saldo_totale_2024": 5,
       "indice_vecchiaia": 194.6,
-      "indice_dipendenza": 58.7
+      "indice_dipendenza": 58.7,
+      "indice_ricambio_attivi": 114.6,
+      "tasso_natalita_mille": 5.43,
+      "tasso_mortalita_mille": 7.46,
+      "tasso_saldo_nat_mille": -2.04
     },
     {
       "istat": "041022",
@@ -840,6 +1071,8 @@
       "eta_0_14": 197,
       "eta_15_64": 930,
       "eta_65_oltre": 300,
+      "eta_15_19": 90,
+      "eta_60_64": 99,
       "nascite_2024": 8,
       "decessi_2024": 15,
       "saldo_naturale_2024": -7,
@@ -849,7 +1082,11 @@
       "saldo_interno_2024": -8,
       "saldo_totale_2024": 0,
       "indice_vecchiaia": 152.3,
-      "indice_dipendenza": 53.4
+      "indice_dipendenza": 53.4,
+      "indice_ricambio_attivi": 110.0,
+      "tasso_natalita_mille": 5.61,
+      "tasso_mortalita_mille": 10.51,
+      "tasso_saldo_nat_mille": -4.91
     },
     {
       "istat": "041025",
@@ -861,6 +1098,8 @@
       "eta_0_14": 165,
       "eta_15_64": 774,
       "eta_65_oltre": 392,
+      "eta_15_19": 55,
+      "eta_60_64": 87,
       "nascite_2024": 13,
       "decessi_2024": 18,
       "saldo_naturale_2024": -5,
@@ -870,7 +1109,11 @@
       "saldo_interno_2024": 11,
       "saldo_totale_2024": 7,
       "indice_vecchiaia": 237.6,
-      "indice_dipendenza": 72.0
+      "indice_dipendenza": 72.0,
+      "indice_ricambio_attivi": 158.2,
+      "tasso_natalita_mille": 9.77,
+      "tasso_mortalita_mille": 13.52,
+      "tasso_saldo_nat_mille": -3.76
     },
     {
       "istat": "041018",
@@ -882,6 +1125,8 @@
       "eta_0_14": 121,
       "eta_15_64": 698,
       "eta_65_oltre": 378,
+      "eta_15_19": 50,
+      "eta_60_64": 85,
       "nascite_2024": 8,
       "decessi_2024": 16,
       "saldo_naturale_2024": -8,
@@ -891,7 +1136,11 @@
       "saldo_interno_2024": -11,
       "saldo_totale_2024": -21,
       "indice_vecchiaia": 312.4,
-      "indice_dipendenza": 71.5
+      "indice_dipendenza": 71.5,
+      "indice_ricambio_attivi": 170.0,
+      "tasso_natalita_mille": 6.68,
+      "tasso_mortalita_mille": 13.37,
+      "tasso_saldo_nat_mille": -6.68
     },
     {
       "istat": "041035",
@@ -903,6 +1152,8 @@
       "eta_0_14": 122,
       "eta_15_64": 716,
       "eta_65_oltre": 294,
+      "eta_15_19": 55,
+      "eta_60_64": 85,
       "nascite_2024": 3,
       "decessi_2024": 10,
       "saldo_naturale_2024": -7,
@@ -912,7 +1163,11 @@
       "saldo_interno_2024": 7,
       "saldo_totale_2024": 13,
       "indice_vecchiaia": 241.0,
-      "indice_dipendenza": 58.1
+      "indice_dipendenza": 58.1,
+      "indice_ricambio_attivi": 154.5,
+      "tasso_natalita_mille": 2.65,
+      "tasso_mortalita_mille": 8.83,
+      "tasso_saldo_nat_mille": -6.18
     },
     {
       "istat": "041026",
@@ -924,6 +1179,8 @@
       "eta_0_14": 133,
       "eta_15_64": 639,
       "eta_65_oltre": 282,
+      "eta_15_19": 47,
+      "eta_60_64": 79,
       "nascite_2024": 7,
       "decessi_2024": 15,
       "saldo_naturale_2024": -8,
@@ -933,7 +1190,11 @@
       "saldo_interno_2024": 15,
       "saldo_totale_2024": 10,
       "indice_vecchiaia": 212.0,
-      "indice_dipendenza": 64.9
+      "indice_dipendenza": 64.9,
+      "indice_ricambio_attivi": 168.1,
+      "tasso_natalita_mille": 6.64,
+      "tasso_mortalita_mille": 14.23,
+      "tasso_saldo_nat_mille": -7.59
     },
     {
       "istat": "041061",
@@ -945,6 +1206,8 @@
       "eta_0_14": 60,
       "eta_15_64": 484,
       "eta_65_oltre": 315,
+      "eta_15_19": 26,
+      "eta_60_64": 90,
       "nascite_2024": 2,
       "decessi_2024": 27,
       "saldo_naturale_2024": -25,
@@ -954,7 +1217,11 @@
       "saldo_interno_2024": -1,
       "saldo_totale_2024": -20,
       "indice_vecchiaia": 525.0,
-      "indice_dipendenza": 77.5
+      "indice_dipendenza": 77.5,
+      "indice_ricambio_attivi": 346.2,
+      "tasso_natalita_mille": 2.33,
+      "tasso_mortalita_mille": 31.43,
+      "tasso_saldo_nat_mille": -29.1
     },
     {
       "istat": "041016",
@@ -966,6 +1233,8 @@
       "eta_0_14": 67,
       "eta_15_64": 492,
       "eta_65_oltre": 270,
+      "eta_15_19": 36,
+      "eta_60_64": 80,
       "nascite_2024": 5,
       "decessi_2024": 16,
       "saldo_naturale_2024": -11,
@@ -975,7 +1244,11 @@
       "saldo_interno_2024": -13,
       "saldo_totale_2024": -22,
       "indice_vecchiaia": 403.0,
-      "indice_dipendenza": 68.5
+      "indice_dipendenza": 68.5,
+      "indice_ricambio_attivi": 222.2,
+      "tasso_natalita_mille": 6.03,
+      "tasso_mortalita_mille": 19.3,
+      "tasso_saldo_nat_mille": -13.27
     },
     {
       "istat": "041064",
@@ -987,6 +1260,8 @@
       "eta_0_14": 79,
       "eta_15_64": 532,
       "eta_65_oltre": 210,
+      "eta_15_19": 47,
+      "eta_60_64": 59,
       "nascite_2024": 5,
       "decessi_2024": 17,
       "saldo_naturale_2024": -12,
@@ -996,7 +1271,11 @@
       "saldo_interno_2024": 0,
       "saldo_totale_2024": -10,
       "indice_vecchiaia": 265.8,
-      "indice_dipendenza": 54.3
+      "indice_dipendenza": 54.3,
+      "indice_ricambio_attivi": 125.5,
+      "tasso_natalita_mille": 6.09,
+      "tasso_mortalita_mille": 20.71,
+      "tasso_saldo_nat_mille": -14.62
     },
     {
       "istat": "041005",
@@ -1008,6 +1287,8 @@
       "eta_0_14": 106,
       "eta_15_64": 444,
       "eta_65_oltre": 191,
+      "eta_15_19": 39,
+      "eta_60_64": 48,
       "nascite_2024": 4,
       "decessi_2024": 12,
       "saldo_naturale_2024": -8,
@@ -1017,7 +1298,11 @@
       "saldo_interno_2024": 4,
       "saldo_totale_2024": 1,
       "indice_vecchiaia": 180.2,
-      "indice_dipendenza": 66.9
+      "indice_dipendenza": 66.9,
+      "indice_ricambio_attivi": 123.1,
+      "tasso_natalita_mille": 5.4,
+      "tasso_mortalita_mille": 16.19,
+      "tasso_saldo_nat_mille": -10.8
     },
     {
       "istat": "041041",
@@ -1029,6 +1314,8 @@
       "eta_0_14": 64,
       "eta_15_64": 411,
       "eta_65_oltre": 156,
+      "eta_15_19": 30,
+      "eta_60_64": 65,
       "nascite_2024": 0,
       "decessi_2024": 6,
       "saldo_naturale_2024": -6,
@@ -1038,7 +1325,11 @@
       "saldo_interno_2024": -7,
       "saldo_totale_2024": -14,
       "indice_vecchiaia": 243.8,
-      "indice_dipendenza": 53.5
+      "indice_dipendenza": 53.5,
+      "indice_ricambio_attivi": 216.7,
+      "tasso_natalita_mille": 0.0,
+      "tasso_mortalita_mille": 9.51,
+      "tasso_saldo_nat_mille": -9.51
     },
     {
       "istat": "041048",
@@ -1050,6 +1341,8 @@
       "eta_0_14": 50,
       "eta_15_64": 377,
       "eta_65_oltre": 174,
+      "eta_15_19": 28,
+      "eta_60_64": 44,
       "nascite_2024": 3,
       "decessi_2024": 4,
       "saldo_naturale_2024": -1,
@@ -1059,7 +1352,11 @@
       "saldo_interno_2024": -19,
       "saldo_totale_2024": 30,
       "indice_vecchiaia": 348.0,
-      "indice_dipendenza": 59.4
+      "indice_dipendenza": 59.4,
+      "indice_ricambio_attivi": 157.1,
+      "tasso_natalita_mille": 4.99,
+      "tasso_mortalita_mille": 6.66,
+      "tasso_saldo_nat_mille": -1.66
     },
     {
       "istat": "041031",
@@ -1071,6 +1368,8 @@
       "eta_0_14": 45,
       "eta_15_64": 336,
       "eta_65_oltre": 191,
+      "eta_15_19": 34,
+      "eta_60_64": 54,
       "nascite_2024": 3,
       "decessi_2024": 12,
       "saldo_naturale_2024": -9,
@@ -1080,7 +1379,11 @@
       "saldo_interno_2024": -7,
       "saldo_totale_2024": -16,
       "indice_vecchiaia": 424.4,
-      "indice_dipendenza": 70.2
+      "indice_dipendenza": 70.2,
+      "indice_ricambio_attivi": 158.8,
+      "tasso_natalita_mille": 5.24,
+      "tasso_mortalita_mille": 20.98,
+      "tasso_saldo_nat_mille": -15.73
     },
     {
       "istat": "041021",
@@ -1092,6 +1395,8 @@
       "eta_0_14": 48,
       "eta_15_64": 322,
       "eta_65_oltre": 156,
+      "eta_15_19": 22,
+      "eta_60_64": 39,
       "nascite_2024": 3,
       "decessi_2024": 8,
       "saldo_naturale_2024": -5,
@@ -1101,7 +1406,11 @@
       "saldo_interno_2024": -10,
       "saldo_totale_2024": -18,
       "indice_vecchiaia": 325.0,
-      "indice_dipendenza": 63.4
+      "indice_dipendenza": 63.4,
+      "indice_ricambio_attivi": 177.3,
+      "tasso_natalita_mille": 5.7,
+      "tasso_mortalita_mille": 15.21,
+      "tasso_saldo_nat_mille": -9.51
     },
     {
       "istat": "041006",
@@ -1113,6 +1422,8 @@
       "eta_0_14": 40,
       "eta_15_64": 301,
       "eta_65_oltre": 170,
+      "eta_15_19": 21,
+      "eta_60_64": 47,
       "nascite_2024": 2,
       "decessi_2024": 13,
       "saldo_naturale_2024": -11,
@@ -1122,7 +1433,11 @@
       "saldo_interno_2024": -8,
       "saldo_totale_2024": -11,
       "indice_vecchiaia": 425.0,
-      "indice_dipendenza": 69.8
+      "indice_dipendenza": 69.8,
+      "indice_ricambio_attivi": 223.8,
+      "tasso_natalita_mille": 3.91,
+      "tasso_mortalita_mille": 25.44,
+      "tasso_saldo_nat_mille": -21.53
     },
     {
       "istat": "041017",
@@ -1134,6 +1449,8 @@
       "eta_0_14": 39,
       "eta_15_64": 177,
       "eta_65_oltre": 82,
+      "eta_15_19": 23,
+      "eta_60_64": 23,
       "nascite_2024": 3,
       "decessi_2024": 7,
       "saldo_naturale_2024": -4,
@@ -1143,7 +1460,11 @@
       "saldo_interno_2024": 14,
       "saldo_totale_2024": 4,
       "indice_vecchiaia": 210.3,
-      "indice_dipendenza": 68.4
+      "indice_dipendenza": 68.4,
+      "indice_ricambio_attivi": 100.0,
+      "tasso_natalita_mille": 10.07,
+      "tasso_mortalita_mille": 23.49,
+      "tasso_saldo_nat_mille": -13.42
     }
   ]
 }

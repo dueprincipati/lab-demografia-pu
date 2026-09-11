@@ -3,6 +3,7 @@
 Pipeline di estrazione e riconciliazione dati demografici ISTAT (2024-2025)
 per i 50 comuni della Provincia di Pesaro e Urbino.
 Verifica la conciliazione esatta al 100% con i totali provinciali del Rendiconto Sociale INPS.
+Include indici avanzati di ricambio attivo lavoro/pensione e tassi demografici per mille.
 """
 
 import urllib.request
@@ -17,6 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 RAW_DIR = os.path.join(DATA_DIR, 'raw')
 OUTPUT_FILE = os.path.join(DATA_DIR, 'demografia_comunale_conciliata.json')
+OUTPUT_JS = os.path.join(DATA_DIR, 'demografia_comunale_conciliata.js')
 
 ATS_1_COMUNI = {"041044", "041019", "041020", "041027", "041036", "041058", "041068"}
 ATS_6_COMUNI = {"041013", "041010", "041069", "041029", "041032", "041043", "041051", 
@@ -63,7 +65,7 @@ def download_and_process():
             with open(bilancio_file, 'w', encoding='latin1') as f:
                 f.write(d7b_raw)
 
-    print("📊 3. Elaborazione struttura per età (1° Gennaio 2025)...")
+    print("📊 3. Elaborazione struttura per età e ricambio attivo (1° Gennaio 2025)...")
     comuni_data = {}
     lines = posas_csv.strip().split('\n')
     reader = csv.reader(lines[1:], delimiter=';')
@@ -95,6 +97,8 @@ def download_and_process():
                 "eta_0_14": 0,
                 "eta_15_64": 0,
                 "eta_65_oltre": 0,
+                "eta_15_19": 0, # Nuove leve in ingresso nel mercato lavoro
+                "eta_60_64": 0, # Uscite prossime verso la pensione
                 "nascite_2024": 0,
                 "decessi_2024": 0,
                 "saldo_naturale_2024": 0,
@@ -116,6 +120,11 @@ def download_and_process():
         else:
             c["eta_65_oltre"] += totale
 
+        if 15 <= eta <= 19:
+            c["eta_15_19"] += totale
+        elif 60 <= eta <= 64:
+            c["eta_60_64"] += totale
+
     print("📊 4. Elaborazione bilancio naturale e migratorio 2024...")
     d7b_lines = d7b_raw.strip().split('\n')
     d7b_reader = csv.reader(d7b_lines, delimiter=';')
@@ -123,7 +132,6 @@ def download_and_process():
     
     for row in d7b_reader:
         if not row or len(row) < 20: continue
-        # Provincia 041, Sesso Totale, Riga comune specifica
         if row[18] == '041' and row[3] == 'Totale' and row[16] != '':
             codice = row[16]
             if codice in comuni_data:
@@ -137,8 +145,9 @@ def download_and_process():
                 c["saldo_estero_2024"] += int(row[13] or 0)
                 c["saldo_totale_2024"] = c["saldo_naturale_2024"] + c["saldo_interno_2024"] + c["saldo_estero_2024"]
 
-    # Calcolo indici strutturali
+    # Calcolo indici strutturali e tassi per mille
     for c in comuni_data.values():
+        pop = c["popolazione_2025"]
         if c["eta_0_14"] > 0:
             c["indice_vecchiaia"] = round((c["eta_65_oltre"] / c["eta_0_14"]) * 100, 1)
         else:
@@ -149,6 +158,22 @@ def download_and_process():
         else:
             c["indice_dipendenza"] = 0.0
 
+        # Indice di ricambio della popolazione attiva: Pop 60-64 / Pop 15-19 * 100
+        if c["eta_15_19"] > 0:
+            c["indice_ricambio_attivi"] = round((c["eta_60_64"] / c["eta_15_19"]) * 100, 1)
+        else:
+            c["indice_ricambio_attivi"] = 100.0
+
+        # Tassi demografici per 1.000 abitanti
+        if pop > 0:
+            c["tasso_natalita_mille"] = round((c["nascite_2024"] / pop) * 1000, 2)
+            c["tasso_mortalita_mille"] = round((c["decessi_2024"] / pop) * 1000, 2)
+            c["tasso_saldo_nat_mille"] = round((c["saldo_naturale_2024"] / pop) * 1000, 2)
+        else:
+            c["tasso_natalita_mille"] = 0.0
+            c["tasso_mortalita_mille"] = 0.0
+            c["tasso_saldo_nat_mille"] = 0.0
+
     comuni_list = sorted(comuni_data.values(), key=lambda x: x["popolazione_2025"], reverse=True)
     
     # Totali provinciali aggregati
@@ -158,11 +183,12 @@ def download_and_process():
     prov_0_14 = sum(c["eta_0_14"] for c in comuni_list)
     prov_15_64 = sum(c["eta_15_64"] for c in comuni_list)
     prov_65 = sum(c["eta_65_oltre"] for c in comuni_list)
+    prov_15_19 = sum(c["eta_15_19"] for c in comuni_list)
+    prov_60_64 = sum(c["eta_60_64"] for c in comuni_list)
     prov_nascite = sum(c["nascite_2024"] for c in comuni_list)
     prov_decessi = sum(c["decessi_2024"] for c in comuni_list)
     prov_saldo_nat = sum(c["saldo_naturale_2024"] for c in comuni_list)
     
-    # Totali ufficiali da Rendiconto Sociale 2025 (Tavola 1, 2, 3 e data_2025.js)
     rs_totali = {
         "popolazione_totale": 349558,
         "maschi": 172218,
@@ -203,7 +229,8 @@ def download_and_process():
     # Aggregazione per ATS
     ats_summary = defaultdict(lambda: {
         "comuni_count": 0, "popolazione": 0, "nascite": 0, "decessi": 0, 
-        "saldo_nat": 0, "eta_0_14": 0, "eta_15_64": 0, "eta_65_oltre": 0
+        "saldo_nat": 0, "eta_0_14": 0, "eta_15_64": 0, "eta_65_oltre": 0,
+        "eta_15_19": 0, "eta_60_64": 0
     })
     for c in comuni_list:
         a = ats_summary[c["ats"]]
@@ -215,10 +242,14 @@ def download_and_process():
         a["eta_0_14"] += c["eta_0_14"]
         a["eta_15_64"] += c["eta_15_64"]
         a["eta_65_oltre"] += c["eta_65_oltre"]
+        a["eta_15_19"] += c["eta_15_19"]
+        a["eta_60_64"] += c["eta_60_64"]
         
     for a in ats_summary.values():
         a["indice_vecchiaia"] = round((a["eta_65_oltre"] / a["eta_0_14"]) * 100, 1) if a["eta_0_14"] > 0 else 0
         a["indice_dipendenza"] = round(((a["eta_0_14"] + a["eta_65_oltre"]) / a["eta_15_64"]) * 100, 1) if a["eta_15_64"] > 0 else 0
+        a["indice_ricambio_attivi"] = round((a["eta_60_64"] / a["eta_15_19"]) * 100, 1) if a["eta_15_19"] > 0 else 0
+        a["tasso_saldo_nat_mille"] = round((a["saldo_nat"] / a["popolazione"]) * 1000, 2) if a["popolazione"] > 0 else 0
 
     output_dataset = {
         "metadata": {
@@ -226,7 +257,16 @@ def download_and_process():
             "fonte_istat": "Istat Demo (POSAS 2025 al 1° Gennaio 2025 & Bilancio Demografico 2024)",
             "fonte_rs": "INPS - Rendiconto Sociale Provinciale 2025",
             "comuni_totali": len(comuni_list),
-            "nota_metodologica": "La somma dei 50 comuni concilia al 100% con i dati della Relazione Sociale Provinciale 2025 (Tavole 1, 2, 3)."
+            "provincia_totali": {
+                "popolazione": prov_pop,
+                "indice_vecchiaia": round((prov_65 / prov_0_14) * 100, 1),
+                "indice_dipendenza": round(((prov_0_14 + prov_65) / prov_15_64) * 100, 1),
+                "indice_ricambio_attivi": round((prov_60_64 / prov_15_19) * 100, 1),
+                "saldo_naturale": prov_saldo_nat,
+                "tasso_saldo_nat_mille": round((prov_saldo_nat / prov_pop) * 1000, 2),
+                "nascite": prov_nascite,
+                "decessi": prov_decessi
+            }
         },
         "riconciliazione_rendiconto_sociale": riconciliazione,
         "aggregazione_ats": ats_summary,
@@ -235,8 +275,11 @@ def download_and_process():
     
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(output_dataset, f, indent=2, ensure_ascii=False)
+
+    with open(OUTPUT_JS, 'w', encoding='utf-8') as f:
+        f.write("const demografiaTerritorialeData = " + json.dumps(output_dataset, indent=2, ensure_ascii=False) + ";")
         
-    print(f"\n✅ File generato con successo: {OUTPUT_FILE}")
+    print(f"\n✅ File generati con successo:\n   - {OUTPUT_FILE}\n   - {OUTPUT_JS}")
     print("=" * 65)
     print("🎯 REPORT DI RICONCILIAZIONE ESATTA CON IL RENDICONTO SOCIALE 2025:")
     print("=" * 65)
@@ -244,10 +287,10 @@ def download_and_process():
     for k, v in riconciliazione["confronto"].items():
         print(f" ✅ {k:<23}: Somma Comuni={v['somma_50_comuni']:>8} | RS 2025={v['rendiconto_sociale']:>8} | Diff={v['diff']}")
     print("=" * 65)
-    print("\n📊 RIEPILOGO AGGREGAZIONE PER AMBITI TERRITORIALI SOCIALI (ATS):")
+    print("\n📊 RIEPILOGO ATS CON INDICE DI RICAMBIO ATTIVI (LAVORO / PENSIONE):")
     print("-" * 65)
     for ats_name, data in sorted(ats_summary.items()):
-        print(f"📍 {ats_name:<30} | Pop: {data['popolazione']:>7} | Vecchiaia: {data['indice_vecchiaia']:>5.1f} | Saldo Nat: {data['saldo_nat']:>5}")
+        print(f"📍 {ats_name:<30} | Pop: {data['popolazione']:>7} | Vecchiaia: {data['indice_vecchiaia']:>5.1f} | Ricambio Attivi: {data['indice_ricambio_attivi']:>5.1f}%")
     print("=" * 65)
 
 if __name__ == "__main__":
