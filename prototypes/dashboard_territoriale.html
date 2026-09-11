@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="it" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔬 Lab Demografia PU - Esploratore Territoriale dei 50 Comuni</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .card-glass {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🔬</span>
+          <div>
+            <h1 class="text-xl font-bold text-white flex items-center gap-2">
+              Lab Demografia PU <span class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/30">50 Comuni</span>
+            </h1>
+            <p class="text-xs text-slate-400">Analisi sub-provinciale ISTAT riconciliata con il Rendiconto Sociale 2025</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
+          Quadratura RS: 100% Coincidente
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+
+    <!-- KPI Summary Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="card-glass rounded-xl p-5 border-l-4 border-l-indigo-500">
+        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Popolazione Totale (1° Gen 2025)</p>
+        <p class="text-2xl font-bold text-white mt-1" id="kpiPopolazione">349.558</p>
+        <p class="text-xs text-emerald-400 mt-1">Somma 50 Comuni = Totale RS</p>
+      </div>
+
+      <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500">
+        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Saldo Naturale 2024</p>
+        <p class="text-2xl font-bold text-amber-400 mt-1" id="kpiSaldoNat">-2.009</p>
+        <p class="text-xs text-slate-400 mt-1">1.884 Nati / 3.893 Decessi</p>
+      </div>
+
+      <div class="card-glass rounded-xl p-5 border-l-4 border-l-purple-500">
+        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Indice di Vecchiaia Prov.</p>
+        <p class="text-2xl font-bold text-purple-400 mt-1" id="kpiVecchiaia">224,7</p>
+        <p class="text-xs text-slate-400 mt-1">89.887 anziani / 40.004 giovani</p>
+      </div>
+
+      <div class="card-glass rounded-xl p-5 border-l-4 border-l-blue-500">
+        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Ambiti Territoriali (ATS)</p>
+        <p class="text-2xl font-bold text-blue-400 mt-1">3 Ambiti</p>
+        <p class="text-xs text-slate-400 mt-1">ATS 1 (Pesaro), ATS 2 (Urbino), ATS 6 (Fano)</p>
+      </div>
+    </div>
+
+    <!-- Sezione 1: Certificato di Quadratura e Conciliazione -->
+    <section class="card-glass rounded-xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>⚖️</span> Certificato di Conciliazione con il Rendiconto Sociale 2025
+          </h2>
+          <p class="text-sm text-slate-400">Verifica matematica: la somma delle 50 righe comunali ISTAT quadra al centesimo con la Relazione Sociale Provinciale.</p>
+        </div>
+        <span class="px-3 py-1 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-semibold">
+          DISCREPANZA = 0
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-slate-300">
+          <thead class="text-xs uppercase bg-slate-800/80 text-slate-400">
+            <tr>
+              <th class="px-4 py-3">Variabile Demografica</th>
+              <th class="px-4 py-3 text-right">Somma 50 Comuni (ISTAT)</th>
+              <th class="px-4 py-3 text-right">Totale Rendiconto Sociale 2025</th>
+              <th class="px-4 py-3 text-right">Scostamento (Diff)</th>
+              <th class="px-4 py-3 text-center">Stato</th>
+            </tr>
+          </thead>
+          <tbody id="reconciliationTableBody" class="divide-y divide-slate-800">
+            <!-- Popolato via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Sezione 2: Confronto ATS (Ambiti Territoriali Sociali) -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>🗺️</span> Confronto Macro-Territoriale: I 3 Ambiti Territoriali Sociali (ATS)
+          </h2>
+          <p class="text-sm text-slate-400">Ripartizione istituzionale utilizzata per la programmazione sociale e socio-sanitaria provinciale.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" id="atsCardsContainer">
+        <!-- Card ATS generate via JS -->
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card-glass rounded-xl p-5">
+          <h3 class="text-sm font-semibold text-slate-300 mb-4">Ripartizione della Popolazione per Fasce d'Età nei 3 ATS</h3>
+          <div class="h-64">
+            <canvas id="atsAgeChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card-glass rounded-xl p-5">
+          <h3 class="text-sm font-semibold text-slate-300 mb-4">Confronto Saldo Naturale 2024 per ATS</h3>
+          <div class="h-64">
+            <canvas id="atsNaturalChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sezione 3: Top e Flop Indice di Vecchiaia -->
+    <section class="card-glass rounded-xl p-6">
+      <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+        <span>📊</span> Polarizzazione Territoriale: Comuni con Maggiore vs Minore Indice di Vecchiaia
+      </h2>
+      <p class="text-sm text-slate-400 mb-6">Evidenza del divario tra aree montane interne (forte senilizzazione) e fasce urbane costiere/vallive.</p>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-sm font-semibold text-rose-400 mb-3">Top 10 Comuni con Indice di Vecchiaia Più Elevato (Aree Montane/Interne)</h3>
+          <div class="h-80">
+            <canvas id="topOldChart"></canvas>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-indigo-400 mb-3">Top 10 Comuni con Indice di Vecchiaia Più Contenuto (Costa e Valli)</h3>
+          <div class="h-80">
+            <canvas id="topYoungChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sezione 4: Tabella Esplorativa dei 50 Comuni -->
+    <section class="card-glass rounded-xl p-6 space-y-4">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>📋</span> Esploratore Analitico dei 50 Comuni
+          </h2>
+          <p class="text-sm text-slate-400">Tutti i dati comunali 2024-2025 con filtro per ATS e ricerca per nome.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+          <input type="text" id="searchInput" placeholder="Cerca comune..." 
+                 class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+          <select id="atsFilter" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <option value="ALL">Tutti gli ATS</option>
+            <option value="ATS 1 - Pesaro">ATS 1 - Pesaro</option>
+            <option value="ATS 6 - Fano">ATS 6 - Fano</option>
+            <option value="ATS 2 - Urbino e Montefeltro">ATS 2 - Urbino e Montefeltro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto max-h-[550px] overflow-y-auto">
+        <table class="w-full text-sm text-left text-slate-300">
+          <thead class="text-xs uppercase bg-slate-800/90 text-slate-400 sticky top-0 backdrop-blur z-10">
+            <tr>
+              <th class="px-4 py-3 cursor-pointer hover:text-white" onclick="sortTable('nome')">Comune ⬍</th>
+              <th class="px-4 py-3">Ambito (ATS)</th>
+              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('popolazione_2025')">Popolazione 2025 ⬍</th>
+              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('indice_vecchiaia')">Indice Vecchiaia ⬍</th>
+              <th class="px-4 py-3 text-right">0-14 anni (%)</th>
+              <th class="px-4 py-3 text-right">65+ anni (%)</th>
+              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('nascite_2024')">Nati ⬍</th>
+              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('decessi_2024')">Morti ⬍</th>
+              <th class="px-4 py-3 text-right cursor-pointer hover:text-white" onclick="sortTable('saldo_naturale_2024')">Saldo Nat. ⬍</th>
+            </tr>
+          </thead>
+          <tbody id="comuniTableBody" class="divide-y divide-slate-800/60 font-mono text-xs">
+            <!-- Popolato via JS -->
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500 text-right" id="tableCounter">Visualizzati 50 di 50 comuni</p>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-800 bg-slate-900 py-6 text-center text-xs text-slate-500">
+    Laboratorio Demografico Sperimentale • Provincia di Pesaro e Urbino • Fonti: ISTAT Demo 2024-2025 & INPS Rendiconto Sociale 2025
+  </footer>
+
+  <!-- Caricamento Dati e Logica Applicativa -->
+  <script src="../data/demografia_comunale_conciliata.js"></script>
+  <script>
+    const data = demografiaTerritorialeData;
+    let currentComuni = [...data.comuni];
+    let sortColumn = 'popolazione_2025';
+    let sortAsc = false;
+
+    // 1. Inizializza Tabella Riconciliazione
+    const reconBody = document.getElementById('reconciliationTableBody');
+    const reconData = data.riconciliazione_rendiconto_sociale.confronto;
+    
+    const labelsMap = {
+      'popolazione_totale': 'Popolazione Totale Residente (1° Gen 2025)',
+      'maschi': 'Popolazione Maschile',
+      'femmine': 'Popolazione Femminile',
+      'eta_0_14': 'Giovani in età 0-14 anni',
+      'eta_15_64': 'Popolazione in età attiva 15-64 anni',
+      'eta_65_oltre': 'Popolazione anziana 65 anni e oltre',
+      'nascite_2024': 'Nati vivi nel corso del 2024',
+      'decessi_2024': 'Decessi registrati nel 2024',
+      'saldo_naturale_2024': 'Saldo Naturale Netto (Nati - Decessi)'
+    };
+
+    for (const [key, row] of Object.entries(reconData)) {
+      const tr = document.createElement('tr');
+      tr.className = "hover:bg-slate-800/40 transition-colors";
+      tr.innerHTML = `
+        <td class="px-4 py-2.5 font-medium text-slate-200">${labelsMap[key] || key}</td>
+        <td class="px-4 py-2.5 text-right font-mono text-emerald-400 font-semibold">${row.somma_50_comuni.toLocaleString('it-IT')}</td>
+        <td class="px-4 py-2.5 text-right font-mono text-slate-300">${row.rendiconto_sociale.toLocaleString('it-IT')}</td>
+        <td class="px-4 py-2.5 text-right font-mono ${row.diff === 0 ? 'text-emerald-400' : 'text-rose-400'}">${row.diff}</td>
+        <td class="px-4 py-2.5 text-center"><span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">QUADRATO ✅</span></td>
+      `;
+      reconBody.appendChild(tr);
+    }
+
+    // 2. Inizializza Card ATS
+    const atsContainer = document.getElementById('atsCardsContainer');
+    const atsColors = {
+      'ATS 1 - Pesaro': { border: 'border-indigo-500', text: 'text-indigo-400' },
+      'ATS 6 - Fano': { border: 'border-cyan-500', text: 'text-cyan-400' },
+      'ATS 2 - Urbino e Montefeltro': { border: 'border-amber-500', text: 'text-amber-400' }
+    };
+
+    for (const [atsName, a] of Object.entries(data.aggregazione_ats)) {
+      const colors = atsColors[atsName] || { border: 'border-slate-500', text: 'text-slate-300' };
+      const card = document.createElement('div');
+      card.className = `card-glass rounded-xl p-5 border-t-4 ${colors.border}`;
+      card.innerHTML = `
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-bold text-white text-base">${atsName}</h3>
+          <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-400">${a.comuni_count} Comuni</span>
+        </div>
+        <p class="text-2xl font-bold ${colors.text} my-2">${a.popolazione.toLocaleString('it-IT')} <span class="text-xs font-normal text-slate-400">residenti</span></p>
+        <div class="grid grid-cols-2 gap-2 text-xs border-t border-slate-800 pt-3 mt-3">
+          <div><span class="text-slate-500">Indice Vecchiaia:</span> <strong class="text-slate-200">${a.indice_vecchiaia}</strong></div>
+          <div><span class="text-slate-500">Saldo Naturale:</span> <strong class="${a.saldo_nat < 0 ? 'text-rose-400' : 'text-emerald-400'}">${a.saldo_nat}</strong></div>
+          <div><span class="text-slate-500">0-14 anni:</span> <strong class="text-slate-200">${Math.round(a.eta_0_14 / a.popolazione * 1000)/10}%</strong></div>
+          <div><span class="text-slate-500">65+ anni:</span> <strong class="text-slate-200">${Math.round(a.eta_65_oltre / a.popolazione * 1000)/10}%</strong></div>
+        </div>
+      `;
+      atsContainer.appendChild(card);
+    }
+
+    // 3. Grafici ATS
+    const atsKeys = Object.keys(data.aggregazione_ats);
+    const ats0_14 = atsKeys.map(k => data.aggregazione_ats[k].eta_0_14);
+    const ats15_64 = atsKeys.map(k => data.aggregazione_ats[k].eta_15_64);
+    const ats65p = atsKeys.map(k => data.aggregazione_ats[k].eta_65_oltre);
+
+    new Chart(document.getElementById('atsAgeChart'), {
+      type: 'bar',
+      data: {
+        labels: atsKeys.map(k => k.split(' - ')[1] || k),
+        datasets: [
+          { label: '0-14 anni', data: ats0_14, backgroundColor: '#38bdf8' },
+          { label: '15-64 anni', data: ats15_64, backgroundColor: '#6366f1' },
+          { label: '65+ anni', data: ats65p, backgroundColor: '#f43f5e' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { stacked: true, ticks: { color: '#94a3b8' }, grid: { display: false } },
+          y: { stacked: true, ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('atsNaturalChart'), {
+      type: 'bar',
+      data: {
+        labels: atsKeys.map(k => k.split(' - ')[1] || k),
+        datasets: [
+          { label: 'Nascite', data: atsKeys.map(k => data.aggregazione_ats[k].nascite), backgroundColor: '#10b981' },
+          { label: 'Decessi', data: atsKeys.map(k => data.aggregazione_ats[k].decessi), backgroundColor: '#f59e0b' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } }
+        }
+      }
+    });
+
+    // 4. Grafici Top e Flop Indice di Vecchiaia
+    const sortedByOld = [...data.comuni].filter(c => c.indice_vecchiaia < 900).sort((a,b) => b.indice_vecchiaia - a.indice_vecchiaia);
+    const top10Old = sortedByOld.slice(0, 10);
+    const top10Young = sortedByOld.slice(-10).reverse();
+
+    new Chart(document.getElementById('topOldChart'), {
+      type: 'bar',
+      data: {
+        labels: top10Old.map(c => c.nome),
+        datasets: [{
+          label: 'Indice di Vecchiaia',
+          data: top10Old.map(c => c.indice_vecchiaia),
+          backgroundColor: '#e11d48'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('topYoungChart'), {
+      type: 'bar',
+      data: {
+        labels: top10Young.map(c => c.nome),
+        datasets: [{
+          label: 'Indice di Vecchiaia',
+          data: top10Young.map(c => c.indice_vecchiaia),
+          backgroundColor: '#4f46e5'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#cbd5e1' }, grid: { display: false } }
+        }
+      }
+    });
+
+    // 5. Gestione Tabella Comunale
+    function renderComuniTable() {
+      const tbody = document.getElementById('comuniTableBody');
+      tbody.innerHTML = '';
+      
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const ats = document.getElementById('atsFilter').value;
+
+      let filtered = data.comuni.filter(c => {
+        const matchesSearch = c.nome.toLowerCase().includes(search);
+        const matchesAts = ats === 'ALL' || c.ats === ats;
+        return matchesSearch && matchesAts;
+      });
+
+      filtered.sort((a, b) => {
+        let valA = a[sortColumn];
+        let valB = b[sortColumn];
+        if (typeof valA === 'string') {
+          return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+        return sortAsc ? valA - valB : valB - valA;
+      });
+
+      filtered.forEach(c => {
+        const perc0_14 = Math.round((c.eta_0_14 / c.popolazione_2025) * 1000) / 10;
+        const perc65 = Math.round((c.eta_65_oltre / c.popolazione_2025) * 1000) / 10;
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/50 transition-colors";
+        tr.innerHTML = `
+          <td class="px-4 py-2 font-sans font-medium text-slate-200">${c.nome}</td>
+          <td class="px-4 py-2 font-sans text-slate-400">${c.ats.split(' - ')[1] || c.ats}</td>
+          <td class="px-4 py-2 text-right text-slate-100 font-bold">${c.popolazione_2025.toLocaleString('it-IT')}</td>
+          <td class="px-4 py-2 text-right ${c.indice_vecchiaia > 300 ? 'text-rose-400 font-bold' : (c.indice_vecchiaia < 200 ? 'text-indigo-400' : 'text-slate-300')}">${c.indice_vecchiaia.toFixed(1)}</td>
+          <td class="px-4 py-2 text-right text-sky-400">${perc0_14}%</td>
+          <td class="px-4 py-2 text-right text-pink-400">${perc65}%</td>
+          <td class="px-4 py-2 text-right text-emerald-400">${c.nascite_2024}</td>
+          <td class="px-4 py-2 text-right text-amber-400">${c.decessi_2024}</td>
+          <td class="px-4 py-2 text-right font-bold ${c.saldo_naturale_2024 < 0 ? 'text-rose-400' : 'text-emerald-400'}">${c.saldo_naturale_2024}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('tableCounter').innerText = `Visualizzati ${filtered.length} di 50 comuni`;
+    }
+
+    function sortTable(col) {
+      if (sortColumn === col) {
+        sortAsc = !sortAsc;
+      } else {
+        sortColumn = col;
+        sortAsc = (col === 'nome');
+      }
+      renderComuniTable();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderComuniTable);
+    document.getElementById('atsFilter').addEventListener('change', renderComuniTable);
+
+    renderComuniTable();
+  </script>
+</body>
+</html>

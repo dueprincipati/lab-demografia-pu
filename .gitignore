@@ -15,6 +15,7 @@ ENV/
 
 # Dati temporanei / cache
 data/cache/
+data/raw/
 *.tmp
 
 # OS
