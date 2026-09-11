@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔬 Lab Demografia PU - Esploratore Territoriale dei 50 Comuni</title>
+  <title>🔬 Lab Demografia PU - Mappa Cartografica e Dati dei 50 Comuni</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -32,6 +34,21 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
+    .leaflet-container {
+      background: #090d16 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: rgba(15, 23, 42, 0.95) !important;
+      color: #f1f5f9 !important;
+      border: 1px solid rgba(99, 102, 241, 0.3) !important;
+      backdrop-filter: blur(8px) !important;
+      border-radius: 0.75rem !important;
+      padding: 4px;
+    }
+    .leaflet-popup-tip {
+      background: rgba(15, 23, 42, 0.95) !important;
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
@@ -44,7 +61,7 @@
           <span class="text-2xl">🔬</span>
           <div>
             <h1 class="text-xl font-bold text-white flex items-center gap-2">
-              Lab Demografia PU <span class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/30">50 Comuni</span>
+              Lab Demografia PU <span class="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/30">Mappa 50 Comuni</span>
             </h1>
             <p class="text-xs text-slate-400">Analisi sub-provinciale ISTAT riconciliata con il Rendiconto Sociale 2025</p>
           </div>
@@ -53,7 +70,7 @@
       <div class="flex items-center space-x-3">
         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
           <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
-          Quadratura RS: 100% Coincidente
+          Quadratura RS: 100% Coincidente (Diff = 0)
         </span>
       </div>
     </div>
@@ -88,7 +105,155 @@
       </div>
     </div>
 
-    <!-- Sezione 1: Certificato di Quadratura e Conciliazione -->
+    <!-- SEZIONE MAPPA CARTOGRAFICA INTERATTIVA (PUNTO 1) -->
+    <section class="card-glass rounded-xl p-6 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>🗺️</span> Cartografia Tematica dei 50 Comuni della Provincia
+          </h2>
+          <p class="text-sm text-slate-400">Mappa coropletica interattiva GIS: clicca su un comune per esaminare la scheda analitica dettagliata.</p>
+        </div>
+
+        <!-- Selettore Indicatore Mappa -->
+        <div class="flex flex-wrap gap-1.5 bg-slate-900/90 p-1.5 rounded-lg border border-slate-800 text-xs">
+          <button onclick="setMapMetric('vecchiaia')" id="btn-vecchiaia" 
+                  class="px-3 py-1.5 rounded-md font-medium transition-all bg-indigo-600 text-white shadow">
+            Indice di Vecchiaia
+          </button>
+          <button onclick="setMapMetric('saldo_nat')" id="btn-saldo_nat" 
+                  class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+            Saldo Naturale
+          </button>
+          <button onclick="setMapMetric('ats')" id="btn-ats" 
+                  class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+            Ambiti ATS
+          </button>
+          <button onclick="setMapMetric('popolazione')" id="btn-popolazione" 
+                  class="px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+            Popolazione 2025
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Contenitore Mappa (2/3) -->
+        <div class="lg:col-span-2 rounded-xl overflow-hidden border border-slate-800 relative" style="height: 560px;">
+          <div id="map" class="w-full h-full"></div>
+
+          <!-- Badge Info Hover in sovraimpressione -->
+          <div id="mapHoverInfo" class="absolute top-4 left-4 bg-slate-900/90 border border-slate-700/80 rounded-lg px-3 py-2 text-xs backdrop-blur pointer-events-none z-[1000] shadow-lg">
+            <span class="text-slate-400">Passa il cursore su un comune per visualizzarne l'indicatore</span>
+          </div>
+
+          <!-- Legenda Mappa dinamica -->
+          <div id="mapLegend" class="absolute bottom-4 right-4 bg-slate-900/90 border border-slate-700/80 rounded-lg p-3 text-xs backdrop-blur z-[1000] shadow-lg max-w-xs">
+            <!-- Popolato dinamicamente da JS -->
+          </div>
+        </div>
+
+        <!-- Scheda Dettaglio Comune Selezionato (1/3) -->
+        <div class="card-glass rounded-xl p-5 flex flex-col justify-between border-t-4 border-t-indigo-500" id="comuneDetailPanel">
+          <div class="space-y-4">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300" id="detailIstat">Cod. ISTAT: 041044</span>
+                <h3 class="text-xl font-bold text-white mt-1" id="detailNome">Pesaro</h3>
+                <p class="text-xs text-slate-400" id="detailAts">Ambito: ATS 1 - Pesaro</p>
+              </div>
+              <span class="text-xs px-2 py-1 rounded bg-slate-800 text-slate-300 font-mono" id="detailRank">#1 Popolazione</span>
+            </div>
+
+            <!-- Popolazione ed età -->
+            <div>
+              <div class="flex justify-between items-baseline mb-1">
+                <span class="text-xs text-slate-400">Popolazione residente (1° Gen 2025):</span>
+                <span class="text-lg font-bold text-white font-mono" id="detailPop">95.421</span>
+              </div>
+              <div class="flex justify-between text-xs text-slate-400 mb-2">
+                <span>Maschi: <strong class="text-slate-200" id="detailM">46.120</strong></span>
+                <span>Femmine: <strong class="text-slate-200" id="detailF">49.301</strong></span>
+              </div>
+
+              <!-- Mini barre fasce d'età -->
+              <div class="space-y-1.5 pt-1">
+                <div>
+                  <div class="flex justify-between text-[11px] text-slate-400">
+                    <span>Giovani (0-14 anni)</span>
+                    <span id="detailPerc0_14" class="text-sky-400 font-semibold">11,2%</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="bar0_14" class="bg-sky-400 h-full rounded-full" style="width: 11.2%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-[11px] text-slate-400">
+                    <span>Età attiva (15-64 anni)</span>
+                    <span id="detailPerc15_64" class="text-indigo-400 font-semibold">62,8%</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="bar15_64" class="bg-indigo-500 h-full rounded-full" style="width: 62.8%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-[11px] text-slate-400">
+                    <span>Anziani (65+ anni)</span>
+                    <span id="detailPerc65" class="text-rose-400 font-semibold">26,0%</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div id="bar65" class="bg-rose-500 h-full rounded-full" style="width: 26.0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Indicatori Strutturali -->
+            <div class="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-slate-800">
+              <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+                <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Indice Vecchiaia</span>
+                <span class="text-base font-bold text-purple-400" id="detailVecchiaia">232,1</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">Media PU: 224,7</span>
+              </div>
+              <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+                <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Indice Dipendenza</span>
+                <span class="text-base font-bold text-amber-400" id="detailDipendenza">59,2</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">Carico su attivi</span>
+              </div>
+            </div>
+
+            <!-- Bilancio Naturale 2024 -->
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 text-xs">
+              <span class="text-slate-400 font-semibold block mb-1 text-[11px]">Dinamica Naturale 2024</span>
+              <div class="grid grid-cols-3 gap-1 text-center font-mono">
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Nati</span>
+                  <span class="text-emerald-400 font-bold" id="detailNati">540</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Morti</span>
+                  <span class="text-amber-400 font-bold" id="detailMorti">1.100</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Saldo</span>
+                  <span class="text-rose-400 font-bold" id="detailSaldoNat">-560</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <button onclick="resetMapView()" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">
+              ↺ Reimposta vista provinciale
+            </button>
+            <span class="text-[10px] text-slate-500">Fonte: ISTAT Demo 2025</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sezione 2: Certificato di Quadratura e Conciliazione -->
     <section class="card-glass rounded-xl p-6">
       <div class="flex items-center justify-between mb-4">
         <div>
@@ -120,12 +285,12 @@
       </div>
     </section>
 
-    <!-- Sezione 2: Confronto ATS (Ambiti Territoriali Sociali) -->
+    <!-- Sezione 3: Confronto ATS (Ambiti Territoriali Sociali) -->
     <section class="space-y-6">
       <div class="flex items-center justify-between">
         <div>
           <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <span>🗺️</span> Confronto Macro-Territoriale: I 3 Ambiti Territoriali Sociali (ATS)
+            <span>🏛️</span> Confronto Macro-Territoriale: I 3 Ambiti Territoriali Sociali (ATS)
           </h2>
           <p class="text-sm text-slate-400">Ripartizione istituzionale utilizzata per la programmazione sociale e socio-sanitaria provinciale.</p>
         </div>
@@ -152,7 +317,7 @@
       </div>
     </section>
 
-    <!-- Sezione 3: Top e Flop Indice di Vecchiaia -->
+    <!-- Sezione 4: Top e Flop Indice di Vecchiaia -->
     <section class="card-glass rounded-xl p-6">
       <h2 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
         <span>📊</span> Polarizzazione Territoriale: Comuni con Maggiore vs Minore Indice di Vecchiaia
@@ -175,14 +340,14 @@
       </div>
     </section>
 
-    <!-- Sezione 4: Tabella Esplorativa dei 50 Comuni -->
+    <!-- Sezione 5: Tabella Esplorativa dei 50 Comuni -->
     <section class="card-glass rounded-xl p-6 space-y-4">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 class="text-lg font-bold text-white flex items-center gap-2">
             <span>📋</span> Esploratore Analitico dei 50 Comuni
           </h2>
-          <p class="text-sm text-slate-400">Tutti i dati comunali 2024-2025 con filtro per ATS e ricerca per nome.</p>
+          <p class="text-sm text-slate-400">Clicca su un comune per evidenziarlo sulla mappa e aprirne la scheda informativa.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
@@ -226,15 +391,251 @@
     Laboratorio Demografico Sperimentale • Provincia di Pesaro e Urbino • Fonti: ISTAT Demo 2024-2025 & INPS Rendiconto Sociale 2025
   </footer>
 
-  <!-- Caricamento Dati e Logica Applicativa -->
+  <!-- Dati GeoJSON e Tabelle -->
   <script src="../data/demografia_comunale_conciliata.js"></script>
+  <script src="../data/comuni_pu_geo.js"></script>
+
   <script>
     const data = demografiaTerritorialeData;
-    let currentComuni = [...data.comuni];
-    let sortColumn = 'popolazione_2025';
-    let sortAsc = false;
+    const geojson = comuniGeoData;
+    let currentMetric = 'vecchiaia';
+    let geojsonLayer = null;
+    let map = null;
+    let selectedLayer = null;
 
-    // 1. Inizializza Tabella Riconciliazione
+    // ==========================================
+    // 1. INIZIALIZZAZIONE MAPPA LEAFLET
+    // ==========================================
+    function initMap() {
+      // Centro geografico approssimato della provincia di PU
+      map = L.map('map', {
+        zoomControl: true,
+        attributionControl: false
+      }).setView([43.72, 12.65], 10);
+
+      // Sfondo CartoDB Dark Matter per stile coerente con Tailwind Dark Mode
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 18,
+        subdomains: 'abcd'
+      }).addTo(map);
+
+      renderGeoJsonLayer();
+      map.fitBounds(geojsonLayer.getBounds(), { padding: [15, 15] });
+      updateMapLegend();
+    }
+
+    // Palette e scale cromatiche
+    function getColorForMetric(props, metric) {
+      if (metric === 'vecchiaia') {
+        const v = props.indice_vecchiaia || 220;
+        return v > 400 ? '#881337' : // rose-900
+               v > 320 ? '#be123c' : // rose-700
+               v > 250 ? '#e11d48' : // rose-600
+               v > 200 ? '#6366f1' : // indigo-500
+               v > 160 ? '#38bdf8' : // sky-400
+                         '#10b981';  // emerald-500
+      } else if (metric === 'saldo_nat') {
+        const s = props.saldo_naturale_2024 || 0;
+        return s >= 0  ? '#10b981' : // verde (raro)
+               s > -20 ? '#38bdf8' : // azzurro
+               s > -50 ? '#f59e0b' : // ambra
+               s > -150 ? '#f43f5e' : // rosso chiaro
+                         '#9f1239';  // rosso scuro
+      } else if (metric === 'ats') {
+        const ats = props.ats || '';
+        if (ats.includes('ATS 1')) return '#6366f1'; // Indigo (Pesaro)
+        if (ats.includes('ATS 6')) return '#06b6d4'; // Cyan (Fano)
+        return '#f59e0b'; // Amber (Urbino e Montefeltro)
+      } else if (metric === 'popolazione') {
+        const p = props.popolazione_2025 || 0;
+        return p > 50000 ? '#4338ca' : // Indigo scuro
+               p > 15000 ? '#6366f1' : // Indigo medio
+               p > 5000  ? '#818cf8' : // Indigo chiaro
+               p > 2000  ? '#38bdf8' : // Sky
+               p > 1000  ? '#0d9488' : // Teal
+                           '#059669';  // Emerald
+      }
+      return '#6366f1';
+    }
+
+    function getFeatureStyle(feature) {
+      const isSelected = selectedLayer && selectedLayer.feature.properties.com_istat_code === feature.properties.com_istat_code;
+      return {
+        fillColor: getColorForMetric(feature.properties, currentMetric),
+        weight: isSelected ? 3.5 : 1.2,
+        opacity: 1,
+        color: isSelected ? '#38bdf8' : '#334155', // bordo
+        fillOpacity: isSelected ? 0.9 : 0.7
+      };
+    }
+
+    function renderGeoJsonLayer() {
+      if (geojsonLayer) {
+        map.removeLayer(geojsonLayer);
+      }
+
+      geojsonLayer = L.geoJSON(geojson, {
+        style: getFeatureStyle,
+        onEachFeature: (feature, layer) => {
+          layer.on({
+            mouseover: (e) => {
+              const p = feature.properties;
+              let metricVal = '';
+              if (currentMetric === 'vecchiaia') metricVal = `Indice Vecchiaia: <strong>${p.indice_vecchiaia}</strong>`;
+              else if (currentMetric === 'saldo_nat') metricVal = `Saldo Naturale: <strong>${p.saldo_naturale_2024}</strong>`;
+              else if (currentMetric === 'ats') metricVal = `Ambito: <strong>${p.ats}</strong>`;
+              else if (currentMetric === 'popolazione') metricVal = `Residenti: <strong>${p.popolazione_2025.toLocaleString('it-IT')}</strong>`;
+
+              document.getElementById('mapHoverInfo').innerHTML = `
+                <strong class="text-white">${p.name}</strong> • ${metricVal}
+              `;
+              
+              if (!selectedLayer || selectedLayer !== layer) {
+                layer.setStyle({ weight: 2.5, color: '#f8fafc', fillOpacity: 0.85 });
+              }
+            },
+            mouseout: (e) => {
+              document.getElementById('mapHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore su un comune per visualizzarne l'indicatore</span>`;
+              if (!selectedLayer || selectedLayer !== layer) {
+                geojsonLayer.resetStyle(layer);
+              }
+            },
+            click: (e) => {
+              selectComune(feature.properties, layer);
+            }
+          });
+        }
+      }).addTo(map);
+    }
+
+    function setMapMetric(metric) {
+      currentMetric = metric;
+      ['vecchiaia', 'saldo_nat', 'ats', 'popolazione'].forEach(m => {
+        const btn = document.getElementById(`btn-${m}`);
+        if (m === metric) {
+          btn.className = "px-3 py-1.5 rounded-md font-medium transition-all bg-indigo-600 text-white shadow";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-md font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800";
+        }
+      });
+      renderGeoJsonLayer();
+      updateMapLegend();
+    }
+
+    function updateMapLegend() {
+      const leg = document.getElementById('mapLegend');
+      if (currentMetric === 'vecchiaia') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Indice di Vecchiaia</div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#881337"></span><span>> 400 (Molto elevato / Montagna)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#be123c"></span><span>321 - 400 (Forte senilizzazione)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#e11d48"></span><span>251 - 320</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#6366f1"></span><span>201 - 250 (In media prov. ~225)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#38bdf8"></span><span>161 - 200</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#10b981"></span><span>< 160 (Comuni più giovani)</span></div>
+          </div>
+        `;
+      } else if (currentMetric === 'saldo_nat') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Saldo Naturale 2024</div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#10b981"></span><span>Saldo positivo / nullo (>= 0)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#38bdf8"></span><span>Tra -1 e -20</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#f59e0b"></span><span>Tra -21 e -50</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#f43f5e"></span><span>Tra -51 e -150</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#9f1239"></span><span>Sotto -150 (Pesaro, Fano)</span></div>
+          </div>
+        `;
+      } else if (currentMetric === 'ats') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Ambiti Territoriali Sociali</div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#6366f1"></span><span>ATS 1 - Pesaro (7 Comuni)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#06b6d4"></span><span>ATS 6 - Fano (12 Comuni)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#f59e0b"></span><span>ATS 2 - Urbino e Montefeltro (31)</span></div>
+          </div>
+        `;
+      } else if (currentMetric === 'popolazione') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1.5 text-[11px] uppercase tracking-wider">Popolazione Residente 2025</div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#4338ca"></span><span>> 50.000 ab. (Poli urbani)</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#6366f1"></span><span>15.001 - 50.000 ab.</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#818cf8"></span><span>5.001 - 15.000 ab.</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#38bdf8"></span><span>2.001 - 5.000 ab.</span></div>
+            <div class="flex items-center gap-2"><span class="w-3.5 h-3.5 rounded" style="background:#059669"></span><span>< 1.000 ab. (Piccoli borghi)</span></div>
+          </div>
+        `;
+      }
+    }
+
+    function selectComune(props, layer) {
+      if (selectedLayer) {
+        geojsonLayer.resetStyle(selectedLayer);
+      }
+      selectedLayer = layer;
+      if (layer) {
+        layer.setStyle({ weight: 3.5, color: '#38bdf8', fillOpacity: 0.95 });
+        map.fitBounds(layer.getBounds(), { maxZoom: 12, padding: [30, 30] });
+      }
+
+      // Aggiorna scheda
+      document.getElementById('detailIstat').innerText = `Cod. ISTAT: ${props.com_istat_code || props.istat}`;
+      document.getElementById('detailNome').innerText = props.name || props.nome;
+      document.getElementById('detailAts').innerText = `Ambito: ${props.ats}`;
+      
+      const rank = data.comuni.findIndex(c => c.istat === (props.com_istat_code || props.istat)) + 1;
+      document.getElementById('detailRank').innerText = `#${rank} per Popolazione`;
+
+      document.getElementById('detailPop').innerText = (props.popolazione_2025 || 0).toLocaleString('it-IT');
+      document.getElementById('detailM').innerText = (props.maschi_2025 || 0).toLocaleString('it-IT');
+      document.getElementById('detailF').innerText = (props.femmine_2025 || 0).toLocaleString('it-IT');
+
+      const p0_14 = props.perc_0_14 || Math.round((props.eta_0_14 / props.popolazione_2025)*1000)/10;
+      const p15_64 = Math.round((props.eta_15_64 / props.popolazione_2025)*1000)/10;
+      const p65 = props.perc_65_oltre || Math.round((props.eta_65_oltre / props.popolazione_2025)*1000)/10;
+
+      document.getElementById('detailPerc0_14').innerText = `${p0_14}%`;
+      document.getElementById('bar0_14').style.width = `${p0_14}%`;
+
+      document.getElementById('detailPerc15_64').innerText = `${p15_64}%`;
+      document.getElementById('bar15_64').style.width = `${p15_64}%`;
+
+      document.getElementById('detailPerc65').innerText = `${p65}%`;
+      document.getElementById('bar65').style.width = `${p65}%`;
+
+      document.getElementById('detailVecchiaia').innerText = props.indice_vecchiaia.toFixed(1);
+      document.getElementById('detailDipendenza').innerText = props.indice_dipendenza.toFixed(1);
+
+      document.getElementById('detailNati').innerText = props.nascite_2024;
+      document.getElementById('detailMorti').innerText = props.decessi_2024;
+      document.getElementById('detailSaldoNat').innerText = props.saldo_naturale_2024;
+    }
+
+    function resetMapView() {
+      if (selectedLayer) {
+        geojsonLayer.resetStyle(selectedLayer);
+        selectedLayer = null;
+      }
+      map.fitBounds(geojsonLayer.getBounds(), { padding: [15, 15] });
+      // Reimposta dettaglio su Pesaro (capoluogo)
+      const pesaroProps = data.comuni.find(c => c.istat === '041044');
+      if (pesaroProps) selectComune(pesaroProps, null);
+    }
+
+    function focusComuneFromTable(istatCode) {
+      geojsonLayer.eachLayer(layer => {
+        if (layer.feature.properties.com_istat_code === istatCode) {
+          selectComune(layer.feature.properties, layer);
+          window.scrollTo({ top: document.getElementById('map').offsetTop - 100, behavior: 'smooth' });
+        }
+      });
+    }
+
+    // ==========================================
+    // 2. TABELLA RICONCILIAZIONE
+    // ==========================================
     const reconBody = document.getElementById('reconciliationTableBody');
     const reconData = data.riconciliazione_rendiconto_sociale.confronto;
     
@@ -263,7 +664,9 @@
       reconBody.appendChild(tr);
     }
 
-    // 2. Inizializza Card ATS
+    // ==========================================
+    // 3. CARD & GRAFICI ATS
+    // ==========================================
     const atsContainer = document.getElementById('atsCardsContainer');
     const atsColors = {
       'ATS 1 - Pesaro': { border: 'border-indigo-500', text: 'text-indigo-400' },
@@ -291,7 +694,6 @@
       atsContainer.appendChild(card);
     }
 
-    // 3. Grafici ATS
     const atsKeys = Object.keys(data.aggregazione_ats);
     const ats0_14 = atsKeys.map(k => data.aggregazione_ats[k].eta_0_14);
     const ats15_64 = atsKeys.map(k => data.aggregazione_ats[k].eta_15_64);
@@ -338,7 +740,9 @@
       }
     });
 
-    // 4. Grafici Top e Flop Indice di Vecchiaia
+    // ==========================================
+    // 4. TOP & FLOP VECCHIAIA
+    // ==========================================
     const sortedByOld = [...data.comuni].filter(c => c.indice_vecchiaia < 900).sort((a,b) => b.indice_vecchiaia - a.indice_vecchiaia);
     const top10Old = sortedByOld.slice(0, 10);
     const top10Young = sortedByOld.slice(-10).reverse();
@@ -387,7 +791,12 @@
       }
     });
 
-    // 5. Gestione Tabella Comunale
+    // ==========================================
+    // 5. TABELLA COMUNALE COLLEGATA ALLA MAPPA
+    // ==========================================
+    let sortColumn = 'popolazione_2025';
+    let sortAsc = false;
+
     function renderComuniTable() {
       const tbody = document.getElementById('comuniTableBody');
       tbody.innerHTML = '';
@@ -414,9 +823,13 @@
         const perc0_14 = Math.round((c.eta_0_14 / c.popolazione_2025) * 1000) / 10;
         const perc65 = Math.round((c.eta_65_oltre / c.popolazione_2025) * 1000) / 10;
         const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-800/50 transition-colors";
+        tr.className = "hover:bg-slate-800/60 cursor-pointer transition-colors";
+        tr.title = "Clicca per evidenziare sulla mappa";
+        tr.onclick = () => focusComuneFromTable(c.istat);
         tr.innerHTML = `
-          <td class="px-4 py-2 font-sans font-medium text-slate-200">${c.nome}</td>
+          <td class="px-4 py-2 font-sans font-medium text-slate-200 flex items-center gap-1.5">
+            <span class="text-indigo-400">📍</span> ${c.nome}
+          </td>
           <td class="px-4 py-2 font-sans text-slate-400">${c.ats.split(' - ')[1] || c.ats}</td>
           <td class="px-4 py-2 text-right text-slate-100 font-bold">${c.popolazione_2025.toLocaleString('it-IT')}</td>
           <td class="px-4 py-2 text-right ${c.indice_vecchiaia > 300 ? 'text-rose-400 font-bold' : (c.indice_vecchiaia < 200 ? 'text-indigo-400' : 'text-slate-300')}">${c.indice_vecchiaia.toFixed(1)}</td>
@@ -445,7 +858,14 @@
     document.getElementById('searchInput').addEventListener('input', renderComuniTable);
     document.getElementById('atsFilter').addEventListener('change', renderComuniTable);
 
-    renderComuniTable();
+    // Boot
+    window.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      renderComuniTable();
+      // Mostra Pesaro di default
+      const pesaro = data.comuni.find(c => c.istat === '041044');
+      if (pesaro) selectComune(pesaro, null);
+    });
   </script>
 </body>
 </html>
