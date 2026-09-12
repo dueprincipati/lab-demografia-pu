@@ -1,0 +1,194 @@
+[
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2018,
+    "valore": 496.46
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2019,
+    "valore": 497.31
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2020,
+    "valore": 498.75
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2021,
+    "valore": 497.46
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2022,
+    "valore": 498.98
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2023,
+    "valore": 500.98
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2018,
+    "valore": 288.84
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2019,
+    "valore": 292.31
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2020,
+    "valore": 293.51
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2021,
+    "valore": 373.13
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2022,
+    "valore": 380.39
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2023,
+    "valore": 409.78
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2018,
+    "valore": 15711.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2019,
+    "valore": 15994.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2020,
+    "valore": 16232.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2021,
+    "valore": 15437.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2022,
+    "valore": 15882.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "I",
+    "tipo_descrizione": "Indennità di Accompagnamento",
+    "anno": 2023,
+    "valore": 15772.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2018,
+    "valore": 5365.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2019,
+    "valore": 5582.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2020,
+    "valore": 5733.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2021,
+    "valore": 5675.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2022,
+    "valore": 5604.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PRESTAZIONI",
+    "tipo_prestazione": "P",
+    "tipo_descrizione": "Pensione/Assegno Invalidità",
+    "anno": 2023,
+    "valore": 5568.0
+  }
+]

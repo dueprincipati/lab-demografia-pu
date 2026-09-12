@@ -35,13 +35,26 @@ lab-demografia-pu/
 ├── data/
 │   ├── comuni_pu_geo.json / .js        # Poligoni GeoJSON ISTAT 50 comuni con centroidi ed elevazione
 │   ├── demografia_comunale_conciliata.json / .js  # Dataset 50 comuni conciliato al 100% con il RS 2025
+│   ├── inps_opendata/                  # 9 dataset ufficiali Open Data INPS provinciali (ITE31)
+│   │   ├── inps_auu_nuclei_pu.json     # Assegno Unico nuclei e somme erogate (2022-2024)
+│   │   ├── inps_auu_isee_disabilita_pu.json # AUU per 3 fasce ISEE, età e disabilità
+│   │   ├── inps_imprese_dipendenti_pu.json  # Imprese, dipendenti e contributi privati (2013-2022)
+│   │   ├── inps_naspi_beneficiari_pu.json   # Beneficiari NASpI annuali (2018-2022)
+│   │   ├── inps_naspi_durata_pu.json        # NASpI per durata teorica in mesi (M0-M24)
+│   │   ├── inps_prestazioni_invalidi_civili_pu.json # Invalidità civile e accompagnamento (2018-2023)
+│   │   ├── inps_invalidi_civili_eta_importi_pu.json # Invalidità per età e classi d'importo (2019-2023)
+│   │   ├── inps_pensioni_integrazioni_minimo_pu.json# Pensioni integrate al trattamento minimo (2019-2023)
+│   │   ├── inps_pensioni_maggiorazioni_pu.json     # Pensioni con maggiorazioni sociali (2019-2023)
+│   │   └── inps_opendata_summary_pu.json / .js     # Quadro riassuntivo integrato provinciale
 │   └── raw/                            # Dataset sorgente ISTAT (Bilancio 2024 e Popolazione per Età)
 ├── scripts/
 │   ├── download_and_process.py         # Download ISTAT e quadratura contabile con RS 2025
+│   ├── download_inps_opendata.py       # Pipeline automatica di estrazione Open Data INPS provinciali
 │   └── generate_geojson.py             # Generazione confini GeoJSON, centroidi e altimetria
 └── prototypes/
     ├── dashboard_territoriale.html     # Dashboard GIS e schede comunali con quadratura RS
-    └── geospatial_lab.html             # Atelier Geospaziale (8 modelli della famiglia DataVizProject)
+    ├── geospatial_lab.html             # Atelier Geospaziale (8 modelli della famiglia DataVizProject)
+    └── connessione_demografia_welfare.html # Ponte Demografia ➔ Welfare INPS (Sankey Flow + Mappa Bivariata 3x3)
 ```
 
 ### 🗺️ Prototipi Interattivi Disponibili
@@ -52,15 +65,13 @@ lab-demografia-pu/
    - Badge di quadratura contabile 100% con il Rendiconto Sociale 2025 (differenza = 0).
 
 2. **`geospatial_lab.html` (Atelier Geospaziale DataVizProject)**:
-   - Sperimentazione guidata delle forme visive della famiglia [DataVizProject Geospatial](https://datavizproject.com/family/geospatial/):
-     - **Choropleth Map**: densità e indici con normalizzazione d'area.
-     - **Bubble Map**: simboli proporzionali per evitare il bias visivo dei grandi territori montani spopolati.
-     - **Dot Density Map**: simulazione stocastica puntiforme (1 punto = 100 residenti, coorti d'età).
-     - **Pie Chart on Map**: micro-torte geolocalizzate delle tre grandi fasce generazionali (0-14, 15-64, 65+).
-     - **Bar Chart on Map**: confronto visivo diretto su mappa tra Nati vs Decessi e Forze Lavoro vs Pensionati.
-     - **Connection / Flow Map**: linee animate di gravitazione demografica e socio-sanitaria dai comuni periferici ai 3 Poli dei Distretti ATS (Pesaro, Urbino, Fano).
-     - **Dorling Cartogram**: simulazione fisica D3.js a forze repulsive per rappresentare il vero peso demografico (Pesaro e Fano dominanti).
-     - **Profile Map**: spaccato altimetrico e demografico dalla costa adriatica (0-15m) alla cresta appenninica (748m di Carpegna, Montefeltro e Catria/Nerone).
+   - Sperimentazione guidata delle 8 forme visive della famiglia [DataVizProject Geospatial](https://datavizproject.com/family/geospatial/):
+     - Choropleth Map, Bubble Map, Dot Density Map, Pie Chart on Map, Bar Chart on Map, Connection/Flow Map verso i poli ATS, Dorling Cartogram force-directed, Profile Map Altimetrico Costa ➔ Appennino.
+
+3. **`connessione_demografia_welfare.html` (Ponte Demografia ➔ Welfare & Previdenza INPS)**:
+   - **Diagramma di Flusso Interattivo (Sankey)**: mostra come la popolazione ISTAT (349.558) genera flussi verso l'Assegno Unico (105,5 M€), l'occupazione e NASpI, le pensioni IVS (99.246), le integrazioni al minimo (18.664) e l'invalidità civile / indennità di accompagnamento (21.340).
+   - **Mappa Coropletica Bivariata 3×3**: incrocio cartografico simultaneo tra l'Indice di Vecchiaia (Asse X) e l'Indice di Ricambio della Popolazione Attiva 60-64 / 15-19 (Asse Y), evidenziando i comuni dell'entroterra montano a "Doppia Vulnerabilità".
+   - Scheda di dettaglio comunale con indicatori di pressione e raccordo con i dati provinciali INPS.
 
 ---
 

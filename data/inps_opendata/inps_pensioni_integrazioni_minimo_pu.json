@@ -1,0 +1,1202 @@
+[
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 83.16
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 83.45
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 83.64
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 83.53
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 83.46
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 80.31
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 80.66
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 80.83
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 81.06
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 81.68
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 91.31
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 91.98
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 92.3
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 89.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 93.56
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 79.08
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 79.43
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 79.66
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 79.83
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 79.89
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 84.85
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 85.03
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 85.16
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 85.15
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 84.97
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 13.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 13.28
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 12.58
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 12.63
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 13.09
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 11.5
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 11.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 11.25
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 10.86
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 8.81
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 0.04
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 0.03
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 0.02
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 0.01
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 0.01
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 114.67
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 108.96
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 102.46
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 97.67
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 99.48
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 15.45
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 13.84
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 12.33
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 10.91
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_COMPLESSIVO",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 10.3
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 444.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 447.66
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 452.14
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 457.42
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 473.35
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 382.76
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 388.92
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 394.83
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 403.62
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 408.91
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 375.5
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 341.44
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 379.29
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 355.71
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 375.12
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 510.42
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 512.56
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 513.03
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 520.92
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 559.59
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 604.98
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 608.49
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 609.89
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 620.92
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 659.99
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 259.26
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 254.77
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 254.99
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 250.7
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 243.69
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 172.64
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 173.99
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 174.53
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 173.72
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 174.39
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 168.84
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 187.94
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 166.06
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 148.28
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 137.22
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 222.29
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 219.18
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 214.36
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 211.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 221.64
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 230.33
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 225.97
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 217.95
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 216.18
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_INTEGRAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 227.04
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 100.38
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 74.54
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 133.25
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 136.44
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 130.85
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 93.12
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 94.82
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 96.22
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 99.54
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE_MAGGIORAZIONE",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 100.63
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 2321.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 2282.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 2140.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 2124.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "12",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 2127.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 2312.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 2256.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 2192.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 2069.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 1658.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 9.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 6.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 4.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 0.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "13",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 3.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2019,
+    "valore": 17282.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2020,
+    "valore": 16352.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2021,
+    "valore": 15363.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2022,
+    "valore": 14423.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM0",
+    "anno": 2023,
+    "valore": 13675.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 1965.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 1750.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 1555.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 1351.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_integrazione": "14",
+    "presenza_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 1201.0
+  }
+]

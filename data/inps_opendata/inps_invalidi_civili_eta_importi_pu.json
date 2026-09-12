@@ -1,0 +1,317 @@
+[
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "01",
+    "anno": 2019,
+    "valore": 52.02
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "01",
+    "anno": 2020,
+    "valore": 52.58
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "01",
+    "anno": 2021,
+    "valore": 52.81
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "01",
+    "anno": 2022,
+    "valore": 52.6
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "01",
+    "anno": 2023,
+    "valore": 52.96
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "02",
+    "anno": 2019,
+    "valore": 76.58
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "02",
+    "anno": 2020,
+    "valore": 76.22
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "02",
+    "anno": 2021,
+    "valore": 75.06
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "02",
+    "anno": 2022,
+    "valore": 74.4
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "02",
+    "anno": 2023,
+    "valore": 73.38
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "03",
+    "anno": 2019,
+    "valore": 53.85
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "03",
+    "anno": 2020,
+    "valore": 54.63
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "03",
+    "anno": 2021,
+    "valore": 54.56
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "03",
+    "anno": 2022,
+    "valore": 54.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "ETA_MEDIA",
+    "categoria_invalidita": "03",
+    "anno": 2023,
+    "valore": 54.03
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "01",
+    "anno": 2019,
+    "valore": 291.2
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "01",
+    "anno": 2020,
+    "valore": 292.71
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "01",
+    "anno": 2021,
+    "valore": 334.61
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "01",
+    "anno": 2022,
+    "valore": 343.89
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "01",
+    "anno": 2023,
+    "valore": 372.44
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "02",
+    "anno": 2019,
+    "valore": 498.36
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "02",
+    "anno": 2020,
+    "valore": 499.66
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "02",
+    "anno": 2021,
+    "valore": 497.86
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "02",
+    "anno": 2022,
+    "valore": 498.92
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "02",
+    "anno": 2023,
+    "valore": 500.8
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "03",
+    "anno": 2019,
+    "valore": 784.99
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "03",
+    "anno": 2020,
+    "valore": 788.41
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "03",
+    "anno": 2021,
+    "valore": 925.61
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "03",
+    "anno": 2022,
+    "valore": 932.58
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "categoria_invalidita": "03",
+    "anno": 2023,
+    "valore": 969.62
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "01",
+    "anno": 2019,
+    "valore": 3338.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "01",
+    "anno": 2020,
+    "valore": 3422.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "01",
+    "anno": 2021,
+    "valore": 3369.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "01",
+    "anno": 2022,
+    "valore": 3283.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "01",
+    "anno": 2023,
+    "valore": 3317.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "02",
+    "anno": 2019,
+    "valore": 13751.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "02",
+    "anno": 2020,
+    "valore": 13934.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "02",
+    "anno": 2021,
+    "valore": 13133.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "02",
+    "anno": 2022,
+    "valore": 13437.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "02",
+    "anno": 2023,
+    "valore": 13473.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "03",
+    "anno": 2019,
+    "valore": 2290.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "03",
+    "anno": 2020,
+    "valore": 2355.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "03",
+    "anno": 2021,
+    "valore": 2321.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "03",
+    "anno": 2022,
+    "valore": 2298.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "categoria_invalidita": "03",
+    "anno": 2023,
+    "valore": 2230.0
+  }
+]

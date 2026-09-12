@@ -1,0 +1,212 @@
+[
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 408.42
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 416.83
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 402.55
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 420.57
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 447.77
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2019,
+    "valore": 523.66
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2020,
+    "valore": 524.72
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2021,
+    "valore": 576.69
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2022,
+    "valore": 583.3
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2023,
+    "valore": 620.48
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2019,
+    "valore": 606.52
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2020,
+    "valore": 609.43
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2021,
+    "valore": 607.86
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2022,
+    "valore": 616.73
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "IMP_MEDIO_MENSILE",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2023,
+    "valore": 653.79
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2019,
+    "valore": 98.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2020,
+    "valore": 81.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2021,
+    "valore": 72.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2022,
+    "valore": 81.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM1",
+    "anno": 2023,
+    "valore": 116.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2019,
+    "valore": 588.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2020,
+    "valore": 517.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2021,
+    "valore": 1981.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2022,
+    "valore": 1926.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM2",
+    "anno": 2023,
+    "valore": 1929.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2019,
+    "valore": 2619.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2020,
+    "valore": 2455.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2021,
+    "valore": 2317.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2022,
+    "valore": 2173.0
+  },
+  {
+    "territorio": "ITE31",
+    "indicatore": "NUM_PENSIONI",
+    "tipo_maggiorazione": "TM3",
+    "anno": 2023,
+    "valore": 2017.0
+  }
+]

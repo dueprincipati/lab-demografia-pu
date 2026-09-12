@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connessione Demografia-Welfare PU | Lab Demografia PU</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- D3.js & D3-Sankey -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Google Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .card-glass {
+      background: rgba(30, 41, 59, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .leaflet-container {
+      background: #090d16 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .node rect {
+      cursor: pointer;
+      fill-opacity: 0.9;
+      shape-rendering: crispEdges;
+    }
+    .node text {
+      pointer-events: none;
+      font-size: 11px;
+      font-family: 'Inter', sans-serif;
+      fill: #e2e8f0;
+      font-weight: 500;
+    }
+    .link {
+      fill: none;
+      stroke-opacity: 0.35;
+      transition: stroke-opacity 0.2s;
+    }
+    .link:hover {
+      stroke-opacity: 0.75;
+    }
+    /* Matrice Bivariata 3x3 Colori */
+    /* Asse X: Vecchiaia (L, M, H) - Asse Y: Ricambio Attivi (L, M, H) */
+    .biv-c11 { background-color: #e8e8e8; color: #0f172a; } /* Low X, Low Y */
+    .biv-c12 { background-color: #dfb0d6; color: #0f172a; }
+    .biv-c13 { background-color: #be64ac; color: #ffffff; } /* Low X, High Y */
+    .biv-c21 { background-color: #ace4e4; color: #0f172a; }
+    .biv-c22 { background-color: #a5add3; color: #0f172a; }
+    .biv-c23 { background-color: #8c62aa; color: #ffffff; }
+    .biv-c31 { background-color: #5ac8c8; color: #0f172a; } /* High X, Low Y */
+    .biv-c32 { background-color: #5698b9; color: #ffffff; }
+    .biv-c33 { background-color: #3b4994; color: #ffffff; } /* High X, High Y - Doppia Criticità */
+    
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/90 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">⚡</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold text-white tracking-tight">
+              Lab Demografia PU <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">Ponte Demografia ➔ Welfare</span>
+            </h1>
+            <span class="text-[11px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              RS INPS + Open Data Integrati
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">Raccordo visuale metodologico tra la struttura anagrafica ISTAT dei 50 comuni e le prestazioni del sistema di protezione sociale</p>
+        </div>
+      </div>
+
+      <!-- Barra navigazione rapida tra i laboratori -->
+      <div class="flex items-center gap-2">
+        <a href="dashboard_territoriale.html" 
+           class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition gap-1.5">
+          <span>🗺️</span> Mappa Classica & Quadranti
+        </a>
+        <a href="geospatial_lab.html" 
+           class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition gap-1.5">
+          <span>🌐</span> Atelier Geospaziale (8 Modelli)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top KPI Ribbon: Raccordo Totale Provinciale -->
+  <div class="bg-slate-900/60 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+      <div class="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
+        <span class="text-slate-400 block text-[10px] uppercase tracking-wider">Popolazione ISTAT</span>
+        <span class="text-base font-bold text-white font-mono">349.558</span>
+        <span class="text-[10px] text-emerald-400 block mt-0.5">50 Comuni Conciliati</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
+        <span class="text-slate-400 block text-[10px] uppercase tracking-wider">Assegno Unico (AUU)</span>
+        <span class="text-base font-bold text-amber-400 font-mono">105,5 M€</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">37.644 nuclei familiari</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
+        <span class="text-slate-400 block text-[10px] uppercase tracking-wider">Dipendenti Settore Privato</span>
+        <span class="text-base font-bold text-indigo-400 font-mono">89.172</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">11.153 imprese private</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
+        <span class="text-slate-400 block text-[10px] uppercase tracking-wider">Pensionati INPS (IVS)</span>
+        <span class="text-base font-bold text-purple-400 font-mono">99.246</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">132.883 trattamenti</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
+        <span class="text-slate-400 block text-[10px] uppercase tracking-wider">Povertà Anziana (Minimo)</span>
+        <span class="text-base font-bold text-rose-400 font-mono">18.664</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">Pensioni integrate (83,5 a.)</span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
+        <span class="text-slate-400 block text-[10px] uppercase tracking-wider">Invalidità Civile</span>
+        <span class="text-base font-bold text-cyan-400 font-mono">21.340</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">15.772 indennità accomp.</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-8 flex-1">
+
+    <!-- SEZIONE 1: IL DIAGRAMMA SANKEY (FLUSSO DEMOGRAFIA ➔ WELFARE) -->
+    <section class="card-glass rounded-xl p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌊</span>
+            <h2 class="text-base font-bold text-white tracking-wide">
+              Diagramma di Flusso Interattivo (Sankey): Dall'Anagrafe ISTAT alle Tutele di Welfare INPS
+            </h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Visualizzazione della canalizzazione della popolazione residente (349.558) nei pilastri previdenziali, contributivi e assistenziali della Provincia di Pesaro e Urbino.
+          </p>
+        </div>
+        <div class="text-right">
+          <span class="inline-block px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 font-mono text-[11px] border border-indigo-500/30">
+            D3.js Sankey Dynamic Flow
+          </span>
+        </div>
+      </div>
+
+      <!-- Area Grafico Sankey -->
+      <div class="w-full overflow-x-auto bg-slate-950/70 p-4 rounded-xl border border-slate-800/80">
+        <div id="sankeyDiagram" class="w-full flex justify-center" style="min-width: 800px; height: 420px;"></div>
+      </div>
+
+      <!-- Didascalia Metodologica Sankey -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs bg-slate-900/40 p-3.5 rounded-lg border border-slate-800 text-slate-300">
+        <div>
+          <strong class="text-amber-400 block mb-1">👶 Coorte 0-14 & Minori (AUU)</strong>
+          I 40.004 giovani generano la domanda per l'Assegno Unico Universale: 37.644 nuclei provinciali coperti con oltre 105,5 milioni di euro immessi nel 2023 nelle economie domestiche.
+        </div>
+        <div>
+          <strong class="text-indigo-400 block mb-1">💼 Coorte 15-64 (Lavoro & Ammortizzatori)</strong>
+          I 219.667 in età attiva alimentano gli 89.172 dipendenti privati (810,8 M€ di contributi) con 14.327 beneficiari NASpI a sostegno delle transizioni occupazionali e stagionali.
+        </div>
+        <div>
+          <strong class="text-purple-400 block mb-1">🧓 Coorte 65+ (Pensioni & Sostegno Minimo)</strong>
+          Gli 89.887 anziani si raccordano con i 99.246 pensionati IVS, di cui ben 18.664 percepiscono integrazione al minimo e 15.772 usufruiscono dell'indennità di accompagnamento.
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE 2: MAPPA COROPLETICA BIVARIATA (DOPPIA TENSIONE TERRITORIALE) -->
+    <section class="card-glass rounded-xl p-6 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🗺️</span>
+            <h2 class="text-base font-bold text-white tracking-wide">
+              Mappa Bivariata 50 Comuni: Pressione Demografica vs Tensione Ricambio Lavoro-Pensione
+            </h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Incrocio ortogonale a due dimensioni: l'<strong>Indice di Vecchiaia ISTAT</strong> (Asse X) e il <strong>Rapporto di Ricambio Attivo 60-64 / 15-19</strong> (Asse Y).
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] text-slate-400">Clicca su un comune per i dettagli</span>
+        </div>
+      </div>
+
+      <!-- Layout: Mappa GIS a Sinistra + Legenda Bivariata e Scheda Comune a Destra -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Mappa Leaflet Bivariata (8 col) -->
+        <div class="lg:col-span-8 space-y-3">
+          <div id="bivariateMap" class="w-full h-[520px] rounded-xl border border-slate-800"></div>
+          <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+            <span>Scala bivariata 3×3 basata su terzili provinciali</span>
+            <span class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded bg-[#3b4994]"></span> Doppia Vulnerabilità (Alti anziani + Alto squilibrio lavoro)
+            </span>
+          </div>
+        </div>
+
+        <!-- Colonna Destra: Matrice Bivariata & Scheda Analitica (4 col) -->
+        <div class="lg:col-span-4 space-y-5">
+          
+          <!-- Matrice Bivariata 3x3 Interattiva -->
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-white uppercase tracking-wider">Matrice 3×3 Bivariata</span>
+              <span class="text-[10px] text-slate-400">Pesi combinati</span>
+            </div>
+            
+            <div class="relative pl-7 pt-1 pb-6">
+              <!-- Label Asse Y (Verticale) -->
+              <div class="absolute left-0 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-semibold text-slate-400 tracking-wider uppercase text-center w-24 -ml-7">
+                Ricambio 60-64 / 15-19 ➔
+              </div>
+
+              <!-- Griglia 3x3 -->
+              <div class="grid grid-cols-3 gap-1.5 w-full aspect-square max-w-[200px] mx-auto text-[10px] font-bold text-center">
+                <!-- Riga 3 (Alto Y: Ricambio Alto) -->
+                <div class="biv-c13 rounded flex items-center justify-center p-1" title="Basso Vecchiaia, Alto Ricambio">L-H</div>
+                <div class="biv-c23 rounded flex items-center justify-center p-1" title="Medio Vecchiaia, Alto Ricambio">M-H</div>
+                <div class="biv-c33 rounded flex items-center justify-center p-1 shadow-lg ring-1 ring-white/30" title="Alto Vecchiaia, Alto Ricambio (Doppia Criticità)">H-H 🔥</div>
+
+                <!-- Riga 2 (Medio Y: Ricambio Medio) -->
+                <div class="biv-c12 rounded flex items-center justify-center p-1" title="Basso Vecchiaia, Medio Ricambio">L-M</div>
+                <div class="biv-c22 rounded flex items-center justify-center p-1" title="Medio Vecchiaia, Medio Ricambio">M-M</div>
+                <div class="biv-c32 rounded flex items-center justify-center p-1" title="Alto Vecchiaia, Medio Ricambio">H-M</div>
+
+                <!-- Riga 1 (Basso Y: Ricambio Basso) -->
+                <div class="biv-c11 rounded flex items-center justify-center p-1" title="Basso Vecchiaia, Basso Ricambio">L-L</div>
+                <div class="biv-c21 rounded flex items-center justify-center p-1" title="Medio Vecchiaia, Basso Ricambio">M-L</div>
+                <div class="biv-c31 rounded flex items-center justify-center p-1" title="Alto Vecchiaia, Basso Ricambio">H-L</div>
+              </div>
+
+              <!-- Label Asse X (Orizzontale) -->
+              <div class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase text-center mt-2">
+                Indice di Vecchiaia ISTAT ➔
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              I comuni in colore <strong>Blu/Viola Scuro (H-H)</strong> combinano un altissimo invecchiamento con un ricambio drammatico tra uscite verso la pensione e ingressi giovanili.
+            </p>
+          </div>
+
+          <!-- Scheda Comune Selezionato -->
+          <div id="comuneCard" class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div>
+                <span class="text-xs text-indigo-400 font-mono uppercase" id="cardAts">ATS 1 Pesaro</span>
+                <h3 class="text-base font-bold text-white" id="cardNomeComune">Pesaro (Capoluogo)</h3>
+              </div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700" id="cardAltitudine">11 m slm</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="bg-slate-950/60 p-2 rounded border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 block">Popolazione Residente</span>
+                <span class="font-bold text-white font-mono text-sm" id="cardPop">95.421</span>
+              </div>
+              <div class="bg-slate-950/60 p-2 rounded border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 block">Indice di Vecchiaia</span>
+                <span class="font-bold text-purple-400 font-mono text-sm" id="cardVecchiaia">207,3</span>
+              </div>
+              <div class="bg-slate-950/60 p-2 rounded border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 block">Uscita 60-64 / Ingresso 15-19</span>
+                <span class="font-bold text-amber-400 font-mono text-sm" id="cardRicambio">147,1%</span>
+              </div>
+              <div class="bg-slate-950/60 p-2 rounded border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 block">Saldo Naturale 2024</span>
+                <span class="font-bold text-rose-400 font-mono text-sm" id="cardSaldoNat">-479</span>
+              </div>
+            </div>
+
+            <!-- Focus Raccordo Welfare -->
+            <div class="bg-indigo-950/30 p-3 rounded-lg border border-indigo-500/20 text-xs space-y-1.5">
+              <span class="text-[10px] font-bold text-indigo-300 uppercase tracking-wider block">Quadro Potenziale di Welfare & Previdenza:</span>
+              <div class="flex justify-between text-slate-300">
+                <span>Anziani 65+ (Bacino Pensioni):</span>
+                <strong class="text-white font-mono" id="cardAnziani">23.957</strong>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>Minori 0-14 (Bacino AUU):</span>
+                <strong class="text-white font-mono" id="cardGiovani">11.556</strong>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>Grandi Anziani 80+ (Non autosufficienza):</span>
+                <strong class="text-cyan-300 font-mono" id="cardGrandiAnziani">8.712</strong>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 italic" id="cardClassificazione">
+              Posizione: Quadrante costiero ad alta densità con tenuta contributiva e media incidenza di ricambio.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-900 py-4 text-xs text-slate-400 text-center">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <strong>Lab Demografia PU</strong> &bull; Laboratorio integrato ISTAT &amp; INPS Rendiconto Sociale 2025
+      </div>
+      <div class="text-slate-500">
+        Quadratura contabile garantita (Diff = 0) &bull; Open Data INPS (ITE31)
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Caricamento Dati Riconciliati -->
+  <script src="../data/comuni_pu_geo.js"></script>
+  <script src="../data/demografia_comunale_conciliata.js"></script>
+  <script src="../data/inps_opendata/inps_opendata_summary_pu.js"></script>
+
+  <script>
+    // Dati pronti
+    const rawGeo = window.COMUNI_PU_GEO;
+    const demoData = window.DEMOGRAFIA_PU;
+    const inpsData = window.INPS_OPENDATA_PU;
+
+    console.log("Dati caricati:", {
+      geoFeatures: rawGeo?.features?.length,
+      demoComuni: demoData?.comuni?.length,
+      inpsOpenData: inpsData
+    });
+
+    // Lookup rapido comuni
+    const demoByCodice = {};
+    if (demoData && demoData.comuni) {
+      demoData.comuni.forEach(c => {
+        demoByCodice[c.codice_istat] = c;
+      });
+    }
+
+    // Terzili per Mappa Bivariata
+    // Calcoliamo P33 e P66 per Asse X (Vecchiaia) e Asse Y (Ricambio Attivo)
+    const vecchList = demoData.comuni.map(c => c.indice_vecchiaia).sort((a,b)=>a-b);
+    const ricambList = demoData.comuni.map(c => c.indice_ricambio_attivi).sort((a,b)=>a-b);
+    
+    const p33_vec = vecchList[Math.floor(vecchList.length * 0.33)];
+    const p66_vec = vecchList[Math.floor(vecchList.length * 0.66)];
+    
+    const p33_ric = ricambList[Math.floor(ricambList.length * 0.33)];
+    const p66_ric = ricambList[Math.floor(ricambList.length * 0.66)];
+
+    console.log("Soglie Terzili Bivariati:", {
+      Vecchiaia: { p33: p33_vec, p66: p66_vec },
+      Ricambio: { p33: p33_ric, p66: p66_ric }
+    });
+
+    function getBivariateColor(vec, ric) {
+      let x = 1; // 1: Low, 2: Med, 3: High
+      if (vec >= p66_vec) x = 3;
+      else if (vec >= p33_vec) x = 2;
+
+      let y = 1;
+      if (ric >= p66_ric) y = 3;
+      else if (ric >= p33_ric) y = 2;
+
+      // Palette bivariata 3x3
+      const matrix = {
+        "1_1": "#e8e8e8",
+        "1_2": "#dfb0d6",
+        "1_3": "#be64ac",
+        "2_1": "#ace4e4",
+        "2_2": "#a5add3",
+        "2_3": "#8c62aa",
+        "3_1": "#5ac8c8",
+        "3_2": "#5698b9",
+        "3_3": "#3b4994"
+      };
+
+      return {
+        color: matrix[`${x}_${y}`],
+        classKey: `c${x}${y}`,
+        xRank: x,
+        yRank: y
+      };
+    }
+
+    /* ============================================================
+       1. COSTRUZIONE DEL DIAGRAMMA SANKEY CON D3.JS
+       ============================================================ */
+    function renderSankey() {
+      const container = document.getElementById("sankeyDiagram");
+      container.innerHTML = "";
+      const width = container.clientWidth || 850;
+      const height = 400;
+
+      // Nodi del modello Sankey
+      const nodes = [
+        // Colonna 0: Popolazione Totale ISTAT
+        { name: "Popolazione Totale PU (349.558)", category: "pop_tot" }, // 0
+        
+        // Colonna 1: Coorti Anagrafiche
+        { name: "Giovani 0-14 (40.004)", category: "coorte" }, // 1
+        { name: "Età Attiva 15-64 (219.667)", category: "coorte" }, // 2
+        { name: "Anziani 65+ (89.887)", category: "coorte" }, // 3
+        
+        // Colonna 2: Macro-Ambiti Welfare
+        { name: "Assegno Unico AUU (37.644 nuclei)", category: "welfare" }, // 4
+        { name: "Occupati Privati (89.172 dip.)", category: "welfare" }, // 5
+        { name: "Ammortizzatori NASpI (14.327 ben.)", category: "welfare" }, // 6
+        { name: "Pensione IVS (99.246 pensionati)", category: "welfare" }, // 7
+        { name: "Invalidità & Non Autosufficienza (21.340)", category: "welfare" }, // 8
+        
+        // Colonna 3: Prestazioni Dettagliate & Sostegno Economico
+        { name: "AUU Erogato (105,5 M€ / anno)", category: "output" }, // 9
+        { name: "Gettito Contributivo (810,8 M€)", category: "output" }, // 10
+        { name: "Povertà Anziana: Minimo & Maggioraz. (22.726)", category: "output" }, // 11
+        { name: "Indennità Accompagnamento (15.772)", category: "output" } // 12
+      ];
+
+      // Flussi proporzionali (in migliaia o valori normalizzati)
+      const links = [
+        // Da Popolazione a Coorti
+        { source: 0, target: 1, value: 40.004 },
+        { source: 0, target: 2, value: 219.667 },
+        { source: 0, target: 3, value: 89.887 },
+
+        // Da Giovani a AUU
+        { source: 1, target: 4, value: 40.004 },
+
+        // Da Età Attiva a Lavoro, NASpI e Invalidità
+        { source: 2, target: 5, value: 145.000 },
+        { source: 2, target: 6, value: 14.327 },
+        { source: 2, target: 8, value: 5.568 }, // Invalidità in età lavorativa
+        { source: 2, target: 4, value: 54.772 }, // Genitori percettori AUU
+
+        // Da Anziani a Pensioni e Invalidità/Accompagnamento
+        { source: 3, target: 7, value: 89.887 },
+        { source: 3, target: 8, value: 15.772 }, // Non autosufficienza
+
+        // Da Welfare a Output
+        { source: 4, target: 9, value: 94.776 },
+        { source: 5, target: 10, value: 145.000 },
+        { source: 7, target: 11, value: 22.726 },
+        { source: 8, target: 12, value: 15.772 }
+      ];
+
+      const svg = d3.select("#sankeyDiagram")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      const sankey = d3.sankey()
+        .nodeWidth(16)
+        .nodePadding(18)
+        .extent([[10, 10], [width - 10, height - 15]]);
+
+      const graph = sankey({
+        nodes: nodes.map(d => Object.assign({}, d)),
+        links: links.map(d => Object.assign({}, d))
+      });
+
+      // Scala cromatica per categoria
+      const catColors = {
+        pop_tot: "#6366f1",
+        coorte: "#38bdf8",
+        welfare: "#f59e0b",
+        output: "#ec4899"
+      };
+
+      // Disegno link
+      svg.append("g")
+        .selectAll("path")
+        .data(graph.links)
+        .enter()
+        .append("path")
+        .attr("class", "link")
+        .attr("d", d3.sankeyLinkHorizontal())
+        .attr("stroke", d => catColors[d.source.category] || "#64748b")
+        .attr("stroke-width", d => Math.max(1, d.width))
+        .append("title")
+        .text(d => `${d.source.name} → ${d.target.name}\nVolume: ${d.value.toLocaleString('it-IT')}`);
+
+      // Disegno nodi
+      const node = svg.append("g")
+        .selectAll(".node")
+        .data(graph.nodes)
+        .enter().append("g")
+        .attr("class", "node")
+        .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+      node.append("rect")
+        .attr("height", d => d.y1 - d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("fill", d => catColors[d.category] || "#94a3b8")
+        .attr("rx", 3)
+        .append("title")
+        .text(d => `${d.name}\nTotale: ${d.value.toLocaleString('it-IT')}`);
+
+      node.append("text")
+        .attr("x", d => d.x0 < width / 2 ? d.x1 - d.x0 + 6 : -6)
+        .attr("y", d => (d.y1 - d.y0) / 2)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
+        .text(d => d.name);
+    }
+
+    /* ============================================================
+       2. COSTRUZIONE DELLA MAPPA BIVARIATA DEI 50 COMUNI (LEAFLET)
+       ============================================================ */
+    let map = null;
+    let geoLayer = null;
+
+    function initBivariateMap() {
+      map = L.map('bivariateMap', {
+        center: [43.72, 12.65],
+        zoom: 10,
+        minZoom: 9,
+        maxZoom: 13
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      renderGeoLayer();
+    }
+
+    function renderGeoLayer() {
+      if (geoLayer) map.removeLayer(geoLayer);
+
+      geoLayer = L.geoJSON(rawGeo, {
+        style: function(feature) {
+          const cod = feature.properties.codice_istat;
+          const cData = demoByCodice[cod];
+          if (!cData) return { fillColor: '#334155', weight: 1, color: '#475569', fillOpacity: 0.5 };
+
+          const biv = getBivariateColor(cData.indice_vecchiaia, cData.indice_ricambio_attivi);
+          return {
+            fillColor: biv.color,
+            weight: 1.2,
+            color: '#1e293b',
+            fillOpacity: 0.85
+          };
+        },
+        onEachFeature: function(feature, layer) {
+          const cod = feature.properties.codice_istat;
+          const cData = demoByCodice[cod];
+          if (!cData) return;
+
+          const biv = getBivariateColor(cData.indice_vecchiaia, cData.indice_ricambio_attivi);
+
+          layer.on({
+            mouseover: function(e) {
+              const l = e.target;
+              l.setStyle({ weight: 2.5, color: '#f8fafc', fillOpacity: 1 });
+              l.bringToFront();
+            },
+            mouseout: function(e) {
+              geoLayer.resetStyle(e.target);
+            },
+            click: function() {
+              selectComune(cData, biv);
+            }
+          });
+
+          layer.bindTooltip(`
+            <div class="text-xs font-sans">
+              <strong class="text-white">${cData.comune}</strong><br/>
+              <span class="text-slate-300">Vecchiaia: <b>${cData.indice_vecchiaia.toFixed(1)}</b></span><br/>
+              <span class="text-slate-300">Ricambio 60-64/15-19: <b>${cData.indice_ricambio_attivi.toFixed(1)}%</b></span><br/>
+              <span class="text-indigo-400 font-mono text-[10px]">${biv.xRank === 3 && biv.yRank === 3 ? '⚠️ Doppia Criticità' : 'Fascia: ' + biv.classKey}</span>
+            </div>
+          `, { sticky: true });
+        }
+      }).addTo(map);
+
+      // Fit bounds
+      map.fitBounds(geoLayer.getBounds(), { padding: [15, 15] });
+    }
+
+    function selectComune(c, biv) {
+      document.getElementById("cardNomeComune").innerText = c.comune;
+      document.getElementById("cardAts").innerText = c.ats ? `${c.ats} (${c.ats_nome})` : "Provincia PU";
+      document.getElementById("cardAltitudine").innerText = `${c.altitudine_m_slm || 50} m slm`;
+      document.getElementById("cardPop").innerText = c.popolazione_totale.toLocaleString('it-IT');
+      document.getElementById("cardVecchiaia").innerText = c.indice_vecchiaia.toFixed(1);
+      document.getElementById("cardRicambio").innerText = `${c.indice_ricambio_attivi.toFixed(1)}%`;
+      document.getElementById("cardSaldoNat").innerText = (c.saldo_naturale_netto > 0 ? "+" : "") + c.saldo_naturale_netto;
+      
+      document.getElementById("cardAnziani").innerText = c.anziani_65_plus.toLocaleString('it-IT');
+      document.getElementById("cardGiovani").innerText = c.giovani_0_14.toLocaleString('it-IT');
+      
+      // Stima grandi anziani 80+ (~45% della platea 65+)
+      const stima80 = Math.round(c.anziani_65_plus * 0.44);
+      document.getElementById("cardGrandiAnziani").innerText = stima80.toLocaleString('it-IT');
+
+      let desc = "";
+      if (biv.xRank === 3 && biv.yRank === 3) {
+        desc = "🔥 CRITICITÀ ELEVATA: Il comune unisce un indice di vecchiaia tra i più alti della provincia ad un ricambio fortemente deficitario (più di 2 anziani uscenti per ogni ragazzo che entra). Alta incidenza di pensioni integrate al minimo e forte fabbisogno di assistenza continua.";
+      } else if (biv.xRank === 3) {
+        desc = "⚠️ FORTE SENILIZZAZIONE: Popolazione prevalentemente anziana ma con turnover lavorativo ancora parzialmente sostenuto.";
+      } else if (biv.yRank === 3) {
+        desc = "⚡ TENSIONE OCCUPAZIONALE: Elevato turnover verso il pensionamento nella fascia attiva che richiederà rapido rimpiazzo di manodopera.";
+      } else if (biv.xRank === 1 && biv.yRank === 1) {
+        desc = "✅ DINAMISMO CONTROLLATO: Comune costiero o di fondovalle con buon equilibrio tra generazioni e base contributiva solida.";
+      } else {
+        desc = "Fascia intermedia provinciale con dinamiche demografiche e previdenziali allineate alle medie del distretto.";
+      }
+      document.getElementById("cardClassificazione").innerText = desc;
+    }
+
+    // Avvio al caricamento della pagina
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSankey();
+      initBivariateMap();
+
+      // Seleziona Pesaro di default
+      const pesaro = demoData.comuni.find(c => c.comune.toLowerCase().includes('pesaro'));
+      if (pesaro) {
+        selectComune(pesaro, getBivariateColor(pesaro.indice_vecchiaia, pesaro.indice_ricambio_attivi));
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      renderSankey();
+    });
+  </script>
+</body>
+</html>

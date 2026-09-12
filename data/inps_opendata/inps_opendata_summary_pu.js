@@ -2,21 +2,34 @@ window.INPS_OPENDATA_PU = {
   "provincia": "Pesaro e Urbino",
   "codice_nuts3": "ITE31",
   "codice_istat": "041",
-  "descrizione": "Estrazione mirata di Open Data INPS a livello provinciale integrabili con il Rendiconto Sociale",
-  "dataset_disponibili": {
+  "descrizione": "Quadro integrato Open Data INPS a livello provinciale (Welfare, Previdenza e Lavoro)",
+  "indicatori_chiave_provinciali": {
     "assegno_unico_universale": {
-      "nuclei_totali_2023": 37644,
-      "importo_totale_erogato_2023_euro": 105510671.58,
-      "nuclei_con_figli_disabili_2023": 2569,
-      "importo_disabili_2023_euro": 11002964.45
+      "anno_riferimento": 2023,
+      "nuclei_totali": 37644,
+      "importo_totale_euro": 105510671.58,
+      "nuclei_figli_disabili": 2569,
+      "importo_figli_disabili_euro": 11002964.45
     },
-    "imprese_settore_privato_2022": {
-      "anno": 2022,
-      "provincia": "Pesaro e Urbino",
-      "codice_nuts3": "ITE31",
+    "invalidita_civile": {
+      "anno_riferimento": 2023,
+      "totale_prestazioni_vigenti": 21340,
+      "indennita_accompagnamento": 15772,
+      "pensioni_invalidita_civile": 5568,
+      "importo_medio_indennita_accompagnamento_euro": 500.98,
+      "importo_medio_pensione_invalidita_euro": 409.78
+    },
+    "poverta_anziana_e_sostegno": {
+      "anno_riferimento": 2023,
+      "pensioni_integrate_al_trattamento_minimo": 18664,
+      "eta_media_titolari_integrazione": 83.5,
+      "pensioni_con_maggiorazione_sociale": 4062
+    },
+    "imprese_e_lavoro_privato": {
+      "anno_riferimento": 2022,
       "totale_dipendenti_medi": 89172,
-      "dipendenti_medi_per_impresa": 8.0,
-      "numero_imprese": 11153,
+      "numero_imprese_attive": 11153,
+      "taglia_media_impresa_dipendenti": 8.0,
       "contributi_totali_euro": 810836588
     },
     "naspi_beneficiari": [
