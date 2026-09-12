@@ -1,0 +1,326 @@
+[
+  {
+    "anno": 2022,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2729,
+    "somma_importi_euro": 3295290.16,
+    "somma_mesi": 24251
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 369,
+    "somma_importi_euro": 699827.79,
+    "somma_mesi": 3426
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 19779,
+    "somma_importi_euro": 37740513.36,
+    "somma_mesi": 187017
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 980,
+    "somma_importi_euro": 2659505.34,
+    "somma_mesi": 9379
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2932,
+    "somma_importi_euro": 2261204.36,
+    "somma_mesi": 27020
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 214,
+    "somma_importi_euro": 326879.41,
+    "somma_mesi": 2043
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 15871,
+    "somma_importi_euro": 23718441.87,
+    "somma_mesi": 154252
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 381,
+    "somma_importi_euro": 920185.9,
+    "somma_mesi": 3707
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2189,
+    "somma_importi_euro": 551801.63,
+    "somma_mesi": 19658
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 179,
+    "somma_importi_euro": 111738.0,
+    "somma_mesi": 1652
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 10391,
+    "somma_importi_euro": 4982142.9,
+    "somma_mesi": 97657
+  },
+  {
+    "anno": 2022,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 231,
+    "somma_importi_euro": 317165.5,
+    "somma_mesi": 2236
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 3228,
+    "somma_importi_euro": 4432365.55,
+    "somma_mesi": 33547
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 421,
+    "somma_importi_euro": 1028741.24,
+    "somma_mesi": 4771
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 19700,
+    "somma_importi_euro": 50431919.82,
+    "somma_mesi": 224394
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 1145,
+    "somma_importi_euro": 4031129.3,
+    "somma_mesi": 13314
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 3419,
+    "somma_importi_euro": 3132551.64,
+    "somma_mesi": 36258
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 240,
+    "somma_importi_euro": 463857.97,
+    "somma_mesi": 2759
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 15774,
+    "somma_importi_euro": 31719347.92,
+    "somma_mesi": 184307
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 430,
+    "somma_importi_euro": 1372081.94,
+    "somma_mesi": 5140
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2739,
+    "somma_importi_euro": 908139.7,
+    "somma_mesi": 27852
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 230,
+    "somma_importi_euro": 193475.2,
+    "somma_mesi": 2541
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 11071,
+    "somma_importi_euro": 7342760.91,
+    "somma_mesi": 126193
+  },
+  {
+    "anno": 2023,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 264,
+    "somma_importi_euro": 452501.95,
+    "somma_mesi": 2978
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2662,
+    "somma_importi_euro": 1455290.32,
+    "somma_mesi": 12342
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 437,
+    "somma_importi_euro": 444514.87,
+    "somma_mesi": 2001
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 19131,
+    "somma_importi_euro": 22271951.45,
+    "somma_mesi": 93960
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "1-ISEE nella prima classe di reddito",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 1178,
+    "somma_importi_euro": 1912801.6,
+    "somma_mesi": 5818
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2448,
+    "somma_importi_euro": 952094.22,
+    "somma_mesi": 11459
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 217,
+    "somma_importi_euro": 189158.06,
+    "somma_mesi": 1034
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 13958,
+    "somma_importi_euro": 12910136.57,
+    "somma_mesi": 69274
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "2-ISEE intermedio (dalla 2^ all'ultima classe)",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 381,
+    "somma_importi_euro": 553105.07,
+    "somma_mesi": 1898
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": false,
+    "numero_figli": 2915,
+    "somma_importi_euro": 502160.3,
+    "somma_mesi": 13662
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Maggiorenne",
+    "figli_disabili": true,
+    "numero_figli": 285,
+    "somma_importi_euro": 117299.38,
+    "somma_mesi": 1385
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Minorenne",
+    "figli_disabili": false,
+    "numero_figli": 13061,
+    "somma_importi_euro": 4472789.58,
+    "somma_mesi": 64218
+  },
+  {
+    "anno": 2024,
+    "classe_isee": "3-ISEE superiore ultima classe/non presentato",
+    "classe_eta": "Minorenne",
+    "figli_disabili": true,
+    "numero_figli": 311,
+    "somma_importi_euro": 270618.45,
+    "somma_mesi": 1541
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "anno": 2022,
+    "regione": "Marche",
+    "provincia": "Pesaro e Urbino",
+    "figli_disabili": false,
+    "numero_nuclei": 33573,
+    "numero_figli": 496860,
+    "somma_importi_euro": 70322027.24,
+    "somma_mesi_erogati": 318471
+  },
+  {
+    "anno": 2022,
+    "regione": "Marche",
+    "provincia": "Pesaro e Urbino",
+    "figli_disabili": true,
+    "numero_nuclei": 2217,
+    "numero_figli": 35411,
+    "somma_importi_euro": 7258885.45,
+    "somma_mesi_erogati": 21124
+  },
+  {
+    "anno": 2023,
+    "regione": "Marche",
+    "provincia": "Pesaro e Urbino",
+    "figli_disabili": false,
+    "numero_nuclei": 35075,
+    "numero_figli": 614456,
+    "somma_importi_euro": 94507707.13,
+    "somma_mesi_erogati": 397562
+  },
+  {
+    "anno": 2023,
+    "regione": "Marche",
+    "provincia": "Pesaro e Urbino",
+    "figli_disabili": true,
+    "numero_nuclei": 2569,
+    "numero_figli": 49624,
+    "somma_importi_euro": 11002964.45,
+    "somma_mesi_erogati": 29564
+  },
+  {
+    "anno": 2024,
+    "regione": "Marche",
+    "provincia": "Pesaro e Urbino",
+    "figli_disabili": false,
+    "numero_nuclei": 34163,
+    "numero_figli": 257342,
+    "somma_importi_euro": 41051600.16,
+    "somma_mesi_erogati": 167018
+  },
+  {
+    "anno": 2024,
+    "regione": "Marche",
+    "provincia": "Pesaro e Urbino",
+    "figli_disabili": true,
+    "numero_nuclei": 2618,
+    "numero_figli": 21258,
+    "somma_importi_euro": 5002768.0,
+    "somma_mesi_erogati": 12747
+  }
+]

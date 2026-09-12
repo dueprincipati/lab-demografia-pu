@@ -1,0 +1,92 @@
+[
+  {
+    "anno": 2013,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 77303,
+    "dipendenti_medi_per_impresa": 6.52,
+    "numero_imprese": 11862,
+    "contributi_totali_euro": 632143850
+  },
+  {
+    "anno": 2014,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 73688,
+    "dipendenti_medi_per_impresa": 6.59,
+    "numero_imprese": 11178,
+    "contributi_totali_euro": 622049427
+  },
+  {
+    "anno": 2015,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 72841,
+    "dipendenti_medi_per_impresa": 6.51,
+    "numero_imprese": 11195,
+    "contributi_totali_euro": 641738332
+  },
+  {
+    "anno": 2016,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 74420,
+    "dipendenti_medi_per_impresa": 6.77,
+    "numero_imprese": 11000,
+    "contributi_totali_euro": 671582465
+  },
+  {
+    "anno": 2017,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 78657,
+    "dipendenti_medi_per_impresa": 6.95,
+    "numero_imprese": 11313,
+    "contributi_totali_euro": 692651145
+  },
+  {
+    "anno": 2018,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 80049,
+    "dipendenti_medi_per_impresa": 7.08,
+    "numero_imprese": 11301,
+    "contributi_totali_euro": 690746815
+  },
+  {
+    "anno": 2019,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 82382,
+    "dipendenti_medi_per_impresa": 7.38,
+    "numero_imprese": 11169,
+    "contributi_totali_euro": 716948585
+  },
+  {
+    "anno": 2020,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 81132,
+    "dipendenti_medi_per_impresa": 7.47,
+    "numero_imprese": 10867,
+    "contributi_totali_euro": 649142453
+  },
+  {
+    "anno": 2021,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 83924,
+    "dipendenti_medi_per_impresa": 7.57,
+    "numero_imprese": 11080,
+    "contributi_totali_euro": 738369961
+  },
+  {
+    "anno": 2022,
+    "provincia": "Pesaro e Urbino",
+    "codice_nuts3": "ITE31",
+    "totale_dipendenti_medi": 89172,
+    "dipendenti_medi_per_impresa": 8.0,
+    "numero_imprese": 11153,
+    "contributi_totali_euro": 810836588
+  }
+]
