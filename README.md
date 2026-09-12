@@ -31,16 +31,36 @@ Questo repository è dedicato all'acquisizione, elaborazione e prototipazione vi
 
 ```
 lab-demografia-pu/
-├── README.md               # Documentazione e linee guida del laboratorio
-├── .gitignore              # Esclusioni git
+├── README.md                           # Documentazione e linee guida del laboratorio
 ├── data/
-│   ├── comuni_pu.json      # Anagrafica e classificazione zonale dei 50 comuni di PU
-│   └── raw/                # Dataset scaricati (ISTAT, Regione Marche)
+│   ├── comuni_pu_geo.json / .js        # Poligoni GeoJSON ISTAT 50 comuni con centroidi ed elevazione
+│   ├── demografia_comunale_conciliata.json / .js  # Dataset 50 comuni conciliato al 100% con il RS 2025
+│   └── raw/                            # Dataset sorgente ISTAT (Bilancio 2024 e Popolazione per Età)
 ├── scripts/
-│   ├── fetch_demo_istat.py # Script di download/estrazione da ISTAT Demo
-│   └── process_data.py     # Pipeline di elaborazione e calcolo indicatori
-└── prototypes/             # Prototipi HTML/JS per mappe e visualizzazioni
+│   ├── download_and_process.py         # Download ISTAT e quadratura contabile con RS 2025
+│   └── generate_geojson.py             # Generazione confini GeoJSON, centroidi e altimetria
+└── prototypes/
+    ├── dashboard_territoriale.html     # Dashboard GIS e schede comunali con quadratura RS
+    └── geospatial_lab.html             # Atelier Geospaziale (8 modelli della famiglia DataVizProject)
 ```
+
+### 🗺️ Prototipi Interattivi Disponibili
+1. **`dashboard_territoriale.html`**:
+   - Mappa coropletica interattiva dei 50 comuni (Indice di vecchiaia, Popolazione, Saldo naturale, Dipendenza strutturale).
+   - Matrice dei quadranti demografici (Dinamici costieri, Invecchiati stabili, Fragili montani, In transizione).
+   - Piramidi d'età per singolo comune e tabella analitica completa.
+   - Badge di quadratura contabile 100% con il Rendiconto Sociale 2025 (differenza = 0).
+
+2. **`geospatial_lab.html` (Atelier Geospaziale DataVizProject)**:
+   - Sperimentazione guidata delle forme visive della famiglia [DataVizProject Geospatial](https://datavizproject.com/family/geospatial/):
+     - **Choropleth Map**: densità e indici con normalizzazione d'area.
+     - **Bubble Map**: simboli proporzionali per evitare il bias visivo dei grandi territori montani spopolati.
+     - **Dot Density Map**: simulazione stocastica puntiforme (1 punto = 100 residenti, coorti d'età).
+     - **Pie Chart on Map**: micro-torte geolocalizzate delle tre grandi fasce generazionali (0-14, 15-64, 65+).
+     - **Bar Chart on Map**: confronto visivo diretto su mappa tra Nati vs Decessi e Forze Lavoro vs Pensionati.
+     - **Connection / Flow Map**: linee animate di gravitazione demografica e socio-sanitaria dai comuni periferici ai 3 Poli dei Distretti ATS (Pesaro, Urbino, Fano).
+     - **Dorling Cartogram**: simulazione fisica D3.js a forze repulsive per rappresentare il vero peso demografico (Pesaro e Fano dominanti).
+     - **Profile Map**: spaccato altimetrico e demografico dalla costa adriatica (0-15m) alla cresta appenninica (748m di Carpegna, Montefeltro e Catria/Nerone).
 
 ---
 

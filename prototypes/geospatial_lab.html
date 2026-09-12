@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="it" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔬 Atelier Geospaziale DataViz - Demografia Provincia di Pesaro e Urbino</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .card-glass {
+      background: rgba(30, 41, 59, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .leaflet-container {
+      background: #090d16 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: rgba(15, 23, 42, 0.95) !important;
+      color: #f1f5f9 !important;
+      border: 1px solid rgba(99, 102, 241, 0.4) !important;
+      backdrop-filter: blur(10px) !important;
+      border-radius: 0.75rem !important;
+      padding: 4px;
+    }
+    .leaflet-popup-tip {
+      background: rgba(15, 23, 42, 0.95) !important;
+    }
+    @keyframes flowDash {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+    .animated-flow-line {
+      stroke-dasharray: 6, 6;
+      animation: flowDash 1.2s linear infinite;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/90 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">🌐</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold text-white tracking-tight">
+              Atelier Geospaziale DataViz <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">PU 50 Comuni</span>
+            </h1>
+            <a href="https://datavizproject.com/family/geospatial/" target="_blank" rel="noopener" 
+               class="text-[11px] text-slate-400 hover:text-indigo-400 flex items-center gap-1 border border-slate-700/80 px-2 py-0.5 rounded transition-colors">
+              <span>DataVizProject Family</span> ↗
+            </a>
+          </div>
+          <p class="text-xs text-slate-400">Esplorazione visiva sperimentale dei 50 comuni conciliata al 100% con il Rendiconto Sociale 2025</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+          RS 2025: Diff = 0
+        </span>
+        <a href="dashboard_territoriale.html" 
+           class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 transition-colors gap-1.5">
+          <span>⬅️</span> Mappa Classica & Quadranti
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra Principale: I 8 Modelli della Famiglia Geospatial (DataVizProject) -->
+  <div class="bg-slate-900 border-b border-slate-800 sticky top-[61px] z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 overflow-x-auto">
+      <div class="flex items-center gap-1.5 min-w-max" id="modeSelectorContainer">
+        <button onclick="setVizMode('choropleth')" id="mode-btn-choropleth" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all bg-indigo-600 text-white shadow">
+          <span>🗺️</span> 1. Choropleth Map
+        </button>
+        <button onclick="setVizMode('bubble')" id="mode-btn-bubble" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>⚪</span> 2. Bubble Map
+        </button>
+        <button onclick="setVizMode('dot_density')" id="mode-btn-dot_density" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>🟣</span> 3. Dot Density Map
+        </button>
+        <button onclick="setVizMode('pie_map')" id="mode-btn-pie_map" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>🥧</span> 4. Pie Chart on Map
+        </button>
+        <button onclick="setVizMode('bar_map')" id="mode-btn-bar_map" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>📊</span> 5. Bar Chart on Map
+        </button>
+        <button onclick="setVizMode('flow_map')" id="mode-btn-flow_map" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>🌊</span> 6. Connection / Flow Map
+        </button>
+        <button onclick="setVizMode('cartogram')" id="mode-btn-cartogram" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>🫧</span> 7. Dorling Cartogram
+        </button>
+        <button onclick="setVizMode('profile_map')" id="mode-btn-profile_map" 
+                class="mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <span>⛰️</span> 8. Profile Map
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6 flex-1 w-full">
+
+    <!-- Card Didattica Metodologica DataVizProject (si adatta alla modalità scelta) -->
+    <div class="card-glass rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-4 border-l-indigo-500" id="methodologyBanner">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="text-xs uppercase font-mono tracking-wider text-indigo-400" id="methodologyFamily">DataViz Family: Geospatial</span>
+          <span class="text-slate-600">•</span>
+          <h3 class="text-sm font-bold text-white" id="methodologyTitle">Choropleth Map (Mappa Coropletica)</h3>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed max-w-4xl" id="methodologyDesc">
+          Rappresenta aree geografiche delimitate da poligoni amministrativi colorate in base a scale cromatiche statistiche. È ideale per visualizzare tassi standardizzati (es. Indice di Vecchiaia), ma può indurre l'illusione ottica che le aree montane poco abitate abbiano un peso demografico superiore a quelle costiere urbane.
+        </p>
+      </div>
+
+      <!-- Sotto-Controlli Specifici per la Modalità Attiva -->
+      <div class="flex items-center gap-2 shrink-0 bg-slate-900/90 p-1.5 rounded-lg border border-slate-800 text-xs" id="modeSubControls">
+      </div>
+    </div>
+
+    <!-- Area Principale di Visualizzazione (Mappa o Canvas D3) + Scheda Ispettore -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+      <!-- Contenitore Visualizzatore Geospaziale (3/4) -->
+      <div class="lg:col-span-3 card-glass rounded-xl overflow-hidden border border-slate-800 relative flex flex-col" style="min-height: 600px;">
+        
+        <!-- Viewport 1: Mappa Leaflet GIS (Modalità 1, 2, 3, 4, 5, 6) -->
+        <div id="mapViewport" class="w-full h-full relative" style="min-height: 600px;">
+          <div id="map" class="w-full h-full" style="height: 600px;"></div>
+
+          <!-- Overlay Hover Info Badge -->
+          <div id="vizHoverInfo" class="absolute top-4 left-4 bg-slate-900/90 border border-slate-700/80 rounded-lg px-3 py-2 text-xs backdrop-blur pointer-events-none z-[1000] shadow-lg">
+            <span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>
+          </div>
+
+          <!-- Legenda Dinamica della Modalità -->
+          <div id="vizLegend" class="absolute bottom-4 right-4 bg-slate-900/90 border border-slate-700/80 rounded-lg p-3 text-xs backdrop-blur z-[1000] shadow-lg max-w-xs">
+          </div>
+        </div>
+
+        <!-- Viewport 2: Canvas / D3 SVG (Modalità 7 Cartogramma & Modalità 8 Profile Map) -->
+        <div id="d3Viewport" class="w-full h-full relative hidden p-4 flex flex-col justify-between" style="min-height: 600px;">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-mono text-slate-400" id="d3ViewSubtitle">Visualizzazione D3.js</span>
+            <div id="d3ViewActions" class="flex gap-2 text-xs">
+            </div>
+          </div>
+          <div id="d3CanvasContainer" class="w-full flex-1 flex items-center justify-center relative overflow-hidden" style="height: 540px;">
+            <svg id="d3Svg" class="w-full h-full"></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scheda Ispettore Analitico del Comune Selezionato (1/4) -->
+      <div class="card-glass rounded-xl p-5 flex flex-col justify-between border-t-4 border-t-indigo-500">
+        <div class="space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300" id="inspectIstat">Cod. 041044</span>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded" id="inspectAltitudine">Alt: 11 m s.l.m.</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mt-1" id="inspectNome">Pesaro</h3>
+            <p class="text-xs text-slate-400" id="inspectAts">Ambito: ATS 1 - Pesaro</p>
+          </div>
+
+          <!-- Popolazione e Baricentro -->
+          <div>
+            <div class="flex justify-between items-baseline mb-1">
+              <span class="text-xs text-slate-400">Popolazione 2025:</span>
+              <span class="text-lg font-bold text-white font-mono" id="inspectPop">95.266</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-400 mb-2">
+              <span>Maschi: <strong class="text-slate-200" id="inspectM">45.972</strong></span>
+              <span>Femmine: <strong class="text-slate-200" id="inspectF">49.294</strong></span>
+            </div>
+
+            <!-- Coorti d'Età -->
+            <div class="space-y-1.5 pt-1">
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Giovani (0-14 anni)</span>
+                  <span id="inspectPerc0_14" class="text-sky-400 font-semibold">10,7% (10.187)</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div id="inspectBar0_14" class="bg-sky-400 h-full rounded-full" style="width: 10.7%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Età attiva (15-64 anni)</span>
+                  <span id="inspectPerc15_64" class="text-indigo-400 font-semibold">62,3% (59.371)</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div id="inspectBar15_64" class="bg-indigo-500 h-full rounded-full" style="width: 62.3%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Anziani (65+ anni)</span>
+                  <span id="inspectPerc65" class="text-rose-400 font-semibold">27,0% (25.708)</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div id="inspectBar65" class="bg-rose-500 h-full rounded-full" style="width: 27.0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Indicatori Strutturali -->
+          <div class="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-slate-800">
+            <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Indice Vecchiaia</span>
+              <span class="text-base font-bold text-purple-400" id="inspectVecchiaia">252,4</span>
+              <span class="text-[10px] text-slate-400 block mt-0.5">Media PU: 224,7</span>
+            </div>
+            <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-500 block text-[10px] uppercase tracking-wider">Ricambio Attivi</span>
+              <span class="text-base font-bold text-rose-400" id="inspectRicambio">165,0%</span>
+              <span class="text-[10px] text-slate-400 block mt-0.5">60-64 / 15-19</span>
+            </div>
+          </div>
+
+          <!-- Bilancio Naturale 2024 -->
+          <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800/80 text-xs">
+            <span class="text-slate-400 font-semibold block mb-1 text-[11px]">Dinamica Naturale 2024</span>
+            <div class="grid grid-cols-3 gap-1 text-center font-mono">
+              <div>
+                <span class="text-[10px] text-slate-500 block">Nati</span>
+                <span class="text-emerald-400 font-bold" id="inspectNati">437</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">Morti</span>
+                <span class="text-amber-400 font-bold" id="inspectMorti">1.089</span>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">Saldo</span>
+                <span class="text-rose-400 font-bold" id="inspectSaldoNat">-652</span>
+              </div>
+            </div>
+            <div class="text-center pt-2 mt-2 border-t border-slate-800/60 font-mono text-[11px]">
+              <span class="text-slate-400">Tasso Naturale:</span> <strong class="text-rose-400" id="inspectTassoNat">-6,84‰</strong>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/40 p-2 rounded-lg border border-slate-800 text-[11px] text-slate-400">
+            <span class="text-indigo-300 font-semibold block mb-0.5">💡 Insight per il comune:</span>
+            <span id="inspectInsight">Polo costiero principale; attrae flussi migratori ma registra un marcato deficit naturale (-652).</span>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-500">
+          <span>Centroid: <span id="inspectCoord" class="font-mono">43.91, 12.91</span></span>
+          <button onclick="resetMapView()" class="text-indigo-400 hover:text-indigo-300 font-medium">↺ Centra PU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Box Comparativo Metodologico tra le 8 Forme Geospaziali -->
+    <section class="card-glass rounded-xl p-6 space-y-4">
+      <h2 class="text-base font-bold text-white flex items-center gap-2">
+        <span>📖</span> La Famiglia Geospatial: Guida alla Scelta della Visualizzazione Ottimale
+      </h2>
+      <p class="text-xs text-slate-400">
+        In base alla tassonomia di DataVizProject, ogni tecnica risponde a un preciso obiettivo percettivo e corregge specifici bias visivi della cartografia convenzionale.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs pt-2">
+        <div class="bg-slate-900/70 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>🗺️</span> Choropleth vs ⚪ Bubble
+          </div>
+          <p class="text-slate-400 text-[11px] leading-relaxed">
+            La coropletica enfatizza i grandi comuni montani (es. Cagli, Cantiano), anche se quasi spopolati. La <strong>Bubble Map</strong> riequilibra lo sguardo posizionando cerchi proporzionali alla popolazione effettiva.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/70 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>🟣</span> Dot Density Map
+          </div>
+          <p class="text-slate-400 text-[11px] leading-relaxed">
+            Elimina l'illusione di omogeneità all'interno dei confini amministrativi: visualizza la reale desertificazione dell'Appennino e la densità della costa tramite singoli punti fisici.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/70 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>🥧</span> Pie & 📊 Bar on Map
+          </div>
+          <p class="text-slate-400 text-[11px] leading-relaxed">
+            Trasformano la mappa in un cruscotto multi-dimensionale: non mostrano un solo indice, ma la scomposizione interna (coorti generazionali o bilancio nascite/decessi) comune per comune.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/70 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>🫧</span> Cartogram & ⛰️ Profile
+          </div>
+          <p class="text-slate-400 text-[11px] leading-relaxed">
+            Il <strong>Dorling Cartogram</strong> distorce la geografia per rendere la popolazione la vera metrica di estensione. La <strong>Profile Map</strong> correla quota altimetrica e invecchiamento demografico.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-800 bg-slate-900/80 py-4 text-center text-xs text-slate-500">
+    Laboratorio Sperimentale Geospaziale • Rendiconto Sociale INPS 2025 • Modelli: DataVizProject Geospatial Family
+  </footer>
+
+  <!-- Dati Riconciliati e Confini Geografici -->
+  <script src="../data/demografia_comunale_conciliata.js"></script>
+  <script src="../data/comuni_pu_geo.js"></script>
+
+  <script>
+    const data = demografiaTerritorialeData;
+    const geojson = comuniGeoData;
+
+    let currentMode = 'choropleth';
+    let currentMetric = 'vecchiaia';
+    let map = null;
+    let geojsonLayer = null;
+    let overlayLayers = [];
+    let selectedFeature = null;
+
+    // Centri Ambiti Territoriali Sociali (ATS)
+    const ATS_HUBS = {
+      'ATS 1 - Pesaro': { istat: '041044', name: 'Pesaro', coords: [43.9125, 12.9155], color: '#6366f1' },
+      'ATS 6 - Fano': { istat: '041013', name: 'Fano', coords: [43.8436, 13.0183], color: '#06b6d4' },
+      'ATS 2 - Urbino e Montefeltro': { istat: '041067', name: 'Urbino', coords: [43.7262, 12.6366], color: '#f59e0b' }
+    };
+
+    const MODE_CONFIG = {
+      choropleth: {
+        title: "1. Choropleth Map (Mappa Coropletica)",
+        desc: "Colora i poligoni amministrativi dei 50 comuni in base a un gradiente quantitativo standardizzato (es. Indice di Vecchiaia o Tasso per mille). Consente una lettura immediata dei differenziali territoriali, ma assegna uguale importanza visiva alla superficie fisica anziché al numero reale di residenti.",
+        controls: `
+          <span class="text-slate-400 mr-1">Metrica:</span>
+          <select onchange="changeChoroplethMetric(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="vecchiaia" selected>Indice di Vecchiaia</option>
+            <option value="ricambio">Ricambio Attivi (Pens./Giovani)</option>
+            <option value="tasso_saldo">Tasso Saldo Naturale ‰</option>
+            <option value="popolazione">Popolazione 2025</option>
+          </select>
+        `
+      },
+      bubble: {
+        title: "2. Bubble Map (Mappa a Bolle Proporzionali)",
+        desc: "Posiziona simboli circolari sui baricentri comunali con area rigorosamente proporzionale al volume assoluto della variabile (es. Popolazione, Nati, Decessi). Corregge il bias della mappa coropletica, mostrando con chiarezza la preminenza demografica della costa e del fondovalle rispetto all'entroterra montano.",
+        controls: `
+          <span class="text-slate-400 mr-1">Grandezza bolla:</span>
+          <select onchange="changeBubbleMetric(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="popolazione" selected>Popolazione Residente 2025</option>
+            <option value="nascite">Nascite 2024</option>
+            <option value="decessi">Decessi 2024</option>
+            <option value="eta_65_oltre">Popolazione Anziana (65+ anni)</option>
+            <option value="eta_0_14">Giovani (0-14 anni)</option>
+          </select>
+        `
+      },
+      dot_density: {
+        title: "3. Dot Density Map (Mappa a Densità di Punti)",
+        desc: "Disperde punti stocastici all'interno dei confini poligonali comunali. Ogni punto rappresenta una quantità fissa di cittadini. La modalità generazionale colora i punti in base alle 3 grandi classi d'età (Giovani, Attivi, Anziani), rendendo viscerale la percezione della senilizzazione nelle aree interne rispetto alla densità dei centri costieri.",
+        controls: `
+          <span class="text-slate-400 mr-1">Modalità:</span>
+          <select onchange="changeDotDensityMode(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="cohorts" selected>A colori per Coorte (0-14, 15-64, 65+)</option>
+            <option value="density">Monocromatico per Densità (1 pt = 50 ab.)</option>
+          </select>
+        `
+      },
+      pie_map: {
+        title: "4. Pie Chart on a Map (Grafici a Torta sulla Mappa)",
+        desc: "Sovrappone a ciascun comune un micro-grafico a torta che scompone la popolazione residente nelle tre classi d'età: Giovani 0-14 (Azzurro), Età attiva 15-64 (Indaco), Anziani 65+ (Rosa). Permette di valutare contemporaneamente la struttura anagrafica percentuale e il peso demografico.",
+        controls: `
+          <span class="text-slate-400 mr-1">Scala raggio:</span>
+          <select onchange="changePieScaling(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="proportional" selected>Proporzionale alla Popolazione</option>
+            <option value="fixed">Raggio Costante Leggibile</option>
+          </select>
+        `
+      },
+      bar_map: {
+        title: "5. Bar Chart on a Map (Mappa a Grafici a Barre)",
+        desc: "Disegna micro-grafici a barre verticali affiancate per ciascun comune. Permette il confronto visivo diretto tra due forze contrapposte: Nascite vs Decessi (dinamica naturale) oppure Giovani in ingresso 15-19 vs Lavoratori in uscita verso la pensione 60-64 (impatto previdenziale INPS).",
+        controls: `
+          <span class="text-slate-400 mr-1">Coppia di Barre:</span>
+          <select onchange="changeBarMapTheme(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="vital" selected>Nati (Verde) vs Morti (Rosso)</option>
+            <option value="workforce">Ingresso Lavoro 15-19 vs Uscita Pensione 60-64</option>
+          </select>
+        `
+      },
+      flow_map: {
+        title: "6. Connection / Flow Map (Mappa delle Connessioni e Gravitazione ATS)",
+        desc: "Traccia archi curvi animati che connettono ogni singolo comune al rispettivo capoluogo di Ambito Territoriale Sociale (Pesaro per ATS 1, Fano per ATS 6, Urbino per ATS 2). Lo spessore e la pulsazione del vettore riflettono il volume demografico e le direttrici di gravitazione socio-assistenziale e sanitaria.",
+        controls: `
+          <span class="text-slate-400 mr-1">Filtro Ambito:</span>
+          <select onchange="changeFlowFilter(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="ALL" selected>Tutti i 3 Ambiti ATS</option>
+            <option value="ATS 1 - Pesaro">Solo ATS 1 (Pesaro)</option>
+            <option value="ATS 6 - Fano">Solo ATS 6 (Fano)</option>
+            <option value="ATS 2 - Urbino e Montefeltro">Solo ATS 2 (Urbino)</option>
+          </select>
+        `
+      },
+      cartogram: {
+        title: "7. Dorling Cartogram (Cartogramma a Bolle Demografiche D3)",
+        desc: "Elimina i confini topografici fisici sostituendoli con cerchi la cui area è esattamente commisurata al numero di abitanti (Popolazione 2025). Una simulazione di forze fisiche (D3 force simulation) risolve le sovrapposizioni preservando al contempo la reciproca posizione geografica.",
+        controls: `
+          <button onclick="toggleDorlingLayout()" id="btnDorlingToggle" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded font-medium transition-all">
+            Disperdi Cartogramma ↔ Griglia Reale
+          </button>
+        `
+      },
+      profile_map: {
+        title: "8. Profile Map (Profilo Altimetrico Costa ➔ Appennino)",
+        desc: "Genera una sezione trasversale topografica della provincia dal livello del mare (Gabicce, Pesaro, Fano: 0-15m s.l.m.) salendo attraverso le valli fino alle vette del Montefeltro e dell'Appennino (Carpegna, Catria oltre 700m-1000m s.l.m.), correlando la quota altimetrica con l'impennata dell'Indice di Vecchiaia.",
+        controls: `
+          <span class="text-slate-400 mr-1">Ordinamento profilo:</span>
+          <select onchange="changeProfileSorting(this.value)" class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white focus:outline-none">
+            <option value="geographic" selected>Da Ovest (Appennino) a Est (Costa Adriatica)</option>
+            <option value="altitude">Per Quota Altimetrica Crescente</option>
+          </select>
+        `
+      }
+    };
+
+    function initMap() {
+      map = L.map('map', {
+        zoomControl: true,
+        attributionControl: false
+      }).setView([43.72, 12.65], 10);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 18,
+        subdomains: 'abcd'
+      }).addTo(map);
+
+      setVizMode('choropleth');
+      
+      const pesaroProps = data.comuni.find(c => c.istat === '041044');
+      if (pesaroProps) inspectComune(pesaroProps);
+    }
+
+    function clearOverlays() {
+      overlayLayers.forEach(l => map.removeLayer(l));
+      overlayLayers = [];
+    }
+
+    function setVizMode(mode) {
+      currentMode = mode;
+
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.className = "mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white hover:bg-slate-800";
+      });
+      const activeBtn = document.getElementById(`mode-btn-${mode}`);
+      if (activeBtn) {
+        activeBtn.className = "mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all bg-indigo-600 text-white shadow";
+      }
+
+      const cfg = MODE_CONFIG[mode] || MODE_CONFIG.choropleth;
+      document.getElementById('methodologyTitle').innerText = cfg.title;
+      document.getElementById('methodologyDesc').innerText = cfg.desc;
+      document.getElementById('modeSubControls').innerHTML = cfg.controls;
+
+      const mapVp = document.getElementById('mapViewport');
+      const d3Vp = document.getElementById('d3Viewport');
+
+      if (mode === 'cartogram' || mode === 'profile_map') {
+        mapVp.classList.add('hidden');
+        d3Vp.classList.remove('hidden');
+        if (mode === 'cartogram') renderDorlingCartogram();
+        else if (mode === 'profile_map') renderProfileMap();
+      } else {
+        d3Vp.classList.add('hidden');
+        mapVp.classList.remove('hidden');
+        map.invalidateSize();
+        clearOverlays();
+
+        if (mode === 'choropleth') renderChoropleth();
+        else if (mode === 'bubble') renderBubbleMap();
+        else if (mode === 'dot_density') renderDotDensityMap();
+        else if (mode === 'pie_map') renderPieChartMap();
+        else if (mode === 'bar_map') renderBarChartMap();
+        else if (mode === 'flow_map') renderFlowMap();
+      }
+    }
+
+    function getChoroplethColor(val, metric) {
+      if (metric === 'vecchiaia') {
+        return val > 400 ? '#881337' :
+               val > 320 ? '#be123c' :
+               val > 250 ? '#e11d48' :
+               val > 200 ? '#6366f1' :
+               val > 160 ? '#38bdf8' : '#10b981';
+      } else if (metric === 'ricambio') {
+        return val > 220 ? '#881337' :
+               val > 180 ? '#e11d48' :
+               val > 150 ? '#f59e0b' :
+               val > 125 ? '#38bdf8' : '#10b981';
+      } else if (metric === 'tasso_saldo') {
+        return val >= 0   ? '#10b981' :
+               val > -4   ? '#38bdf8' :
+               val > -8   ? '#f59e0b' :
+               val > -15  ? '#f43f5e' : '#881337';
+      } else if (metric === 'popolazione') {
+        return val > 50000 ? '#4338ca' :
+               val > 15000 ? '#6366f1' :
+               val > 5000  ? '#818cf8' :
+               val > 2000  ? '#38bdf8' : '#059669';
+      }
+      return '#6366f1';
+    }
+
+    function renderChoropleth() {
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+
+      geojsonLayer = L.geoJSON(geojson, {
+        style: (feature) => {
+          const p = feature.properties;
+          let v = p[currentMetric] || (currentMetric === 'tasso_saldo' ? p.tasso_saldo_nat_mille : (currentMetric === 'ricambio' ? p.indice_ricambio_attivi : p.indice_vecchiaia));
+          return {
+            fillColor: getChoroplethColor(v, currentMetric),
+            weight: 1.2,
+            opacity: 1,
+            color: '#334155',
+            fillOpacity: 0.75
+          };
+        },
+        onEachFeature: (feature, layer) => {
+          layer.on({
+            mouseover: () => {
+              const p = feature.properties;
+              let label = currentMetric === 'vecchiaia' ? `Indice Vecchiaia: <strong>${p.indice_vecchiaia}</strong>` :
+                          currentMetric === 'ricambio' ? `Ricambio Attivi: <strong>${p.indice_ricambio_attivi}%</strong>` :
+                          currentMetric === 'tasso_saldo' ? `Tasso Naturale: <strong>${p.tasso_saldo_nat_mille}‰</strong>` :
+                          `Popolazione: <strong>${p.popolazione_2025.toLocaleString('it-IT')}</strong>`;
+              document.getElementById('vizHoverInfo').innerHTML = `<strong class="text-white">${p.name}</strong> • ${label}`;
+              layer.setStyle({ weight: 2.5, color: '#ffffff', fillOpacity: 0.9 });
+            },
+            mouseout: () => {
+              document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+              geojsonLayer.resetStyle(layer);
+            },
+            click: () => inspectComune(feature.properties)
+          });
+        }
+      }).addTo(map);
+
+      updateChoroplethLegend();
+    }
+
+    function changeChoroplethMetric(m) {
+      currentMetric = m;
+      renderChoropleth();
+    }
+
+    function updateChoroplethLegend() {
+      const leg = document.getElementById('vizLegend');
+      if (currentMetric === 'vecchiaia') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Indice di Vecchiaia</div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#881337"></span> > 400 (Molto elevato)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#be123c"></span> 321 - 400</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#e11d48"></span> 251 - 320</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#6366f1"></span> 201 - 250 (Media PU ~225)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#10b981"></span> < 200 (Più giovane)</div>
+          </div>
+        `;
+      } else if (currentMetric === 'ricambio') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Ricambio Attivi (60-64 / 15-19)</div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#881337"></span> > 220% (Squilibrio estremo)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#e11d48"></span> 181% - 220%</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#f59e0b"></span> 151% - 180% (Media PU 154,2%)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#10b981"></span> <= 125% (Equilibrato)</div>
+          </div>
+        `;
+      } else if (currentMetric === 'tasso_saldo') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Tasso Saldo Naturale (‰)</div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#10b981"></span> >= 0,0‰ (Stazionario/Positivo)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#38bdf8"></span> -0,1‰ a -4,0‰</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#f59e0b"></span> -4,1‰ a -8,0‰ (Media PU -5,75‰)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#881337"></span> < -15,0‰ (Grave calo)</div>
+          </div>
+        `;
+      } else {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Popolazione Residente 2025</div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#4338ca"></span> > 50.000 ab. (Poli costieri)</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#6366f1"></span> 15.001 - 50.000</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#818cf8"></span> 5.001 - 15.000</div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#059669"></span> < 2.000 (Aree interne)</div>
+          </div>
+        `;
+      }
+    }
+
+    let bubbleMetric = 'popolazione';
+
+    function renderBubbleMap() {
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+      geojsonLayer = L.geoJSON(geojson, {
+        style: {
+          fillColor: '#0f172a',
+          weight: 0.8,
+          color: '#334155',
+          fillOpacity: 0.5
+        },
+        onEachFeature: (f, layer) => {
+          layer.on('click', () => inspectComune(f.properties));
+        }
+      }).addTo(map);
+
+      clearOverlays();
+
+      const bubbleGroup = L.featureGroup();
+
+      geojson.features.forEach(f => {
+        const p = f.properties;
+        const c = p.centroid || [43.7, 12.6];
+        let val = p[bubbleMetric] || p.popolazione_2025;
+        if (bubbleMetric === 'popolazione') val = p.popolazione_2025;
+
+        let r = 4;
+        if (bubbleMetric === 'popolazione') {
+          r = Math.max(4, Math.sqrt(val) / 11);
+        } else if (bubbleMetric === 'nascite') {
+          r = Math.max(3, Math.sqrt(val) * 1.6);
+        } else if (bubbleMetric === 'decessi') {
+          r = Math.max(3, Math.sqrt(val) * 1.1);
+        } else if (bubbleMetric === 'eta_65_oltre') {
+          r = Math.max(4, Math.sqrt(val) / 6);
+        } else if (bubbleMetric === 'eta_0_14') {
+          r = Math.max(4, Math.sqrt(val) / 4);
+        }
+
+        const atsColor = p.ats.includes('ATS 1') ? '#6366f1' : (p.ats.includes('ATS 6') ? '#06b6d4' : '#f59e0b');
+
+        const circle = L.circleMarker(c, {
+          radius: r,
+          fillColor: atsColor,
+          color: '#ffffff',
+          weight: 1.5,
+          opacity: 0.9,
+          fillOpacity: 0.65
+        });
+
+        circle.on({
+          mouseover: () => {
+            document.getElementById('vizHoverInfo').innerHTML = `
+              <strong class="text-white">${p.name}</strong> • ${bubbleMetric}: <strong>${val.toLocaleString('it-IT')}</strong>
+            `;
+            circle.setStyle({ fillOpacity: 0.95, weight: 2.5 });
+          },
+          mouseout: () => {
+            document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+            circle.setStyle({ fillOpacity: 0.65, weight: 1.5 });
+          },
+          click: () => inspectComune(p)
+        });
+
+        bubbleGroup.addLayer(circle);
+      });
+
+      bubbleGroup.addTo(map);
+      overlayLayers.push(bubbleGroup);
+
+      document.getElementById('vizLegend').innerHTML = `
+        <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Bubble Map: ${bubbleMetric}</div>
+        <p class="text-[10px] text-slate-400 mb-2">Dimensione del cerchio proporzionale al valore assoluto.</p>
+        <div class="space-y-1 text-[11px]">
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full" style="background:#6366f1"></span> ATS 1 - Pesaro</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full" style="background:#06b6d4"></span> ATS 6 - Fano</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full" style="background:#f59e0b"></span> ATS 2 - Urbino e Montefeltro</div>
+        </div>
+      `;
+    }
+
+    function changeBubbleMetric(m) {
+      bubbleMetric = m;
+      renderBubbleMap();
+    }
+
+    let dotDensityMode = 'cohorts';
+
+    function pointInPolygon(x, y, ring) {
+      let inside = false;
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const xi = ring[i][0], yi = ring[i][1];
+        const xj = ring[j][0], yj = ring[j][1];
+        const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+
+    function renderDotDensityMap() {
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+      geojsonLayer = L.geoJSON(geojson, {
+        style: {
+          fillColor: '#070b14',
+          weight: 0.9,
+          color: '#1e293b',
+          fillOpacity: 0.85
+        },
+        onEachFeature: (f, layer) => {
+          layer.on('click', () => inspectComune(f.properties));
+        }
+      }).addTo(map);
+
+      clearOverlays();
+
+      const dotsGroup = L.featureGroup();
+
+      geojson.features.forEach(f => {
+        const p = f.properties;
+        const pop = p.popolazione_2025;
+        const coords = f.geometry.type === 'Polygon' ? f.geometry.coordinates[0] : f.geometry.coordinates[0][0];
+
+        let minX = 180, maxX = -180, minY = 90, maxY = -90;
+        coords.forEach(pt => {
+          if (pt[0] < minX) minX = pt[0];
+          if (pt[0] > maxX) maxX = pt[0];
+          if (pt[1] < minY) minY = pt[1];
+          if (pt[1] > maxY) maxY = pt[1];
+        });
+
+        if (dotDensityMode === 'cohorts') {
+          const n0_14 = Math.max(1, Math.round(p.eta_0_14 / 100));
+          const n15_64 = Math.max(1, Math.round(p.eta_15_64 / 100));
+          const n65 = Math.max(1, Math.round(p.eta_65_oltre / 100));
+
+          const cohorts = [
+            { count: n0_14, color: '#38bdf8', label: 'Giovani 0-14' },
+            { count: n15_64, color: '#818cf8', label: 'Età Attiva 15-64' },
+            { count: n65, color: '#fb7185', label: 'Anziani 65+' }
+          ];
+
+          cohorts.forEach(coh => {
+            let pts = 0;
+            let attempts = 0;
+            while (pts < coh.count && attempts < coh.count * 15) {
+              attempts++;
+              const rx = minX + Math.random() * (maxX - minX);
+              const ry = minY + Math.random() * (maxY - minY);
+              if (pointInPolygon(rx, ry, coords)) {
+                pts++;
+                const dot = L.circleMarker([ry, rx], {
+                  radius: 2,
+                  fillColor: coh.color,
+                  color: coh.color,
+                  weight: 0,
+                  fillOpacity: 0.85
+                });
+                dot.bindTooltip(`<strong>${p.name}</strong> • ${coh.label}`, { sticky: true });
+                dot.on('click', () => inspectComune(p));
+                dotsGroup.addLayer(dot);
+              }
+            }
+          });
+
+        } else {
+          const totalDots = Math.max(1, Math.round(pop / 50));
+          let pts = 0;
+          let attempts = 0;
+          while (pts < totalDots && attempts < totalDots * 15) {
+            attempts++;
+            const rx = minX + Math.random() * (maxX - minX);
+            const ry = minY + Math.random() * (maxY - minY);
+            if (pointInPolygon(rx, ry, coords)) {
+              pts++;
+              const dot = L.circleMarker([ry, rx], {
+                radius: 1.8,
+                fillColor: '#38bdf8',
+                color: '#38bdf8',
+                weight: 0,
+                fillOpacity: 0.8
+              });
+              dot.bindTooltip(`<strong>${p.name}</strong> • Pop: ${pop.toLocaleString('it-IT')}`, { sticky: true });
+              dot.on('click', () => inspectComune(p));
+              dotsGroup.addLayer(dot);
+            }
+          }
+        }
+      });
+
+      dotsGroup.addTo(map);
+      overlayLayers.push(dotsGroup);
+
+      const leg = document.getElementById('vizLegend');
+      if (dotDensityMode === 'cohorts') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Dot Density: Coorti Demografiche</div>
+          <p class="text-[10px] text-slate-400 mb-1.5">Ogni punto = <strong>100 residenti</strong> della fascia indicata:</p>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#38bdf8"></span> Giovani (0-14 anni)</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#818cf8"></span> Età Attiva (15-64 anni)</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#fb7185"></span> Anziani (65+ anni)</div>
+          </div>
+        `;
+      } else {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Dot Density: Densità Residenziale</div>
+          <p class="text-[10px] text-slate-400 mb-1.5">Ogni punto azzurro = <strong>50 residenti</strong>.</p>
+          <div class="flex items-center gap-2 text-[11px]"><span class="w-2.5 h-2.5 rounded-full" style="background:#38bdf8"></span> Popolazione Residente 2025</div>
+        `;
+      }
+    }
+
+    function changeDotDensityMode(m) {
+      dotDensityMode = m;
+      renderDotDensityMap();
+    }
+
+    let pieScaling = 'proportional';
+
+    function renderPieChartMap() {
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+      geojsonLayer = L.geoJSON(geojson, {
+        style: {
+          fillColor: '#0f172a',
+          weight: 0.8,
+          color: '#334155',
+          fillOpacity: 0.6
+        },
+        onEachFeature: (f, layer) => {
+          layer.on('click', () => inspectComune(f.properties));
+        }
+      }).addTo(map);
+
+      clearOverlays();
+
+      const piesGroup = L.featureGroup();
+
+      geojson.features.forEach(f => {
+        const p = f.properties;
+        const c = p.centroid || [43.7, 12.6];
+        const tot = p.popolazione_2025;
+        const f0_14 = p.eta_0_14 / tot;
+        const f15_64 = p.eta_15_64 / tot;
+        const f65 = p.eta_65_oltre / tot;
+
+        const d = pieScaling === 'proportional' ? Math.max(26, Math.min(64, Math.round(Math.sqrt(tot) / 6.5))) : 36;
+        const r = d / 2;
+
+        function getCoordinatesForPercent(percent) {
+          const x = Math.cos(2 * Math.PI * percent);
+          const y = Math.sin(2 * Math.PI * percent);
+          return [x, y];
+        }
+
+        const svgIcon = L.divIcon({
+          className: 'custom-pie-marker',
+          iconSize: [d, d],
+          iconAnchor: [r, r],
+          html: `
+            <svg width="${d}" height="${d}" viewBox="-1 -1 2 2" style="transform: rotate(-90deg); filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6));">
+              <path d="M 0 0 L 1 0 A 1 1 0 ${f0_14 > 0.5 ? 1 : 0} 1 ${getCoordinatesForPercent(f0_14)[0]} ${getCoordinatesForPercent(f0_14)[1]} Z" fill="#38bdf8"></path>
+              <path d="M 0 0 L ${getCoordinatesForPercent(f0_14)[0]} ${getCoordinatesForPercent(f0_14)[1]} A 1 1 0 ${f15_64 > 0.5 ? 1 : 0} 1 ${getCoordinatesForPercent(f0_14 + f15_64)[0]} ${getCoordinatesForPercent(f0_14 + f15_64)[1]} Z" fill="#6366f1"></path>
+              <path d="M 0 0 L ${getCoordinatesForPercent(f0_14 + f15_64)[0]} ${getCoordinatesForPercent(f0_14 + f15_64)[1]} A 1 1 0 ${f65 > 0.5 ? 1 : 0} 1 1 0 Z" fill="#f43f5e"></path>
+              <circle cx="0" cy="0" r="0.4" fill="#0f172a"></circle>
+            </svg>
+          `
+        });
+
+        const marker = L.marker(c, { icon: svgIcon });
+        marker.on('mouseover', () => {
+          document.getElementById('vizHoverInfo').innerHTML = `
+            <strong class="text-white">${p.name}</strong> • Giovani: <strong>${Math.round(f0_14*1000)/10}%</strong> | Attivi: <strong>${Math.round(f15_64*1000)/10}%</strong> | Anziani: <strong>${Math.round(f65*1000)/10}%</strong>
+          `;
+        });
+        marker.on('mouseout', () => {
+          document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+        });
+        marker.on('click', () => inspectComune(p));
+
+        piesGroup.addLayer(marker);
+      });
+
+      piesGroup.addTo(map);
+      overlayLayers.push(piesGroup);
+
+      document.getElementById('vizLegend').innerHTML = `
+        <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Pie Charts: Coorti d'Età</div>
+        <div class="space-y-1 text-[11px]">
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#38bdf8"></span> 0-14 anni (Giovani)</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#6366f1"></span> 15-64 anni (Età Attiva)</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#f43f5e"></span> 65+ anni (Anziani)</div>
+        </div>
+      `;
+    }
+
+    function changePieScaling(s) {
+      pieScaling = s;
+      renderPieChartMap();
+    }
+
+    let barMapTheme = 'vital';
+
+    function renderBarChartMap() {
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+      geojsonLayer = L.geoJSON(geojson, {
+        style: {
+          fillColor: '#0f172a',
+          weight: 0.8,
+          color: '#334155',
+          fillOpacity: 0.6
+        },
+        onEachFeature: (f, layer) => {
+          layer.on('click', () => inspectComune(f.properties));
+        }
+      }).addTo(map);
+
+      clearOverlays();
+
+      const barsGroup = L.featureGroup();
+
+      geojson.features.forEach(f => {
+        const p = f.properties;
+        const c = p.centroid || [43.7, 12.6];
+
+        let val1, val2, col1, col2, lbl1, lbl2;
+        if (barMapTheme === 'vital') {
+          val1 = p.nascite_2024;
+          val2 = p.decessi_2024;
+          col1 = '#10b981';
+          col2 = '#e11d48';
+          lbl1 = 'Nati 2024';
+          lbl2 = 'Decessi 2024';
+        } else {
+          val1 = p.eta_15_19;
+          val2 = p.eta_60_64;
+          col1 = '#0284c7';
+          col2 = '#c026d3';
+          lbl1 = 'Ingresso Lavoro 15-19';
+          lbl2 = 'Uscita Pensione 60-64';
+        }
+
+        const maxVal = Math.max(val1, val2, 1);
+        const h1 = Math.max(4, Math.min(48, Math.round(val1 / maxVal * 42)));
+        const h2 = Math.max(4, Math.min(48, Math.round(val2 / maxVal * 42)));
+
+        const barIcon = L.divIcon({
+          className: 'custom-bar-marker',
+          iconSize: [24, 52],
+          iconAnchor: [12, 50],
+          html: `
+            <div class="flex items-end justify-center gap-1 w-6 h-[52px] pb-1" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+              <div style="height: ${h1}px; width: 6px; background: ${col1};" class="rounded-t-sm" title="${lbl1}: ${val1}"></div>
+              <div style="height: ${h2}px; width: 6px; background: ${col2};" class="rounded-t-sm" title="${lbl2}: ${val2}"></div>
+            </div>
+          `
+        });
+
+        const marker = L.marker(c, { icon: barIcon });
+        marker.on('mouseover', () => {
+          document.getElementById('vizHoverInfo').innerHTML = `
+            <strong class="text-white">${p.name}</strong> • ${lbl1}: <strong style="color:${col1}">${val1}</strong> vs ${lbl2}: <strong style="color:${col2}">${val2}</strong>
+          `;
+        });
+        marker.on('mouseout', () => {
+          document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+        });
+        marker.on('click', () => inspectComune(p));
+
+        barsGroup.addLayer(marker);
+      });
+
+      barsGroup.addTo(map);
+      overlayLayers.push(barsGroup);
+
+      const leg = document.getElementById('vizLegend');
+      if (barMapTheme === 'vital') {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Bar Map: Bilancio Naturale 2024</div>
+          <p class="text-[10px] text-slate-400 mb-1.5">Confronto micro-barre per ciascun comune:</p>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-3 rounded" style="background:#10b981"></span> Nascite 2024</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-3 rounded" style="background:#e11d48"></span> Decessi 2024 (Evidente sovrannumero)</div>
+          </div>
+        `;
+      } else {
+        leg.innerHTML = `
+          <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Bar Map: Ricambio Lavoro/Pensione</div>
+          <p class="text-[10px] text-slate-400 mb-1.5">Impatto generazionale mercato del lavoro:</p>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-3 rounded" style="background:#0284c7"></span> Nuove Leve (15-19 anni)</div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-3 rounded" style="background:#c026d3"></span> Uscita verso Pensione (60-64 anni)</div>
+          </div>
+        `;
+      }
+    }
+
+    function changeBarMapTheme(t) {
+      barMapTheme = t;
+      renderBarChartMap();
+    }
+
+    let flowFilter = 'ALL';
+
+    function renderFlowMap() {
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+      geojsonLayer = L.geoJSON(geojson, {
+        style: (feature) => {
+          const ats = feature.properties.ats;
+          const col = ats.includes('ATS 1') ? '#6366f1' : (ats.includes('ATS 6') ? '#06b6d4' : '#f59e0b');
+          return {
+            fillColor: col,
+            weight: 0.8,
+            color: '#1e293b',
+            fillOpacity: 0.25
+          };
+        },
+        onEachFeature: (f, layer) => {
+          layer.on('click', () => inspectComune(f.properties));
+        }
+      }).addTo(map);
+
+      clearOverlays();
+
+      const flowsGroup = L.featureGroup();
+
+      Object.entries(ATS_HUBS).forEach(([atsName, hub]) => {
+        if (flowFilter !== 'ALL' && flowFilter !== atsName) return;
+
+        const hubMarker = L.circleMarker(hub.coords, {
+          radius: 10,
+          fillColor: hub.color,
+          color: '#ffffff',
+          weight: 3,
+          fillOpacity: 1
+        });
+        hubMarker.bindTooltip(`<strong>POLO ${atsName.split(' - ')[0]}</strong>: ${hub.name}`, { permanent: true, direction: 'top', className: 'font-mono text-xs' });
+        flowsGroup.addLayer(hubMarker);
+      });
+
+      geojson.features.forEach(f => {
+        const p = f.properties;
+        const ats = p.ats;
+        if (flowFilter !== 'ALL' && flowFilter !== ats) return;
+
+        const hub = ATS_HUBS[ats];
+        if (!hub) return;
+
+        const start = p.centroid || [43.7, 12.6];
+        const end = hub.coords;
+
+        if (Math.abs(start[0] - end[0]) < 0.01 && Math.abs(start[1] - end[1]) < 0.01) return;
+
+        const midLat = (start[0] + end[0]) / 2 + (start[1] - end[1]) * 0.15;
+        const midLon = (start[1] + end[1]) / 2 - (start[0] - end[0]) * 0.15;
+
+        const curvePoints = [];
+        for (let t = 0; t <= 1; t += 0.05) {
+          const lat = (1 - t) * (1 - t) * start[0] + 2 * (1 - t) * t * midLat + t * t * end[0];
+          const lon = (1 - t) * (1 - t) * start[1] + 2 * (1 - t) * t * midLon + t * t * end[1];
+          curvePoints.push([lat, lon]);
+        }
+
+        const weight = Math.max(1.2, Math.min(5.5, Math.sqrt(p.popolazione_2025) / 55));
+
+        const flowLine = L.polyline(curvePoints, {
+          color: hub.color,
+          weight: weight,
+          opacity: 0.85,
+          className: 'animated-flow-line'
+        });
+
+        flowLine.on('mouseover', () => {
+          document.getElementById('vizHoverInfo').innerHTML = `
+            Flusso gravitazionale: <strong class="text-white">${p.name}</strong> ➔ <strong>${hub.name}</strong> (${ats}) • Popolazione: <strong>${p.popolazione_2025.toLocaleString('it-IT')}</strong>
+          `;
+        });
+        flowLine.on('mouseout', () => {
+          document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+        });
+        flowLine.on('click', () => inspectComune(p));
+
+        flowsGroup.addLayer(flowLine);
+
+        const nodeDot = L.circleMarker(start, {
+          radius: 3,
+          fillColor: hub.color,
+          color: '#ffffff',
+          weight: 1,
+          fillOpacity: 0.9
+        });
+        nodeDot.on('click', () => inspectComune(p));
+        flowsGroup.addLayer(nodeDot);
+      });
+
+      flowsGroup.addTo(map);
+      overlayLayers.push(flowsGroup);
+
+      document.getElementById('vizLegend').innerHTML = `
+        <div class="font-bold text-slate-200 mb-1 text-[11px] uppercase">Rete di Gravitazione ATS</div>
+        <p class="text-[10px] text-slate-400 mb-1.5">Archi di connessione verso i 3 poli istituzionali:</p>
+        <div class="space-y-1 text-[11px]">
+          <div class="flex items-center gap-1.5"><span class="w-3 h-1 rounded" style="background:#6366f1"></span> Rete ATS 1 (Pesaro - 7 Comuni)</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-1 rounded" style="background:#06b6d4"></span> Rete ATS 6 (Fano - 11 Comuni)</div>
+          <div class="flex items-center gap-1.5"><span class="w-3 h-1 rounded" style="background:#f59e0b"></span> Rete ATS 2 (Urbino/Montefeltro - 32 Comuni)</div>
+        </div>
+      `;
+    }
+
+    function changeFlowFilter(f) {
+      flowFilter = f;
+      renderFlowMap();
+    }
+
+    let dorlingSimulation = null;
+    let isDorlingDispersed = true;
+
+    function renderDorlingCartogram() {
+      const container = document.getElementById('d3CanvasContainer');
+      const width = container.clientWidth || 800;
+      const height = container.clientHeight || 540;
+
+      const svg = d3.select('#d3Svg');
+      svg.selectAll('*').remove();
+
+      document.getElementById('d3ViewSubtitle').innerText = "Dorling Cartogram (Risoluzione del Bias Superficiale con Bolle Proporzionali D3)";
+      document.getElementById('d3ViewActions').innerHTML = `
+        <button onclick="toggleDorlingLayout()" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded font-medium transition-all">
+          Disperdi Cartogramma ↔ Posizione Geografica
+        </button>
+      `;
+
+      const lats = geojson.features.map(f => (f.properties.centroid || [43.7, 12.6])[0]);
+      const lons = geojson.features.map(f => (f.properties.centroid || [43.7, 12.6])[1]);
+      const minLat = d3.min(lats), maxLat = d3.max(lats);
+      const minLon = d3.min(lons), maxLon = d3.max(lons);
+
+      const projX = d3.scaleLinear().domain([minLon, maxLon]).range([width * 0.12, width * 0.88]);
+      const projY = d3.scaleLinear().domain([maxLat, minLat]).range([height * 0.12, height * 0.88]);
+
+      const nodes = geojson.features.map(f => {
+        const p = f.properties;
+        const c = p.centroid || [43.7, 12.6];
+        const geoX = projX(c[1]);
+        const geoY = projY(c[0]);
+        const r = Math.max(5, Math.min(54, Math.sqrt(p.popolazione_2025) * 0.16));
+        return {
+          id: p.com_istat_code || p.istat,
+          name: p.name,
+          pop: p.popolazione_2025,
+          vecchiaia: p.indice_vecchiaia,
+          ricambio: p.indice_ricambio_attivi,
+          ats: p.ats,
+          geoX: geoX,
+          geoY: geoY,
+          x: geoX,
+          y: geoY,
+          r: r,
+          properties: p
+        };
+      });
+
+      dorlingSimulation = d3.forceSimulation(nodes)
+        .force('x', d3.forceX(d => d.geoX).strength(0.6))
+        .force('y', d3.forceY(d => d.geoY).strength(0.6))
+        .force('collide', d3.forceCollide(d => d.r + 2).iterations(4))
+        .stop();
+
+      for (let i = 0; i < 120; ++i) dorlingSimulation.tick();
+
+      const g = svg.append('g');
+
+      const circles = g.selectAll('circle')
+        .data(nodes)
+        .join('circle')
+        .attr('cx', d => isDorlingDispersed ? d.x : d.geoX)
+        .attr('cy', d => isDorlingDispersed ? d.y : d.geoY)
+        .attr('r', d => d.r)
+        .attr('fill', d => d.ats.includes('ATS 1') ? '#6366f1' : (d.ats.includes('ATS 6') ? '#06b6d4' : '#f59e0b'))
+        .attr('fill-opacity', 0.8)
+        .attr('stroke', '#ffffff')
+        .attr('stroke-width', 1.5)
+        .attr('cursor', 'pointer')
+        .on('mouseover', (evt, d) => {
+          d3.select(evt.currentTarget).attr('fill-opacity', 1).attr('stroke-width', 3);
+          document.getElementById('vizHoverInfo').innerHTML = `
+            <strong class="text-white">${d.name}</strong> (${d.ats.split(' - ')[0]}) • Popolazione: <strong>${d.pop.toLocaleString('it-IT')} ab.</strong>
+          `;
+        })
+        .on('mouseout', (evt, d) => {
+          d3.select(evt.currentTarget).attr('fill-opacity', 0.8).attr('stroke-width', 1.5);
+          document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+        })
+        .on('click', (evt, d) => inspectComune(d.properties));
+
+      g.selectAll('text')
+        .data(nodes.filter(d => d.pop > 3500))
+        .join('text')
+        .attr('x', d => isDorlingDispersed ? d.x : d.geoX)
+        .attr('y', d => isDorlingDispersed ? d.y + 4 : d.geoY + 4)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#ffffff')
+        .attr('font-size', d => d.pop > 30000 ? '12px' : '9px')
+        .attr('font-weight', '600')
+        .attr('pointer-events', 'none')
+        .text(d => d.name);
+    }
+
+    function toggleDorlingLayout() {
+      isDorlingDispersed = !isDorlingDispersed;
+      renderDorlingCartogram();
+    }
+
+    let profileSorting = 'geographic';
+
+    function renderProfileMap() {
+      const container = document.getElementById('d3CanvasContainer');
+      const width = container.clientWidth || 800;
+      const height = container.clientHeight || 540;
+
+      const svg = d3.select('#d3Svg');
+      svg.selectAll('*').remove();
+
+      document.getElementById('d3ViewSubtitle').innerText = "Profile Map: Profilo Altimetrico e Demografico (Quota s.l.m. vs Indice di Vecchiaia)";
+      document.getElementById('d3ViewActions').innerHTML = `
+        <span class="text-xs text-slate-400 self-center">Curva Altitudine (Rilievo) + Linea Indice di Vecchiaia</span>
+      `;
+
+      let sortedComuni = [...data.comuni];
+      if (profileSorting === 'geographic') {
+        sortedComuni.sort((a,b) => {
+          const cA = (geojson.features.find(f => f.properties.com_istat_code === a.istat)?.properties.centroid || [43.7, 12.6])[1];
+          const cB = (geojson.features.find(f => f.properties.com_istat_code === b.istat)?.properties.centroid || [43.7, 12.6])[1];
+          return cA - cB;
+        });
+      } else {
+        sortedComuni.sort((a,b) => (a.altitudine_m_slm || 200) - (b.altitudine_m_slm || 200));
+      }
+
+      const margin = { top: 40, right: 60, bottom: 90, left: 60 };
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+
+      const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const x = d3.scaleBand()
+        .domain(sortedComuni.map(c => c.nome))
+        .range([0, innerW])
+        .padding(0.2);
+
+      const yAlt = d3.scaleLinear()
+        .domain([0, 800])
+        .range([innerH, 0]);
+
+      const yOld = d3.scaleLinear()
+        .domain([100, 600])
+        .range([innerH, 0]);
+
+      const area = d3.area()
+        .x(d => x(d.nome) + x.bandwidth() / 2)
+        .y0(innerH)
+        .y1(d => yAlt(d.altitudine_m_slm || 200))
+        .curve(d3.curveMonotoneX);
+
+      const defs = svg.append('defs');
+      const grad = defs.append('linearGradient').attr('id', 'altGrad').attr('x1', '0%').attr('y1', '0%').attr('x2', '0%').attr('y2', '100%');
+      grad.append('stop').attr('offset', '0%').attr('stop-color', '#0ea5e9').attr('stop-opacity', 0.7);
+      grad.append('stop').attr('offset', '100%').attr('stop-color', '#0284c7').attr('stop-opacity', 0.1);
+
+      g.append('path')
+        .datum(sortedComuni)
+        .attr('fill', 'url(#altGrad)')
+        .attr('d', area);
+
+      const lineAlt = d3.line()
+        .x(d => x(d.nome) + x.bandwidth() / 2)
+        .y(d => yAlt(d.altitudine_m_slm || 200))
+        .curve(d3.curveMonotoneX);
+
+      g.append('path')
+        .datum(sortedComuni)
+        .attr('fill', 'none')
+        .attr('stroke', '#38bdf8')
+        .attr('stroke-width', 2.5)
+        .attr('d', lineAlt);
+
+      const lineOld = d3.line()
+        .x(d => x(d.nome) + x.bandwidth() / 2)
+        .y(d => yOld(d.indice_vecchiaia))
+        .curve(d3.curveMonotoneX);
+
+      g.append('path')
+        .datum(sortedComuni)
+        .attr('fill', 'none')
+        .attr('stroke', '#f43f5e')
+        .attr('stroke-width', 2)
+        .attr('stroke-dasharray', '4, 4')
+        .attr('d', lineOld);
+
+      g.selectAll('.dot')
+        .data(sortedComuni)
+        .join('circle')
+        .attr('cx', d => x(d.nome) + x.bandwidth() / 2)
+        .attr('cy', d => yAlt(d.altitudine_m_slm || 200))
+        .attr('r', 3.5)
+        .attr('fill', '#ffffff')
+        .attr('stroke', '#0284c7')
+        .attr('stroke-width', 1.5)
+        .attr('cursor', 'pointer')
+        .on('mouseover', (evt, d) => {
+          d3.select(evt.currentTarget).attr('r', 6).attr('fill', '#f43f5e');
+          document.getElementById('vizHoverInfo').innerHTML = `
+            <strong class="text-white">${d.nome}</strong> • Altitudine: <strong>${d.altitudine_m_slm || 200} m s.l.m.</strong> • Vecchiaia: <strong class="text-rose-400">${d.indice_vecchiaia.toFixed(1)}</strong>
+          `;
+        })
+        .on('mouseout', (evt, d) => {
+          d3.select(evt.currentTarget).attr('r', 3.5).attr('fill', '#ffffff');
+          document.getElementById('vizHoverInfo').innerHTML = `<span class="text-slate-400">Passa il cursore sul territorio o sui simboli per ispezionare</span>`;
+        })
+        .on('click', (evt, d) => inspectComune(d));
+
+      g.append('g')
+        .attr('transform', `translate(0,${innerH})`)
+        .call(d3.axisBottom(x))
+        .selectAll('text')
+        .attr('transform', 'rotate(-55)')
+        .attr('text-anchor', 'end')
+        .attr('dx', '-8px')
+        .attr('dy', '4px')
+        .attr('fill', '#94a3b8')
+        .attr('font-size', '9px');
+
+      g.append('g')
+        .call(d3.axisLeft(yAlt).ticks(6))
+        .selectAll('text').attr('fill', '#38bdf8');
+      g.append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', -45)
+        .attr('x', -innerH / 2)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#38bdf8')
+        .attr('font-size', '11px')
+        .text('Altitudine del Centro (m s.l.m.)');
+
+      g.append('g')
+        .attr('transform', `translate(${innerW},0)`)
+        .call(d3.axisRight(yOld).ticks(6))
+        .selectAll('text').attr('fill', '#f43f5e');
+      g.append('text')
+        .attr('transform', 'rotate(90)')
+        .attr('y', -45)
+        .attr('x', innerH / 2)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#f43f5e')
+        .attr('font-size', '11px')
+        .text('Indice di Vecchiaia');
+    }
+
+    function changeProfileSorting(s) {
+      profileSorting = s;
+      renderProfileMap();
+    }
+
+    function inspectComune(props) {
+      selectedFeature = props;
+
+      document.getElementById('inspectIstat').innerText = `Cod. ${props.com_istat_code || props.istat}`;
+      document.getElementById('inspectAltitudine').innerText = `Alt: ${props.altitudine_m_slm || 200} m s.l.m.`;
+      document.getElementById('inspectNome').innerText = props.name || props.nome;
+      document.getElementById('inspectAts').innerText = `Ambito: ${props.ats}`;
+
+      const pop = props.popolazione_2025 || 0;
+      document.getElementById('inspectPop').innerText = pop.toLocaleString('it-IT');
+      document.getElementById('inspectM').innerText = (props.maschi_2025 || 0).toLocaleString('it-IT');
+      document.getElementById('inspectF').innerText = (props.femmine_2025 || 0).toLocaleString('it-IT');
+
+      const p0_14 = Math.round((props.eta_0_14 / pop) * 1000) / 10;
+      const p15_64 = Math.round((props.eta_15_64 / pop) * 1000) / 10;
+      const p65 = Math.round((props.eta_65_oltre / pop) * 1000) / 10;
+
+      document.getElementById('inspectPerc0_14').innerText = `${p0_14}% (${(props.eta_0_14 || 0).toLocaleString('it-IT')})`;
+      document.getElementById('inspectBar0_14').style.width = `${p0_14}%`;
+
+      document.getElementById('inspectPerc15_64').innerText = `${p15_64}% (${(props.eta_15_64 || 0).toLocaleString('it-IT')})`;
+      document.getElementById('inspectBar15_64').style.width = `${p15_64}%`;
+
+      document.getElementById('inspectPerc65').innerText = `${p65}% (${(props.eta_65_oltre || 0).toLocaleString('it-IT')})`;
+      document.getElementById('inspectBar65').style.width = `${p65}%`;
+
+      document.getElementById('inspectVecchiaia').innerText = (props.indice_vecchiaia || 0).toFixed(1);
+      document.getElementById('inspectRicambio').innerText = `${(props.indice_ricambio_attivi || 0).toFixed(1)}%`;
+
+      document.getElementById('inspectNati').innerText = props.nascite_2024 || 0;
+      document.getElementById('inspectMorti').innerText = props.decessi_2024 || 0;
+      const saldo = props.saldo_naturale_2024 || 0;
+      document.getElementById('inspectSaldoNat').innerText = (saldo > 0 ? '+' : '') + saldo;
+      document.getElementById('inspectTassoNat').innerText = `${(props.tasso_saldo_nat_mille || 0).toFixed(2)}‰`;
+
+      const c = props.centroid || [43.7, 12.6];
+      document.getElementById('inspectCoord').innerText = `${c[0]}, ${c[1]}`;
+
+      const insight = document.getElementById('inspectInsight');
+      if (props.indice_ricambio_attivi > 220) {
+        insight.innerText = `Forte squilibrio previdenziale (${props.indice_ricambio_attivi.toFixed(1)}%): ogni 100 giovani che entrano, vi sono oltre ${Math.round(props.indice_ricambio_attivi)} lavoratori in uscita verso la pensione.`;
+      } else if (props.indice_vecchiaia > 350) {
+        insight.innerText = `Comune montano ad alta senilizzazione (${props.indice_vecchiaia.toFixed(1)} anziani per 100 giovani), soggetto a forte rarefazione demografica.`;
+      } else if (props.popolazione_2025 > 30000) {
+        insight.innerText = `Polo urbano/costiero ad alta concentrazione di residenti e servizi; assorbe la maggior parte delle prestazioni contributive e pensionistiche provinciali.`;
+      } else {
+        insight.innerText = `Comune della fascia intermedia valliva; dinamica demografica prossima alla media provinciale di Pesaro e Urbino.`;
+      }
+    }
+
+    function resetMapView() {
+      if (map) {
+        map.setView([43.72, 12.65], 10);
+      }
+      const pesaroProps = data.comuni.find(c => c.istat === '041044');
+      if (pesaroProps) inspectComune(pesaroProps);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initMap();
+    });
+  </script>
+</body>
+</html>

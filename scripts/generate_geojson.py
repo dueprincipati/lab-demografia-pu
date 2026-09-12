@@ -15,6 +15,28 @@ DEMO_FILE = os.path.join(DATA_DIR, 'demografia_comunale_conciliata.json')
 OUTPUT_GEOJSON = os.path.join(DATA_DIR, 'comuni_pu_geo.json')
 OUTPUT_JS = os.path.join(DATA_DIR, 'comuni_pu_geo.js')
 
+def get_centroid(coords):
+    if isinstance(coords[0][0], list):
+        ring = coords[0]
+    else:
+        ring = coords
+    a = 0.0
+    cx = 0.0
+    cy = 0.0
+    for i in range(len(ring) - 1):
+        x0, y0 = ring[i][0], ring[i][1]
+        x1, y1 = ring[i+1][0], ring[i+1][1]
+        cross = (x0 * y1 - x1 * y0)
+        a += cross
+        cx += (x0 + x1) * cross
+        cy += (y0 + y1) * cross
+    a = a * 0.5
+    if abs(a) < 1e-9:
+        return [round(sum(p[1] for p in ring)/len(ring), 5), round(sum(p[0] for p in ring)/len(ring), 5)]
+    cx = cx / (6.0 * a)
+    cy = cy / (6.0 * a)
+    return [round(cy, 5), round(cx, 5)]
+
 def run():
     os.makedirs(RAW_DIR, exist_ok=True)
     marche_geo_file = os.path.join(RAW_DIR, 'limits_R_11_municipalities.geojson')
@@ -44,12 +66,24 @@ def run():
 
     for f in geo_data['features']:
         props = f['properties']
+        geom = f['geometry']
         cod = str(props.get('com_istat_code', ''))
         if props.get('prov_istat_code_num') == 41 or cod.startswith('041'):
             if cod in demo_by_istat:
                 c_demo = demo_by_istat[cod]
+                # Calcolo baricentro geografico (lat, lon)
+                if geom['type'] == 'Polygon':
+                    centroid = get_centroid(geom['coordinates'][0])
+                elif geom['type'] == 'MultiPolygon':
+                    largest = max(geom['coordinates'], key=lambda poly: len(poly[0]))
+                    centroid = get_centroid(largest[0])
+                else:
+                    centroid = [43.7, 12.6]
+
                 # Arricchisce i metadati geografici con i dati Istat/RS
                 props.update({
+                    'centroid': centroid,
+                    'altitudine_m_slm': c_demo.get('altitudine_m_slm', 200),
                     'popolazione_2025': c_demo['popolazione_2025'],
                     'maschi_2025': c_demo['maschi_2025'],
                     'femmine_2025': c_demo['femmine_2025'],
